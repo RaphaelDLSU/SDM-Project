@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+  }
+body{
+    margin:0;
+}  
+
+.nav{
+  background-color: #fff;
+  color: #781548;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 15px;
+  }
+.nav ul{
+  padding:0;
+  margin: 0;
+  list-style:none;
+  gap:1rem
+}
+
+
+.left-side-nav{
+  display: flex;
+  justify-content: flex-start;
+
+}
+
+.user-title{
+  font-weight: bold;
+  vertical-align:middle;
+}
+a{
+  color: inherit;
+  margin: 10px;
+  font-size: 20px;
+  
+}
+
+.company-title{
+  height: 50px;
+
+}
+.separate{
+  display: flex;
+  justify-content: space-between;
+}
+.user-title{
+  display: flex;
+  justify-content: flex-start;
+}
+
+

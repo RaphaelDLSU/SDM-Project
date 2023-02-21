@@ -2,8 +2,12 @@ import express from "express"
 
 const router = express.Router()
 
-router.get('/',(req,res) =>{
-    res.send("Hello you are in student")
-})
+
+
+router.post("/post", (req, res) => {
+    console.log("Connected to React"); // Connected to React
+    res.redirect("/");
+  });
+    
 
 export default router
