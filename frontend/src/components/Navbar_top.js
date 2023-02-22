@@ -1,6 +1,6 @@
-import '../navbar_top.css';
-import Logo from '../logo.png';
-import reactLogo from '../logo512.png';
+import '../public/styles/navbar_top.css';
+import Logo from '../public/assets/logo.png';
+import reactLogo from '../public/assets/logo512.png';
 
 export default function Navbar_top (){
     return (

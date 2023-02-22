@@ -8,12 +8,11 @@ export default function IndexPage() {
     return(
 
         <div>
-            <Navbar/>
+            <Navbar/> {/* From Components Folder*/}
             <Sidebar/>
-            <form action="../../student/post" method="post" 
-              className="form">
-          <button type="submit">Connected?</button>
-        </form>
+            <form action="../../student/post" method="post" className="form">
+                <button type="submit">Connected?</button> {/* Sends a console.log in backend to verify if connected to React*/}
+            </form>
                 
 
         </div>

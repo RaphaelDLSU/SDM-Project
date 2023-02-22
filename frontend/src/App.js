@@ -1,5 +1,5 @@
 
-import './App.css';
+import './public/styles/App.css';
 
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
@@ -10,7 +10,7 @@ import LoginPage from './pages/LoginPage';
 export default function App() {
   return (
     <div className='App'>
-      <IndexPage/>
+      <IndexPage/> {/* INDEX NATEN TO */}
     </div>
     
 
