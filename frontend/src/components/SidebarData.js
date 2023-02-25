@@ -10,7 +10,7 @@ export const SidebarData = [
     {
         title: "Enroll",
         icon:<EnrollIcon style={{fontSize:60}}/>,
-        link: '/enrollform'
+        link: '/enrollform  '
     },
     {
         title: "Schedule",
