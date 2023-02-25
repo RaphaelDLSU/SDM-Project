@@ -4,6 +4,8 @@
     width:fit-content;
     background-color: #781548;
     padding: 4px;
+    display: flex;
+    justify-content: start;
 }
 
 .sidebar_list{

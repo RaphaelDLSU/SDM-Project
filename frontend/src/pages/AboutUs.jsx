@@ -3,19 +3,13 @@ import Sidebar from '../components/Sidebar';
 import React,{useState} from 'react';
 import axios from 'axios';
 
-export default function IndexPage() {
+export default function AboutPage() {
 
     return(
 
-        <div>
-            <Navbar/> {/* From Components Folder*/}
-            <Sidebar/>
-            <form action="../../student/post" method="post" className="form">
-                <button type="submit">Connected?</button> {/* Sends a console.log in backend to verify if connected to React*/}
-            </form>
-                
-
-        </div>
+        <h1>
+            YOU ARE IN ABOUT US PAGE
+        </h1>
          
             
     )

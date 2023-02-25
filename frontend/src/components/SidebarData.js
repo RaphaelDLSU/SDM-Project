@@ -10,27 +10,27 @@ export const SidebarData = [
     {
         title: "Enroll",
         icon:<EnrollIcon style={{fontSize:60}}/>,
-        link: '/student_enroll'
+        link: '/enrollform'
     },
     {
         title: "Schedule",
         icon:<ScheduleIcon style={{fontSize:60}}/>,
-        link: '/student_schedule'
+        link: '/sched'
     },
     {
         title: "Inbox",
         icon:<InboxIcon style={{fontSize:60}}/>,
-        link: '/student_inbox'
+        link: '/notif'
     },
     {
         title: "Notifications",
         icon:<NotificationIcon style={{fontSize:60}}/>,
-        link: '/student_notification'
+        link: '/notif'
     },
     {
         title: "Logout",
         icon:<LogoutIcon style={{fontSize:60}}/>,
-        link: '/student_logout'
+        link: '/login'
     },
  
 ]

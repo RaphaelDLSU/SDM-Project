@@ -3,11 +3,9 @@ import Sidebar from '../components/Sidebar';
 
 export default function LoginPage() {
     return(
-        <div>
-            <Navbar>
+        <h1>
                 LOGIN FORM HERE
-            </Navbar>
-        </div>
+        </h1>
     )
 
 }

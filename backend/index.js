@@ -24,7 +24,7 @@ const connect = async() =>{
 }
 
 
-app.use("/student",studentRoute)
+app.use("/student",studentRoute) 
 
 
 app.listen(5000,()=>{
