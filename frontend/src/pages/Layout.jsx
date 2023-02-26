@@ -11,8 +11,11 @@ export default function Layout() {
 
         <div className='App'>
             <Navbar/>
-            <Sidebar/>
-            <Outlet/> {/*OUTLET RENDERS "/" INDEX PAGE FROM APP.JS (Route Path from App.js*/}
+            <div className='dashboard'>
+                <Outlet/>
+
+            </div>
+             {/*OUTLET RENDERS "/" INDEX PAGE FROM APP.JS (Route Path from App.js*/}
  
             
         </div>
