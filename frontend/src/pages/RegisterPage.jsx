@@ -12,8 +12,9 @@ export default function LoginPage() {
                 <img className='company-title' src = {Logo} alt={reactLogo} ></img> 
                 <p>Email</p><input type='text'></input>
                 <p>Password</p> <input type='text'></input>
-                <p>No account?<a href='/register'>Enroll now!</a></p>
-                <input type='submit' value='Login'></input>
+                <p>Confirm Password</p> <input type='text'></input>
+                <p>Already have an account?<a href='/register'>Login here</a></p>
+                <input type='submit' value='Register'></input>
                 </form>
             </div>
         </div>

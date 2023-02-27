@@ -14,6 +14,7 @@ import SchedPage from './pages/SchedulePage';
 import SchedSumPage from './pages/ScheduleSummary';
 import TeacherPage from './pages/TeacherRecord';
 import Layout from './pages/Layout';
+import RegisterPage from './pages/RegisterPage'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 {/* ALL ROUTES HAPPEN HERE */}
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="notif" element={<NotifPage />} />
           <Route path="schedpage" element={<SchedPage />} />
           <Route path="teacher" element={<TeacherPage />} />
+          <Route path="register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

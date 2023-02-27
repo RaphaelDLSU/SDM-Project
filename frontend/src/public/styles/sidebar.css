@@ -1,25 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 .sidebar{
+    margin: 0;
     height:100vh;
     width:fit-content;
     background-color: #781548;
     padding: 4px;
     display: flex;
-    justify-content: start;
+    
+
+    
+    
 }
 
 .sidebar_list{
-    height: auto;
-    width: fit-content;
+    width: 100%;
+    text-align: center;
+    width: 100%;
     padding: 0;
 }
 
 .sidebar_list .row{
-    width: auto;
+    width: 100%;
+    justify-content: center;
     height: 50px;
     color: white;
-    padding-bottom:100px;
-
+    padding-bottom:50px;
 }
 
 .title{

@@ -11,10 +11,10 @@ export default function Layout() {
 
         <div className='App'>
             <Navbar/>
-            <div className='dashboard'>
+            
                 <Outlet/>
 
-            </div>
+            
              {/*OUTLET RENDERS "/" INDEX PAGE FROM APP.JS (Route Path from App.js*/}
  
             

@@ -13,6 +13,7 @@ export default function IndexPage() {
             <form action="../../student/post" method="post" className="form">
                 <button type="submit">Connected?</button> {/* Sends a console.log in backend to verify if connected to React*/}
             </form>
+            <a href='/login'> Go to Login Page</a>
         </div>
          
             
