@@ -1,4 +1,6 @@
 
+
+
 html, body{
   
   background-color: #F8ede3;
@@ -7,20 +9,24 @@ html, body{
   width: 100%;
   overflow: hidden;
 }
+h1{
+  font-size: 40px;
+}
 .App {
   background-color: #F8ede3;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   
 }
 
 .with-sidebar {
   display: flex;
-  white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  vertical-align:middle;
   color: #781548;
+  height: 100%;
+  width: 100%;
+  
  
 
 }
@@ -124,4 +130,45 @@ html, body{
   color: white;
   border-radius: 5px;
 }
+.content-container{
+  margin:10px;
+  height: 40%;
+}
+.enrollment-separate{
+  height: 100%;
+  width: 100%;
+  display: block;
 
+}
+.table-container{
+  background-color: white;
+  border-radius: 10px;
+  padding:20px;
+  overflow: scroll;
+}
+.table-container table{
+  width: 100%;
+  height: 100%;
+}
+.table-container th,.table-container td{
+  padding: 5px;
+  color: black;
+}
+.table-headers tr,.table-headers td{
+  color:#781548;
+}
+.notifications-container{
+  display: block;
+  width: 100%;
+}
+.notif-block{
+  background-color: white;
+  width: 100%;
+  text-align: left;
+  color: black;
+  font-size:30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+
+}

@@ -9,11 +9,12 @@ export default function Navbar_top (){
             <li>
                 <div className='separate'>
                     <div className='left-side-nav'>
-                        <img className='company-title' src = {Logo} alt={reactLogo}></img>    
-                        <a href='/about'>About us</a>
-                        <a href='/teacher'>Lessons</a>
-                        <a href='/teacher'>Faculty</a>
-                        <a href='/teacher'> Contact us</a>
+                        <a href='/'> <img className='company-title' src = {Logo} alt={reactLogo} ></img>  </a>
+                          
+                        <a className='navbar-fields' href='/about'>About us</a>
+                        <a className='navbar-fields' href='/teacher'>Lessons</a>
+                        <a className='navbar-fields' href='/teacher'>Faculty</a>
+                        <a className='navbar-fields' href='/teacher'> Contact us</a>
                     </div>
                     <div>
                         <a className='user-title'>Student</a>

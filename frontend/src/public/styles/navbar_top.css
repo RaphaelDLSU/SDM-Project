@@ -34,7 +34,7 @@ body{
   font-weight: bold;
   vertical-align:middle;
 }
-a{
+.navbar-fields{
   color: inherit;
   margin: 10px;
   font-size: 20px;
@@ -43,7 +43,7 @@ a{
 }
 
 .company-title{
-  height: 50px;
+  height: 45px;
 
 }
 .separate{
@@ -53,6 +53,10 @@ a{
 .user-title{
   display: flex;
   justify-content: flex-start;
+  color: inherit;
+  margin: 10px;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
 }
 
 
