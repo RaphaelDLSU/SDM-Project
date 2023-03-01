@@ -17,6 +17,8 @@ export default function IndexPage() {
             <a href='/register'> Go to Register Page</a>
             <a href='/enrolldash'> Go to Enroll Dashboard</a>
             <a href='/notif'> Go to Notif Page</a>
+            <a href ='/schedpage'>Go to Sched Page</a>
+            <a href='/adminrec'>Go to Student Records</a>
         </div>
          
             
