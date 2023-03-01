@@ -14,6 +14,9 @@ export default function IndexPage() {
                 <button type="submit">Connected?</button> {/* Sends a console.log in backend to verify if connected to React*/}
             </form>
             <a href='/login'> Go to Login Page</a>
+            <a href='/register'> Go to Register Page</a>
+            <a href='/enrolldash'> Go to Enroll Dashboard</a>
+            <a href='/notif'> Go to Notif Page</a>
         </div>
          
             
