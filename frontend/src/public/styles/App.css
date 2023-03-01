@@ -176,5 +176,8 @@ h1{
 #aboutUs{
   background-color: #781548;
   color: white;
-  text-align: center;
+  text-align:center;
+  height: 10%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 10px;
 }
