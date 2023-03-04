@@ -17,6 +17,8 @@ import Layout from './pages/Layout';
 import RegisterPage from './pages/RegisterPage';
 import AdminRecordPage from './pages/AdminRecord';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PaymentPage from './pages/PaymentPage';
+import AdminCalendar from './pages/AdminCalendar';
 
 {/* ALL ROUTES HAPPEN HERE */}
 // Homepage
@@ -33,9 +35,12 @@ export default function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="notif" element={<NotifPage />} />
           <Route path="schedpage" element={<SchedPage />} />
+          <Route path="schedsummary" element={<SchedSumPage />} />
           <Route path="teacher" element={<TeacherPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="adminrec" element={<AdminRecordPage/>} /> 
+          <Route path="payment" element={<PaymentPage/>} /> 
+          <Route path="calendar" element={<AdminCalendar/>} /> 
         </Route>
       </Routes>
     </BrowserRouter>
