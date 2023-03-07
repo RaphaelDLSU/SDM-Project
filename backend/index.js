@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import studentRoute from "./routes/student.js"
-
+import homeRoute from "./routes/home.js"
 
 const app = express()
 app.use(cors())
@@ -15,7 +15,7 @@ mongoose.set('strictQuery', false);
 
 const connect = async() =>{
     try{
-        await mongoose.connect(process.env.MONGO)
+        await mongoose.connect(process.env.MONGO,{dbName:'sdmflow'})
         console.log("Connected to MongoDB on" + process.env.MONGO)
     }
     catch(error){
@@ -23,7 +23,7 @@ const connect = async() =>{
     }
 }
 
-
+app.use("/",homeRoute)
 app.use("/student",studentRoute) 
 
 

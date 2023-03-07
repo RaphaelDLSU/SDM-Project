@@ -1,10 +1,14 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
-import React,{useState} from 'react';
+import React from 'react';
 import axios from 'axios';
+import { useEffect,useState } from 'react';
 
 export default function AboutPage() {
 
+
+
+    
     return(
 
         <h1>

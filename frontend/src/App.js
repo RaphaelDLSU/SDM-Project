@@ -22,9 +22,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
   return (
     
-    <BrowserRouter>
+    <BrowserRouter> {/* ALL ROUTES HERE */}
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout />}> {/* Path = link Element = jsx*/}
           <Route index element={<IndexPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="enrolldash" element={<EnrollDashPage />} />
