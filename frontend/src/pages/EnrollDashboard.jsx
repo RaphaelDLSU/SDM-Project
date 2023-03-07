@@ -13,7 +13,7 @@ export default function EnrollDashPage() {
                 <div className='content-container'>
                     <h1>Current Enrollments</h1>
                     <div className='table-container'>
-                        <table>
+                        <table cellSpacing={0}>
                             <tr className='table-headers'>
                                 <td>Date</td>
                                 <td>Instrument</td>
@@ -47,7 +47,7 @@ export default function EnrollDashPage() {
                 <div className='content-container'>
                     <h1>Past Enrollments</h1>
                     <div className='table-container'>
-                        <table>
+                        <table cellSpacing={0}>
                             <tr className='table-headers'>
                                 <td>Date</td>
                                 <td>Instrument</td>
