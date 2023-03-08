@@ -19,6 +19,7 @@ export default function IndexPage() {
             <a href='/notif'> Go to Notif Page</a>
             <a href ='/schedpage'>Go to Sched Page</a>
             <a href='/adminrec'>Go to Student Records</a>
+            <a href='/teacher'>Go to Teacher Records</a>
         </div>
          
             
