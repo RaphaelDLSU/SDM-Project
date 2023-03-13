@@ -20,10 +20,13 @@ export default function AboutPage() {
                 <p>Mission</p>
             </div>
             <div className='about-block'>
-                <p>hahdasdashdjahsjdhasjdhjhjhjhjahsdjhajsdhjashd</p>
+                <p>input mission statement here</p>
             </div>
             <div className='aboutUs-mission'>
                 <p>Vision</p>
+            </div>
+            <div className='about-block'>
+                <p>input vision statement here</p>
             </div>
         </div>
             
