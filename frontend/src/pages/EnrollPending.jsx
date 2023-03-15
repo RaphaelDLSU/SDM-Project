@@ -1,12 +1,12 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 
-export default function TeacherPage() {
+export default function EnrollPending() {
     return(
         <div className='with-sidebar'>
             <Sidebar/>
             <div className = 'content-container'>
-                <h1>Pepito, Franz</h1>
+                <h1>Pending Enrollment</h1>
                 <div className='table-container2'>
                     <table cellSpacing={0}>
                          <tr className='table-headers'>

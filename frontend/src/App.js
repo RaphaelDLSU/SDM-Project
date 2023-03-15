@@ -19,6 +19,9 @@ import AdminRecordPage from './pages/AdminRecord';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PaymentPage from './pages/PaymentPage';
 import AdminCalendar from './pages/AdminCalendar';
+import PayrollPage from './pages/Payroll'
+import StudentRecord from './pages/StudentRecord';
+import EnrollPending from './pages/EnrollPending';
 
 {/* ALL ROUTES HAPPEN HERE */}
 // Homepage
@@ -41,6 +44,9 @@ export default function App() {
           <Route path="adminrec" element={<AdminRecordPage/>} /> 
           <Route path="payment" element={<PaymentPage/>} /> 
           <Route path="calendar" element={<AdminCalendar/>} /> 
+          <Route path="payroll" element={<PayrollPage/>} /> 
+          <Route path="studentRecord" element={<StudentRecord/>} /> 
+          <Route path="enrollpending" element={<EnrollPending/>} /> 
         </Route>
       </Routes>
     </BrowserRouter>
