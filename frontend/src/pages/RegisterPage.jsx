@@ -12,28 +12,33 @@ export default function RegisterPage() {
 	const [email, setEmail] = useState('')
 	const [password,setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+	const [lastName,setLastName] = useState('')
 
     async function registerUser(event){
         event.preventDefault() 
 
-        const response = await fetch ('http://localhost:3000/register',{
+        const response = await fetch ('http://localhost:3000/register',{ // go to register post at routes/home.js
             method: 'POST',
             headers:{
                 'Content-Type':'application/json',
             },
             body :JSON.stringify({
-                email,password,confirmPassword
-            }),
+                email,
+                password,
+                confirmPassword,
+                firstName,
+                lastName
+            }), //put data to be used in routes/home.js register post
         })
-        
-            const data = await response.json
+        const data = await response.json()
 
-            if(data.status === 'ok'){
-                history.push('/login')
-            }
+        console.log('Here is data from Register '+ data.status) //Browser Terminal
         
-        
-            
+
+        if(data.status === 'ok'){
+            history('/login') //go to page
+        }
         
     }
     return(
@@ -46,6 +51,18 @@ export default function RegisterPage() {
                         type='text'
                         value={email}
                         onChange={(e)=> setEmail(e.target.value)}
+                    />
+                    <p>First Name</p>
+                    <input 
+                        type='text'
+                        value={firstName}
+                        onChange={(e)=> setFirstName(e.target.value)}
+                    />
+                    <p>Last Name</p>
+                    <input 
+                        type='text'
+                        value={lastName}
+                        onChange={(e)=> setLastName(e.target.value)}
                     />
                          
                     <p>Password</p> 

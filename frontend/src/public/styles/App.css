@@ -57,11 +57,12 @@ h2{
   color: #781548;
 }
 .box-content img{
-  height:150px;
-  width: 400px;
+  height:120px;
+  width: 100%;
 }
 .box-content input[type=text]{
-  height: 40px;
+  box-sizing: border-box;
+  height:35px;
   width: 100%;
 }
  .box-content input[type=submit]{
