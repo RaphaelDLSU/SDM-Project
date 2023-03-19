@@ -5,6 +5,7 @@ import mongoose from "mongoose"
 import Users from '../models/Users.js'
 import jwt from 'jsonwebtoken'
 import Student from '../models/Student.js'
+import Enrollment from "../models/Enrollment.js"
 
 
 const router = express.Router()
@@ -60,17 +61,41 @@ router.post("/enroll", async (req, res) => {
     console.log ('Working start of enroll')
     
     console.log (req.body.userParsed)
+
+    console.log('No. of Programs: '+req.body.numProgram+'Programs: '+JSON.stringify(req.body.program))
     const findUser = await Users.findOne({email:req.body.userParsed})
 
     await Student.create({
-      _id:findUser._id,
+      student_ID:findUser._id,
       age:req.body.age,
       gender:req.body.gender,
       country:req.body.country,
       level:req.body.level,
-      status:'Pending Payment'
-      
+        
     })
+
+    try{
+        for(let i=0;i<= req.body.numProgram.length;i++){
+            
+            const data = await Enrollment.create({
+                user_ID:findUser._id,
+                offer_ID:req.body.program[i].programName,
+                instrument:req.body.program[i].instrument,
+                numberOfSessions:req.body.program[i].programName,
+                status:'Pending'
+            })
+            console.log('THIS IS ENROLLMENT: '+data)
+            data.save()
+        }
+
+    }
+    catch(err){
+        console.log(err)
+    }
+        
+
+
+    
     res.json({status:'ok'})
 
 }catch(err){

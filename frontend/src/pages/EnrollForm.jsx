@@ -8,16 +8,15 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function EnrollFormPage() {
-    const history=useNavigate()
 
+    const history=useNavigate()
 	const [age, setAge] = useState('')
     const [gender, setGender] = useState('')
 	const [country,setCountry] = useState('')
 	const [level, setLevel] = useState('')
     const [numProgram, setNumProgram] = useState('')
-    const [program, setProgram] = useState('')
-	const [instrument,setInstrument] = useState('')
-	const [numSessions, setNumSessions] = useState('')
+    
+    const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}])
 
     useEffect(()=>{
         const token = localStorage.getItem('token')
@@ -37,36 +36,48 @@ export default function EnrollFormPage() {
     async function enrollUser(event){
         event.preventDefault() 
 
-    const token = localStorage.getItem('token')
-    const user = decodeToken(token)
-    const userParsed = user.email
-    
-
+        const token = localStorage.getItem('token')
+        const user = decodeToken(token)
+        const userParsed = user.email
+        
         const response = await fetch('http://localhost:3000/enroll',{
             method: 'POST',
             headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
                 age,
                 gender,
                 country,
                 level,
                 numProgram,
                 program,
-                instrument,
-                numSessions,
                 userParsed
-                
-			}),
+            }),
         })
         const data = await response.json()
         if(data.status ==='ok'){
             alert('Enrollment Request Sent. Please send your payment as soon as possible')
             window.location.href = '/'
-        }
-        
+        }    
     }
+
+    const handleFormChange = (e, index)=>{
+        
+        const { name, value } = e.target
+        
+        const list = [...program]
+        list[index][name] = value
+        setProgram(list)
+    }
+
+    const programAdd = () => {
+        setProgram([...program, {instrument:'',programName:'',numSessions:''}]);
+        console.log(program)
+      };
+
+
+
 
     return(
 
@@ -116,43 +127,55 @@ export default function EnrollFormPage() {
                             <h1>Select Program</h1>
                             <div className='program'>
 
-                                <div className='field'>
-                                <p>How Many Programs?</p>
-                                <input 
-                                    type='text'
-                                    value={numProgram}
-                                    onChange={(e)=> setNumProgram(e.target.value)}
-                                />
-
-                                </div>
-                                <div className='field'>
-                                <p>Instrument</p>
-                                <input 
-                                    type='text'
-                                    value={instrument}
-                                    onChange={(e)=> setInstrument(e.target.value)}
-                                />
                                 
-                                
-                                </div>
-                                <br></br>   
-                                <div className='field'>
-                                <p>Program</p>
-                                <input 
-                                    type='text'
-                                    value={program}
-                                    onChange={(e)=> setProgram(e.target.value)}
-                                />
 
-                                </div>
-                                <div className='field'>
-                                <p>Number of Sessions</p>
-                                <input 
-                                    type='text'
-                                    value={numSessions}
-                                    onChange={(e)=> setNumSessions(e.target.value)}
-                                />
-                                </div>
+                                {program.map((input,index)=>{
+                                    return(
+                                        <div key={index}>
+                                            <div className='field'>
+                                            
+                                            {program.length - 1 === index && program.length < 3 && (
+                                                <button
+                                                type="button"
+                                                onClick={programAdd}
+                                                >
+                                                <span>Add a Program</span>
+                                                </button>
+                                            )}
+                                            </div>
+                                            <div className='field'>
+                                                <p>Instrument</p>
+                                                <input 
+                                                    name='instrument'
+                                                    type='text'
+                                                    value={input.instrument}
+                                                    onChange={(e) => handleFormChange(e, index)}
+                                                />
+                                            </div>
+                                            <br></br>   
+                                            <div className='field'>
+                                                <p>Program</p>
+                                                <input 
+                                                    name='programName'
+                                                    type='text'
+                                                    value={input.programName}
+                                                    onChange={(e)=> handleFormChange(e,index)}
+                                                />
+                                            </div>
+                                            <div className='field'>
+                                                <p>Number of Sessions</p>
+                                                <input 
+                                                    name='numSessions'
+                                                    type='text'
+                                                    value={input.numSessions}
+                                                    onChange={(e)=> handleFormChange(e,index)}
+                                                />
+                                            </div>
+                                            
+                                        </div>
+                                    )
+                                })}
+                                
                              
                             </div>
                     </div>

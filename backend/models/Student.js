@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
+    student_ID:{
+        type:String,
+        required:false
+    },
     planID:{ // All enrollments
         type:Number,
         required: false

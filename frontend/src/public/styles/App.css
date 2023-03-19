@@ -33,6 +33,7 @@ h2{
   color: #781548;
   height: 100%;
   width: 100%;
+ 
   
  
 
@@ -76,12 +77,13 @@ h2{
   border-radius: 5px;
 }
 .form{
-  white-space: nowrap;
   display:flex;
   width: 100%;
   align-items: flex-start;
   margin:3px;
   height: 100%;
+  overflow-y: scroll;
+  max-height: calc(100vh - 110px) !important; /*WHAT THE FUCK */
 
   
   
