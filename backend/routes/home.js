@@ -87,22 +87,31 @@ router.post("/enroll", async (req, res) => {
             console.log('THIS IS ENROLLMENT: '+data)
             data.save()
         }
-
     }
     catch(err){
         console.log(err)
     }
-        
-
-
-    
     res.json({status:'ok'})
 
 }catch(err){
     console.log(err)
-    res.json({ status: 'error', error: 'Duplicate email' })
+    res.json({ status: 'error', error: 'Duplicate email IDK' })
 }
 
 });
+router.post('/payment',async(req,res)=>{
+    const paymentImg = req.body.postImage.myFile;
+    const findUser = await Users.findOne({email:req.body.userParsed})
+
+    try{
+        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{paymentProof:paymentImg})
+        newImage.save();
+        res.json({status:'ok'})
+   
+        
+    }catch(err){
+        console.log(err)
+    }
+})
 
 export default router

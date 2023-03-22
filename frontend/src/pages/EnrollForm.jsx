@@ -57,8 +57,8 @@ export default function EnrollFormPage() {
         })
         const data = await response.json()
         if(data.status ==='ok'){
-            alert('Enrollment Request Sent. Please send your payment as soon as possible')
-            window.location.href = '/'
+            alert('Enrollment Request Sent. Redirecting to Payment')
+            window.location.href = '/payment'
         }    
     }
 

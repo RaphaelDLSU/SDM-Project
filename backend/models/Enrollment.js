@@ -22,6 +22,10 @@ const enrollmentSchema = new Schema({
         type:String,
         required: true
     },
+    paymentProof:{
+        type:String,
+        required:false
+    }
    
 
 })

@@ -22,6 +22,7 @@ import AdminCalendar from './pages/AdminCalendar';
 import PayrollPage from './pages/Payroll'
 import StudentRecord from './pages/StudentRecord';
 import EnrollPending from './pages/EnrollPending';
+import FreeEnrollForm from'./pages/FreeEnrollForm'
 
 {/* ALL ROUTES HAPPEN HERE */}
 // Homepage
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="payroll" element={<PayrollPage/>} /> 
           <Route path="studentRecord" element={<StudentRecord/>} /> 
           <Route path="enrollpending" element={<EnrollPending/>} /> 
+          <Route path="enrollfree" element={<FreeEnrollForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
