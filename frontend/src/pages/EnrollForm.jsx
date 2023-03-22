@@ -16,10 +16,10 @@ export default function EnrollFormPage() {
 	const [level, setLevel] = useState('')
     const [numProgram, setNumProgram] = useState('')
     
-    const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}])
+    const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}]) //ARRAY
 
-    useEffect(()=>{
-        const token = localStorage.getItem('token')
+    useEffect(()=>{ //USEEFFECT = Inital Run ng Page
+        const token = localStorage.getItem('token') //Check if there is a user logged in
         console.log(token)
         if (token ==null) {
 			localStorage.removeItem('token')
@@ -27,7 +27,7 @@ export default function EnrollFormPage() {
 			history('/login')
 		}
         else  {
-            const user = decodeToken(token)
+            const user = decodeToken(token) //user = email
             console.log(user)
 			console.log('User is registered. Given Access')
         }
@@ -120,7 +120,7 @@ export default function EnrollFormPage() {
                                         <option>Beginner</option>
                                         <option>Intermediate</option>
                                         <option>Expert</option>
-                                    </select>
+                                    </select> {/*DROP DOWN*/}
                                 </div>
                             </div>
                             

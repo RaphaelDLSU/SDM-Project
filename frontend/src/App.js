@@ -28,7 +28,6 @@ import FreeEnrollForm from'./pages/FreeEnrollForm'
 // Homepage
 export default function App() {
   return (
-    
     <BrowserRouter> {/* ALL ROUTES HERE */}
       <Routes>
         <Route path="/" element={<Layout />}> {/* Path = link Element = jsx*/}

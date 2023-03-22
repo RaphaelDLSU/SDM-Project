@@ -7,9 +7,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function RegisterPage() {
-    const history = useNavigate()
 
+
+    const history = useNavigate() //Set History here
+
+    // VARIABLES BEING PASSED ONTO BACKEND AND FRONTEND
 	const [email, setEmail] = useState('')
+    {/* Email == VARIABLE VALUE setEmail == FUNCTION TO SET VALUE OF VARIABLE  */}
 	const [password,setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -18,8 +22,8 @@ export default function RegisterPage() {
     async function registerUser(event){
         event.preventDefault() 
 
-        const response = await fetch ('http://localhost:3000/register',{ // go to register post at routes/home.js
-            method: 'POST',
+        const response = await fetch ('http://localhost:3000/register',{ // PUPUNTA NA SA BACKEND USING FETCH, URL is same in routes/home.js in router.post('/register')
+            method: 'POST', //PARA MAS SPECIFIC
             headers:{
                 'Content-Type':'application/json',
             },
@@ -31,13 +35,13 @@ export default function RegisterPage() {
                 lastName
             }), //put data to be used in routes/home.js register post
         })
-        const data = await response.json()
+        const data = await response.json() //Fetch response
 
-        console.log('Here is data from Register '+ data.status) //Browser Terminal
+        console.log('Here is data from Register '+ data.status) //Data.status == OK
         
 
-        if(data.status === 'ok'){
-            history('/login') //go to page
+        if(data.status === 'ok'){ //If I am registered
+            history('/login') // History (Function ng react sa frontend na naglilipat ng page)
         }
         
     }
@@ -49,8 +53,8 @@ export default function RegisterPage() {
                     <p>Email</p>
                     <input 
                         type='text'
-                        value={email}
-                        onChange={(e)=> setEmail(e.target.value)}
+                        value={email} //Points to the variable value
+                        onChange={(e)=> setEmail(e.target.value)} // Kada type - iniiba email using setEmail Function
                     />
                     <p>First Name</p>
                     <input 
