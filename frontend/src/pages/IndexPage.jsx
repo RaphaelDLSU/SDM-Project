@@ -55,6 +55,7 @@ export default function IndexPage() {
             <a href='/payroll'>Go to Payroll</a><br></br>
             <a href='/studentRecord'>Go to Student Records</a><br></br>
             <a href='/enrollpending'>Go to Pending Enrollments</a><br></br>
+            <a href='/freetrialpending'>Go to Free Trial Requests</a><br></br>
 
             <h2> You need to be a student for this</h2>
             <a href='/enrollform'>Go to Enroll Form page</a>
