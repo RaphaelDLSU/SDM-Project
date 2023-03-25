@@ -17,6 +17,7 @@ export default function StudentRecord() {
                             <td>First Name</td>
                             <td>Enrollment Status</td>
                             <td>Email</td>
+                            <td></td>
                          </tr>
                          <tr>
                             <td>De La Cruz</td>
