@@ -20,13 +20,14 @@ export default function AboutPage() {
                 <p>Mission</p>
             </div>
             <div className='about-block'>
-                <p>input mission statement here</p>
+                <p>Our mission is to be able to deliver sincere and quality music learning to our students wherein we teach music to bring not only talent and skill to the student; but also confidence, encouragement, inspiration and passion. We aim to bring the best out of our student’s differences with diligent planning, intelligent teaching and consistent innovation. With this sincerity comes quality education that no credential can beat.
+</p>
             </div>
             <div className='aboutUs-mission'>
                 <p>Vision</p>
             </div>
             <div className='about-block'>
-                <p>input vision statement here</p>
+                <p>Son De Musique Studio International to be the leading and largest music school in the Philippines, sharing music’s light on a large scale all over the world.</p>
             </div>
         </div>
             
