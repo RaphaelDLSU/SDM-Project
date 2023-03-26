@@ -36,9 +36,9 @@ export default function EnrollFormPage() {
     async function enrollUser(event){
         event.preventDefault() 
 
-        const token = localStorage.getItem('token')
-        const user = decodeToken(token)
-        const userParsed = user.email
+        const token = localStorage.getItem('token') //Get user email that is logged in RN
+        const user = decodeToken(token) 
+        const userParsed = user.email // User Email mismo
         
         const response = await fetch('http://localhost:3000/enroll',{
             method: 'POST',
@@ -134,7 +134,7 @@ export default function EnrollFormPage() {
                                         <div key={index}>
                                             <div className='field'>
                                             
-                                            {program.length - 1 === index && program.length < 3 && (
+                                            {program.length - 1 === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
                                                 <button
                                                 type="button"
                                                 onClick={programAdd}

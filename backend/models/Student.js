@@ -26,7 +26,15 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
+    instrument:{
+        type:String,
+        required:false
+    },
     status:{
+        type: String,
+        required:false
+    },
+    time:{
         type: String,
         required:false
     }

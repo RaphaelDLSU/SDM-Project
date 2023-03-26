@@ -27,7 +27,7 @@ export default function LoginPage() {
         const data = await response.json()
 
 		if (data.user) {
-			localStorage.setItem('token', data.user)
+			localStorage.setItem('token', data.user) //Store Token for authentication
 			alert('Login successful')
 			window.location.href = '/'
 		} else {

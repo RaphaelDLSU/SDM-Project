@@ -10,21 +10,18 @@ import Enrollment from "../models/Enrollment.js"
 
 const router = express.Router()
 
-router.get('/',(req,res) =>{
-    console.log(localStorage.getItem('token')) //Doesn't work. Use useEffect in .jsx instead
-})
-
 
 router.post('/login',async(req,res)=>{
-    const user = await Users.findOne({
+    const user = await Users.findOne({ //Maghahanap ng user na may email na sinet
         email:req.body.email
     })
     if (!user) {
-		return { status: 'error', error: 'Invalid login' }
+		return { status: 'error', error: 'Invalid login' } //Send Response to JSX na walang user 
 	}
 
     if(await bcrypt.compare(req.body.password,user.password)){
-        const token=jwt.sign(
+
+        const token=jwt.sign( // TOKEN = Global Variable
             {
                 email:user.email
             },
@@ -37,19 +34,20 @@ router.post('/login',async(req,res)=>{
     }   
     
 })
-router.post('/register', async (req,res)=>{
+router.post('/register', async (req,res)=>{ 
     
     try{
-        const newPassword = await bcrypt.hash(req.body.password,10)
+        const newPassword = await bcrypt.hash(req.body.password,10) // Decrypt Password
         const newUser = await Users.create({
             email:req.body.email,
             firstName:req.body.firstName,
             lastName:req.body.lastName,
             password:newPassword,
             type:"Student"
-        }) // Create Student User in MongoDB 
+        }) // Create Student User in MongoDB  
+
         console.log('New User : '+ newUser)
-        res.json({status:'ok'})
+        res.json({status:'ok'}) //Send response to front end
 
     }catch(err){
         res.json({ status: 'error', error: 'Duplicate email' })
@@ -57,25 +55,30 @@ router.post('/register', async (req,res)=>{
     
 })
 router.post("/enroll", async (req, res) => {
+
+    const date = new Date();
   try{
     console.log ('Working start of enroll')
     
     console.log (req.body.userParsed)
 
     console.log('No. of Programs: '+req.body.numProgram+'Programs: '+JSON.stringify(req.body.program))
-    const findUser = await Users.findOne({email:req.body.userParsed})
 
-    await Student.create({
-      student_ID:findUser._id,
+    const findUser = await Users.findOne({email:req.body.userParsed}) //Find user to get its ID
+
+    await Student.create({ //Create Student
+      student_ID:findUser._id, //Set User ID to student ID
       age:req.body.age,
       gender:req.body.gender,
       country:req.body.country,
       level:req.body.level,
+      instrument:req.body.instrument,
+      time:date.getDate()
         
     })
 
     try{
-        for(let i=0;i<= req.body.numProgram.length;i++){
+        for(let i=0;i<= req.body.numProgram.length;i++){ // Set Enrollment Values MAX :3
             
             const data = await Enrollment.create({
                 user_ID:findUser._id,
@@ -83,11 +86,13 @@ router.post("/enroll", async (req, res) => {
                 instrument:req.body.program[i].instrument,
                 numberOfSessions:req.body.program[i].programName,
                 status:'Pending'
-            })
+            }) //CREATE Enrollment of User based on what they enrolled in
             console.log('THIS IS ENROLLMENT: '+data)
             data.save()
         }
     }
+
+
     catch(err){
         console.log(err)
     }
