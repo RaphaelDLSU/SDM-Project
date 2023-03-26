@@ -1,12 +1,12 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 
-export default function EnrollPending() {
+export default function FreeTrialPending() {
     return(
         <div className='with-sidebar'>
             <Sidebar/>
             <div className = 'content-container'>
-                <h1>Pending Enrollments</h1>
+                <h1>Free Trial</h1>
                 <div className='table-container2'>
                     <table cellSpacing={0}>
                          <tr className='table-headers'>

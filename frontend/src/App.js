@@ -22,6 +22,7 @@ import AdminCalendar from './pages/AdminCalendar';
 import PayrollPage from './pages/Payroll'
 import StudentRecord from './pages/StudentRecord';
 import EnrollPending from './pages/EnrollPending';
+import FreeTrialPending from './pages/FreeTrialPending';
 import FreeEnrollForm from'./pages/FreeEnrollForm'
 
 {/* ALL ROUTES HAPPEN HERE */}
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="studentRecord" element={<StudentRecord/>} /> 
           <Route path="enrollpending" element={<EnrollPending/>} /> 
           <Route path="enrollfree" element={<FreeEnrollForm />} />
+          <Route path="freetrialpending" element={<FreeTrialPending />} />
         </Route>
       </Routes>
     </BrowserRouter>
