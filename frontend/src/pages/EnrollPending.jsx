@@ -1,7 +1,9 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 import React,{ useState,useEffect } from 'react'
+import Modal from 'react-overlays/Modal';
 import { List } from '@mui/material';
+import '../public/styles/App.css'
 
 export default function EnrollPending() {
 
@@ -20,6 +22,15 @@ export default function EnrollPending() {
 
     }, [])
 
+    const [showModal, setShowModal] = useState(false);
+
+    const renderBackdrop = (props) => <div className='backdrop'{...props} />;
+
+    var handleClose = () => setShowModal(false);
+
+    var handleSuccess = () => {
+        console.log("success");
+    };
 
     return(
         
@@ -44,10 +55,7 @@ export default function EnrollPending() {
                                     <td>{input.offer_ID}</td>
                                     <td>{input.instrument}</td>
                                     <td>{input.status}</td>
-                                    <button
-                                 type="button"
-                                 >
-                                 </button>  
+                                    <td><button className='button2' type="button" onClick={() => setShowModal(true)}>View Details</button></td>  
                                 </tr>
                                 
                             )
@@ -55,10 +63,57 @@ export default function EnrollPending() {
                             })}
                     </table>
                 </div>
+            </div>  
+            <Modal
+            className='Modal'
+            show={showModal}
+            onHide={handleClose}
+            renderBackdrop={renderBackdrop}
+            >
+            <div>
+                <div className='modal-header'>
+                    <div className='modal-title'>Modal Heading</div>
+                    <div>
+                        <span className='close-button' onClick={handleClose}>x</span>
+                    </div>
+                </div>
             </div>
-
-          
+            <div className='modal-desc'>
+                <p>Modal body contains text.</p>
+            </div>
+            <div className='modal-footer'>
+                <button className='secondary-button' onClick={handleClose}>Close</button>
+                <button className='primary-button' onClick={handleSuccess}>Save Changes</button>
+            </div>
+            </Modal>
         </div>
-    )
+
+    );
 
 }
+
+// export default function Modal() {
+//     const [modal, setModal] = useState(false);
+
+//     const toggleModal = () => {
+//         setModal(!modal)
+//     }
+
+//     return (
+//         <>
+//         <button
+//             onClick={toggleModal}
+//             className="button2">
+//         Open
+//         </button>
+//         <div className="modal">
+//             <div className="overlay">
+//                 <div className="modal-content">
+//                     <h2>testetetettst</h2>
+//                     <p>tetststststst</p>
+//                 </div>
+//             </div>
+//         </div>
+//         </>
+//     )
+// }
