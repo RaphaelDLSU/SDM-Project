@@ -1,8 +1,26 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
+import React,{ useState,useEffect } from 'react'
+import { List } from '@mui/material';
 
 export default function EnrollPending() {
+
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:3000/enrollpending',{
+            method:'GET'
+        }).then(response => {
+          setData(response)
+
+          console.log("RESPONSE IS HERE IN JSX: "+JSON.stringify(response))
+          console.log("DATA IS HERE IN JSX: "+data)
+        })
+    }, [])
+
+
     return(
+        
         <div className='with-sidebar'>
             <Sidebar/>
             <div className = 'content-container'>
@@ -24,6 +42,18 @@ export default function EnrollPending() {
                     </table>
                 </div>
             </div>
+
+            {data.map((input,index)=>{
+                <table>
+                <tr key={index}>
+                    <td>{input.offer_ID}</td>
+                    <td>{input.instrument}</td>
+                    <td>{input.status}</td>
+                </tr>
+
+                </table>
+                
+            })}
         </div>
     )
 

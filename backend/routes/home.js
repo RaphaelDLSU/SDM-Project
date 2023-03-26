@@ -67,7 +67,7 @@ router.post("/enroll", async (req, res) => {
     const findUser = await Users.findOne({email:req.body.userParsed}) //Find user to get its ID
 
     await Student.create({ //Create Student
-      student_ID:findUser._id, //Set User ID to student ID
+      user_ID:findUser._id, //Set User ID to student ID
       age:req.body.age,
       gender:req.body.gender,
       country:req.body.country,
@@ -117,6 +117,14 @@ router.post('/payment',async(req,res)=>{
     }catch(err){
         console.log(err)
     }
+})
+
+router.get('/enrollpending',async (req,res)=>{
+    const data = await Enrollment.find()
+
+    console.log("DATA IS HERE: "+data)
+
+   res.send(data)
 })
 
 export default router

@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Logo from '../public/assets/logo.png';
 import reactLogo from '../public/assets/logo512.png';
 import '../public/styles/App.css';
-import { useState } from 'react'
+import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function RegisterPage() {
