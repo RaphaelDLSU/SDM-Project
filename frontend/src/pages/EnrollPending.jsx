@@ -5,14 +5,14 @@ import { List } from '@mui/material';
 
 export default function EnrollPending() {
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
 
-    useEffect(() => {
-        fetch('http://localhost:3000/enrollpending',{
+    useEffect(() => { //initialize function
+        fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
             method:'GET'
-        }).then(response => {
-            response.json().then(json=>{
-                setData(json)
+        }).then(response => { //response == response is enrollment data
+            response.json().then(json=>{ //response needs to be turned into JSON
+                setData(json) //set enrollment data into "data"
             })
         })
 
@@ -35,9 +35,12 @@ export default function EnrollPending() {
                             <td>Email</td>
                             <td></td>
                          </tr>
-                         {data.map((input,index)=>{
+
+
+                         {data.map((input,index)=>{//READ DATA of enrollment
                             return(
-                                <tr key={index}>
+                                <tr key={index}>   
+                                {/* index == how many items to render */}
                                     <td>{input.offer_ID}</td>
                                     <td>{input.instrument}</td>
                                     <td>{input.status}</td>
