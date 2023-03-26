@@ -11,11 +11,13 @@ export default function EnrollPending() {
         fetch('http://localhost:3000/enrollpending',{
             method:'GET'
         }).then(response => {
-          setData(response)
-
-          console.log("RESPONSE IS HERE IN JSX: "+JSON.stringify(response))
-          console.log("DATA IS HERE IN JSX: "+data)
+            response.json().then(json=>{
+                setData(json)
+            })
         })
+
+        console.log('Data: '+data.offer_ID)
+
     }, [])
 
 
@@ -33,27 +35,26 @@ export default function EnrollPending() {
                             <td>Email</td>
                             <td></td>
                          </tr>
-                         <tr>
-                            <td>MM/DD/YYYY</td>
-                            <td>HH:MM - HH:MM PHT</td>
-                            <td>juan_delacruz@gmail.com</td>
-                            <td><button className='button2'>View Details</button></td>
-                         </tr>
+                         {data.map((input,index)=>{
+                            return(
+                                <tr key={index}>
+                                    <td>{input.offer_ID}</td>
+                                    <td>{input.instrument}</td>
+                                    <td>{input.status}</td>
+                                    <button
+                                 type="button"
+                                 >
+                                 </button>  
+                                </tr>
+                                
+                            )
+                                
+                            })}
                     </table>
                 </div>
             </div>
 
-            {data.map((input,index)=>{
-                <table>
-                <tr key={index}>
-                    <td>{input.offer_ID}</td>
-                    <td>{input.instrument}</td>
-                    <td>{input.status}</td>
-                </tr>
-
-                </table>
-                
-            })}
+          
         </div>
     )
 

@@ -129,7 +129,7 @@ export default function EnrollFormPage() {
 
                                 
 
-                                {program.map((input,index)=>{
+                                {program.map((input,index)=>{ 
                                     return(
                                         <div key={index}>
                                             <div className='field'>
