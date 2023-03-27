@@ -366,7 +366,7 @@ td.link{
 
 /*modal css*/
 
-.modal {
+/* .modal {
   font-family: arial;
 }
 
@@ -450,4 +450,30 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+} */
+
+/* TEST 2 */
+
+.main{
+  background-color: rgba(39, 145, 216, 0.719);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.popup{
+  height: 400px;
+  width: 50%;
+  background-color: white;
+  position: absolute;
+  top: 25%;
+  right: 25%;
+}
+
+.popup-header{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px 0 15px;
+  border-bottom: 2px solid black;
 }

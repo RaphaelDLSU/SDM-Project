@@ -1,13 +1,21 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 import React,{ useState,useEffect } from 'react'
-import Modal from 'react-overlays/Modal';
+// import Modal from 'react-overlays/Modal';
 import { List } from '@mui/material';
 import '../public/styles/App.css'
 
 export default function EnrollPending() {
 
     const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
+
+    const[popup, setPop] = useState(false);
+    const handleClickOpen =()=>{
+        setPop(!popup)
+    }
+    const closePopup =()=>{
+        setPop(false);
+    }
 
     useEffect(() => { //initialize function
         fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
@@ -22,15 +30,15 @@ export default function EnrollPending() {
 
     }, [])
 
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
 
-    const renderBackdrop = (props) => <div className='backdrop'{...props} />;
+    // const renderBackdrop = (props) => <div className='backdrop'{...props} />;
 
-    var handleClose = () => setShowModal(false);
+    // var handleClose = () => setShowModal(false);
 
-    var handleSuccess = () => {
-        console.log("success");
-    };
+    // var handleSuccess = () => {
+    //     console.log("success");
+    // };
 
     return(
         
@@ -47,7 +55,6 @@ export default function EnrollPending() {
                             <td></td>
                          </tr>
 
-
                          {data.map((input,index)=>{//READ DATA of enrollment
                             return(
                                 <tr key={index}>   
@@ -55,16 +62,26 @@ export default function EnrollPending() {
                                     <td>{input.offer_ID}</td>
                                     <td>{input.instrument}</td>
                                     <td>{input.status}</td>
-                                    <td><button className='button2' type="button" onClick={() => setShowModal(true)}>View Details</button></td>  
+                                    <td><button className='button2' type="button" onClick={handleClickOpen}>View Details</button></td>  
                                 </tr>
-                                
                             )
-                                
                             })}
                     </table>
+                    {popup?
+                    <div className='main'>
+                        <div className='popup'>
+                            <div className='popup-header'>
+                                <h1>popup</h1>
+                                <h1 onClick={closePopup}>x</h1>
+                            </div>
+                            <div>
+                                <p>Testtesttest</p>
+                            </div>
+                        </div>
+                    </div>:""}
                 </div>
             </div>  
-            <Modal
+            {/* <Modal
             className='Modal'
             show={showModal}
             onHide={handleClose}
@@ -85,35 +102,9 @@ export default function EnrollPending() {
                 <button className='secondary-button' onClick={handleClose}>Close</button>
                 <button className='primary-button' onClick={handleSuccess}>Save Changes</button>
             </div>
-            </Modal>
+            </Modal> */}
         </div>
 
     );
 
 }
-
-// export default function Modal() {
-//     const [modal, setModal] = useState(false);
-
-//     const toggleModal = () => {
-//         setModal(!modal)
-//     }
-
-//     return (
-//         <>
-//         <button
-//             onClick={toggleModal}
-//             className="button2">
-//         Open
-//         </button>
-//         <div className="modal">
-//             <div className="overlay">
-//                 <div className="modal-content">
-//                     <h2>testetetettst</h2>
-//                     <p>tetststststst</p>
-//                 </div>
-//             </div>
-//         </div>
-//         </>
-//     )
-// }
