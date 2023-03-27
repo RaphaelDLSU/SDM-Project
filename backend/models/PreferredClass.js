@@ -18,6 +18,18 @@ const preferredClassSchema = new Schema({
         type:String,
         required:false
     },
+    instrument:{
+        type:String,
+        required:false
+    },
+    firstName:{
+        type:String,
+        required:false
+    },
+    lastName:{
+        type:String,
+        required:false
+    }
    
 
 })

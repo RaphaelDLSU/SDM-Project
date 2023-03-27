@@ -28,6 +28,8 @@
     "react": "^18.2.0",
     "react-client-session": "^0.0.8",
     "react-jwt": "^1.1.8",
+    "react-modal": "^3.16.1",
+    "react-overlays": "^5.2.1",
     "reactjs-popup": "^2.0.5",
     "start": "^5.1.0"
   }

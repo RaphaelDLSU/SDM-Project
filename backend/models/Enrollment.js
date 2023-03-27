@@ -6,9 +6,9 @@ const enrollmentSchema = new Schema({
         type:String,
         required:false
     },
-    offer_ID:{
+    program:{
         type:String,
-        required: true
+        required:false
     },
     instrument:{
         type:String,

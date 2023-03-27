@@ -41,7 +41,7 @@ export default function EnrollFormPage() {
         const userParsed = user.email // User Email mismo
         
         const response = await fetch('http://localhost:3000/enroll',{
-            method: 'POST',
+            method:'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -146,8 +146,8 @@ export default function EnrollFormPage() {
                                                 <p>Instrument</p>
                                                 <select  
                                                     name='instrument'
-                                                    onChange={(e)=>setLevel(e.target.value)}>
-                                                    <option disabled selected value> -- select an option -- </option>
+                                                    onChange={(e)=>handleFormChange(e,index)}>
+                                                   
                                                         <option>Voice</option>
                                                         <option>Piano</option>
                                                         <option>Guitar</option>
@@ -165,14 +165,14 @@ export default function EnrollFormPage() {
                                                 <p>Program</p>
                                                 <select  
                                                     name='programName'
-                                                    onChange={(e)=>setLevel(e.target.value)}>
-                                                    <option disabled selected value> -- select an option -- </option>
+                                                    onChange={(e)=>handleFormChange(e,index)}>
+                                                    
                                                         <option>1 hour</option>
                                                         <option>30 min</option>
                                                 </select> {/*DROP DOWN (might change to checkbox)*/}
                                             </div>
                                             {}
-                                            <div className='field'>
+                                            <div className='field'> 
                                                 <p>Number of Sessions</p>
                                                 <input 
                                                     name='numSessions'

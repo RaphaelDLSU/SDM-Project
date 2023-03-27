@@ -20,7 +20,7 @@ export default function EnrollFormPage() {
 
     const [filterInstrument, setFilterInstrument] = useState('')
     const [filterDay, setFilterDay ] = useState('')
-    const [preferredClass, setPreferredClass ] = useState('')
+    const [preferredClass, setPreferredClass ] = useState([])
     // const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}])
 
     useEffect(()=>{
@@ -30,14 +30,21 @@ export default function EnrollFormPage() {
         event.preventDefault() 
     }
 
-    const handleFilter= async () =>{
-        await fetch('http://localhost:3000/enrollfree/filter',{
-            method: 'GET',
+    async function handleFilter (event){
+        event.preventDefault()
+
+         await fetch('http://localhost:3000/enrollfree/filter',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
             body: JSON.stringify({
                 filterInstrument,   
                 filterDay
             })
         }).then(response =>{
+            console.log(response)
             response.json().then(json=>{
                 setPreferredClass(json)
             })
@@ -138,7 +145,7 @@ export default function EnrollFormPage() {
                                 <p>Day</p>
                                 <select  
                                     name='instrument'
-                                    onChange={(e)=>setFilterInstrument(e.target.value)}>
+                                    onChange={(e)=>setFilterDay(e.target.value)}>
                                     <option disabled selected value> -- select an option -- </option>
                                         <option>Monday</option>
                                         <option>Tuesday</option>
@@ -160,9 +167,21 @@ export default function EnrollFormPage() {
                                 <td>Day</td>
                                 <td>Time</td>
                                 <td>Faculty</td>
-                                <td>Status</td>
                                 <td></td>
                             </tr>
+                            {preferredClass.map((input,index)=>{//READ DATA of enrollment
+                            return(
+                                <tr key={index}>   
+                                {/* index == how many items to render */}
+                                    <td>{input.instrument}</td>
+                                    <td>{input.days}</td>
+                                    <td>????</td>
+                                    <td>{input.firstName+' '+input.lastName}</td>
+                                    <td>{input.status}</td>
+                                </tr>                                
+                            )
+                                
+                            })}
                         </table>
                     </div>     
                

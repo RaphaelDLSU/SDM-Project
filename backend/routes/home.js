@@ -62,7 +62,7 @@ router.post("/enroll", async (req, res) => {
   try{
     console.log ('Working start of enroll')
     
-    console.log (req.body.userParsed)
+    console.log (req.body.program)
 
     console.log('No. of Programs: '+req.body.numProgram+'Programs: '+JSON.stringify(req.body.program))
 
@@ -85,7 +85,7 @@ router.post("/enroll", async (req, res) => {
             console.log('How many numPrograms: '+req.body.program.length)
             const data = await Enrollment.create({
                 user_ID:findUser._id,
-                offer_ID:req.body.program[i].programName,
+                program:req.body.program[i].programName,
                 instrument:req.body.program[i].instrument,
                 numberOfSessions:req.body.program[i].programName,
                 status:'Pending',
@@ -132,12 +132,24 @@ router.get('/enrollpending',async (req,res)=>{
    res.send(data)
 })
 
-router.get('enrollfree/filter',async(req,res)=>{
-    console.log('This is instrument filter '+req.body.filterInstrument)
+router.post('/enrollfree/filter',async(req,res)=>{
+    console.log('This is instrument and day filter '+req.body.filterInstrument+' '+req.body.filterDay)
     const instrument = req.body.filterInstrument
-    const firstFilter = await Teacher.find({instrument:{$regex:instrument}})
-    console.log('First Filter:  '+firstFilter)
-    const secondFilter = await Enrollment.find({})
+    const day = req.body.filterDay
+
+    if (day=='Thursday'){
+        day = 'H'
+    }else if(day=='Sunday'){
+       day ='U'
+    }else{
+        day = Array.from(day)[0] 
+    }
+    console.log('Instrument : '+instrument)
+    console.log('Day: '+day)
+    const data = await PreferredClass.find({days:{$regex:day},instrument:{$regex:instrument}})
+    console.log('Data: '+data)
+    res.send(data)
+
 })
 
 export default router
