@@ -71,12 +71,13 @@ export default function EnrollPending() {
                     <div className='main'>
                         <div className='popup'>
                             <div className='popup-header'>
-                                <h1>popup</h1>
+                                <h1>juandelacruz@gmail.com</h1>
                                 <h1 onClick={closePopup}>x</h1>
                             </div>
-                            <div>
+                            <div className='popup-content'>
                                 <p>Testtesttest</p>
                             </div>
+                            <button className='button1'>Approve</button>
                         </div>
                     </div>:""}
                 </div>
