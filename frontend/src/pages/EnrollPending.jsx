@@ -102,7 +102,7 @@ export default function EnrollPending() {
                 <button className='secondary-button' onClick={handleClose}>Close</button>
                 <button className='primary-button' onClick={handleSuccess}>Save Changes</button>
             </div>
-            </Modal> */}
+            </Modal>
         </div>
 
     );
