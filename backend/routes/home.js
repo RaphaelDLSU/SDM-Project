@@ -135,7 +135,7 @@ router.get('/enrollpending',async (req,res)=>{
 router.post('/enrollfree/filter',async(req,res)=>{
     console.log('This is instrument and day filter '+req.body.filterInstrument+' '+req.body.filterDay)
     const instrument = req.body.filterInstrument
-    const day = req.body.filterDay
+    let day = req.body.filterDay
 
     if (day=='Thursday'){
         day = 'H'

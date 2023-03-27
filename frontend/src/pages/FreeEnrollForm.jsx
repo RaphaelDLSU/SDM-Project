@@ -167,7 +167,7 @@ export default function EnrollFormPage() {
                                 <td>Day</td>
                                 <td>Time</td>
                                 <td>Faculty</td>
-                                <td></td>
+                                <td>        </td>
                             </tr>
                             {preferredClass.map((input,index)=>{//READ DATA of enrollment
                             return(
@@ -178,6 +178,7 @@ export default function EnrollFormPage() {
                                     <td>????</td>
                                     <td>{input.firstName+' '+input.lastName}</td>
                                     <td>{input.status}</td>
+                                    <button>Enroll</button>
                                 </tr>                                
                             )
                                 
