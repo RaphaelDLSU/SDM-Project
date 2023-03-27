@@ -14,7 +14,7 @@ export default function EnrollFormPage() {
     const [gender, setGender] = useState('')
 	const [country,setCountry] = useState('')
 	const [level, setLevel] = useState('')
-    const [numProgram, setNumProgram] = useState('')
+    const [numProgram, setNumProgram] = useState(0)
     
     const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}]) //ARRAY
 
@@ -73,6 +73,7 @@ export default function EnrollFormPage() {
 
     const programAdd = () => {
         setProgram([...program, {instrument:'',programName:'',numSessions:''}]);
+        setNumProgram(numProgram+1)
         console.log(program)
       };
 
@@ -91,7 +92,6 @@ export default function EnrollFormPage() {
                                     <p>Age</p>
                                     <input 
                                         type='text'
-                                        value={age}
                                         onChange={(e)=> setAge(e.target.value)}
                                     />
                                 </div>   
@@ -99,15 +99,14 @@ export default function EnrollFormPage() {
                                     <p>Country or Residence</p>
                                     <input 
                                         type='text'
-                                        value={country}
                                         onChange={(e)=> setCountry(e.target.value)}
                                     />
                                 </div>
                                 <br></br>
                                 <div className='field'>
                                     <p>Gender</p>
-                                    <select value={gender} onChange={(e)=>setGender(e.target.value)}>
-                                        <option disabled selected value>---</option>
+                                    <select  onChange={(e)=>setGender(e.target.value)}>
+                                    <option disabled selected value> -- select an option -- </option>
                                         <option>Male</option>
                                         <option>Female</option>
                                     </select>
@@ -115,8 +114,8 @@ export default function EnrollFormPage() {
                                 
                                 <div className='field'>
                                     <p>Level</p>
-                                    <select value={level} onChange={(e)=>setLevel(e.target.value)}>
-                                        <option disabled selected value>---</option>
+                                    <select  onChange={(e)=>setLevel(e.target.value)}>
+                                    <option disabled selected value> -- select an option -- </option>
                                         <option>Beginner</option>
                                         <option>Intermediate</option>
                                         <option>Expert</option>
@@ -145,29 +144,39 @@ export default function EnrollFormPage() {
                                             </div>
                                             <div className='field'>
                                                 <p>Instrument</p>
-                                                <input 
+                                                <select  
                                                     name='instrument'
-                                                    type='text'
-                                                    value={input.instrument}
-                                                    onChange={(e) => handleFormChange(e, index)}
-                                                />
+                                                    onChange={(e)=>setLevel(e.target.value)}>
+                                                    <option disabled selected value> -- select an option -- </option>
+                                                        <option>Voice</option>
+                                                        <option>Piano</option>
+                                                        <option>Guitar</option>
+                                                        <option>Drums</option>
+                                                        <option>Ukulele</option>
+                                                        <option>Violin</option>
+                                                        <option>Cello</option>
+                                                        <option>Saxophone</option>
+                                                        <option>Flute</option>
+                                                        <option>Clarinet</option>
+                                                </select> {/*DROP DOWN*/}
                                             </div>
                                             <br></br>   
                                             <div className='field'>
                                                 <p>Program</p>
-                                                <input 
+                                                <select  
                                                     name='programName'
-                                                    type='text'
-                                                    value={input.programName}
-                                                    onChange={(e)=> handleFormChange(e,index)}
-                                                />
+                                                    onChange={(e)=>setLevel(e.target.value)}>
+                                                    <option disabled selected value> -- select an option -- </option>
+                                                        <option>1 hour</option>
+                                                        <option>30 min</option>
+                                                </select> {/*DROP DOWN (might change to checkbox)*/}
                                             </div>
+                                            {}
                                             <div className='field'>
                                                 <p>Number of Sessions</p>
                                                 <input 
                                                     name='numSessions'
                                                     type='text'
-                                                    value={input.numSessions}
                                                     onChange={(e)=> handleFormChange(e,index)}
                                                 />
                                             </div>

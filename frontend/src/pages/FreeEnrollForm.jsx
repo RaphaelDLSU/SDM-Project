@@ -18,6 +18,9 @@ export default function EnrollFormPage() {
     const [parent, setParent] = useState('')
     const [level, setLevel] = useState('')
 
+    const [filterInstrument, setFilterInstrument] = useState('')
+    const [filterDay, setFilterDay ] = useState('')
+    const [preferredClass, setPreferredClass ] = useState('')
     // const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}])
 
     useEffect(()=>{
@@ -25,6 +28,21 @@ export default function EnrollFormPage() {
 
     async function enrollUser(event){
         event.preventDefault() 
+    }
+
+    const handleFilter= async () =>{
+        await fetch('http://localhost:3000/enrollfree/filter',{
+            method: 'GET',
+            body: JSON.stringify({
+                filterInstrument,   
+                filterDay
+            })
+        }).then(response =>{
+            response.json().then(json=>{
+                setPreferredClass(json)
+            })
+        })
+
     }
 
     return(
@@ -97,6 +115,44 @@ export default function EnrollFormPage() {
                             </div>
                         </div>
                         <h1>Trial Class Schedule</h1>
+                        <div className='personal'>
+                            <div className='field'>
+                                <p>Instrument</p>
+                                <select  
+                                    name='instrument'
+                                    onChange={(e)=>setFilterInstrument(e.target.value)}>
+                                    <option disabled selected value> -- select an option -- </option>
+                                        <option>Voice</option>
+                                        <option>Piano</option>
+                                        <option>Guitar</option>
+                                        <option>Drums</option>
+                                        <option>Ukulele</option>
+                                        <option>Violin</option>
+                                        <option>Cello</option>
+                                        <option>Saxophone</option>
+                                        <option>Flute</option>      
+                                        <option>Clarinet</option>
+                                </select> {/*DROP DOWN*/}
+                            </div>   
+                            <div className='field'>
+                                <p>Day</p>
+                                <select  
+                                    name='instrument'
+                                    onChange={(e)=>setFilterInstrument(e.target.value)}>
+                                    <option disabled selected value> -- select an option -- </option>
+                                        <option>Monday</option>
+                                        <option>Tuesday</option>
+                                        <option>Wednesday</option>
+                                        <option>Thursday</option>
+                                        <option>Friday</option>
+                                        <option>Saturday</option>
+                                        <option>Sunday</option>
+                                </select> {/*DROP DOWN*/}
+                            </div>
+                            <button onClick={handleFilter}>
+                                Filter
+                            </button>
+                        </div>
                         <div className='table-container'>
                         <table cellSpacing={0}>
                             <tr className='table-headers'>
@@ -105,7 +161,7 @@ export default function EnrollFormPage() {
                                 <td>Time</td>
                                 <td>Faculty</td>
                                 <td>Status</td>
-                                <td>        </td>
+                                <td></td>
                             </tr>
                         </table>
                     </div>     

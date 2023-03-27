@@ -2,11 +2,15 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
-    handledClasses:{ // All enrollments
-        type:Number,
+    teacherId:{ // All enrollments
+        type:String,
         required: true
     },
     biography:{
+        type: String,
+        required: false
+    },
+    instrument:{
         type: String,
         required: false
     }

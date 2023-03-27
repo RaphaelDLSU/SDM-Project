@@ -6,6 +6,8 @@ import Users from '../models/Users.js'
 import jwt from 'jsonwebtoken'
 import Student from '../models/Student.js'
 import Enrollment from "../models/Enrollment.js"
+import PreferredClass from "../models/PreferredClass.js"
+import Teacher from "../models/Teacher.js"
 
 
 const router = express.Router()
@@ -65,7 +67,7 @@ router.post("/enroll", async (req, res) => {
     console.log('No. of Programs: '+req.body.numProgram+'Programs: '+JSON.stringify(req.body.program))
 
     const findUser = await Users.findOne({email:req.body.userParsed}) //Find user to get its ID
-
+    const date =new Date()
     await Student.create({ //Create Student
       user_ID:findUser._id, //Set User ID to student ID
       age:req.body.age,
@@ -77,15 +79,18 @@ router.post("/enroll", async (req, res) => {
         
     })
 
+
     try{
-        for(let i=0;i<= req.body.numProgram.length;i++){ // Set Enrollment Values MAX :3
-            
+        for(let i=0;i<= req.body.program.length;i++){ // Set Enrollment Values MAX :3
+            console.log('How many numPrograms: '+req.body.program.length)
             const data = await Enrollment.create({
                 user_ID:findUser._id,
                 offer_ID:req.body.program[i].programName,
                 instrument:req.body.program[i].instrument,
                 numberOfSessions:req.body.program[i].programName,
-                status:'Pending'
+                status:'Pending',
+                time:date.toLocaleTimeString(),
+                date: date.toLocaleDateString(),
             }) //CREATE Enrollment of User based on what they enrolled in
             console.log('THIS IS ENROLLMENT: '+data)
             data.save()
@@ -125,6 +130,14 @@ router.get('/enrollpending',async (req,res)=>{
     console.log("DATA IS HERE: "+data)
 
    res.send(data)
+})
+
+router.get('enrollfree/filter',async(req,res)=>{
+    console.log('This is instrument filter '+req.body.filterInstrument)
+    const instrument = req.body.filterInstrument
+    const firstFilter = await Teacher.find({instrument:{$regex:instrument}})
+    console.log('First Filter:  '+firstFilter)
+    const secondFilter = await Enrollment.find({})
 })
 
 export default router
