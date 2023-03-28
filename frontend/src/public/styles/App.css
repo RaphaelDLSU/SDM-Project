@@ -144,6 +144,7 @@ h2{
   margin:10px;
   height: 40%;
   width: 100%;
+  
 }
 .enrollment-separate{
   height: 100%;
@@ -362,6 +363,10 @@ table.sumsessions{
 
 td.link{
   text-decoration: underline;
+}
+
+.calendar{
+    color: black;
 }
 
 /*modal css*/

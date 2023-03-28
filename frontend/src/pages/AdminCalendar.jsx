@@ -10,16 +10,17 @@ export default function AdminCalendar() {
                 <h1>My Calendar</h1>
                 <h2>Please select an enrollment to schedule</h2>
                 <div className='table-container'>
-                    <table cellSpacing={0}>
-
+                    <table bgcolor="beige" align="center" 
+                        cellspacing="21" cellpadding="21">
+                        <caption align="top"></caption>
                         <thead>
                                 <tr>
                                     <td>Sun</td>
-                                    <th>Mon</th>
-                                    <th>Tue</th>
-                                    <th>Wed</th>
-                                    <th>Thu</th>
-                                    <th>Fri</th>
+                                    <td>Mon</td>
+                                    <td>Tue</td>
+                                    <td>Wed</td>
+                                    <td>Thu</td>
+                                    <td>Fri</td>
                                     <td>Sat</td>
                                 </tr>
                         </thead>
@@ -52,6 +53,33 @@ export default function AdminCalendar() {
                                 <td>14</td>
                                 <td>15</td>
                                 <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>18</td>
+                                <td>19</td>
+                                <td>20</td>
+                                <td>21</td>
+                                <td>22</td>
+                                <td>23</td>
+                            </tr>
+                            <tr>
+                                <td>24</td>
+                                <td>25</td>
+                                <td>26</td>
+                                <td>27</td>
+                                <td>28</td>
+                                <td>29</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td>31</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
                             </tr>
                         </tbody>
                     </table>
