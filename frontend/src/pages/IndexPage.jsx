@@ -43,8 +43,6 @@ export default function IndexPage() {
             <a href ='/schedpage'>Go to Sched Page</a>
             <a href='/adminrec'>Go to Student Records</a>
             
-
-
             <a href='/login'> Go to Login Page</a><br></br>
             <a href='/register'> Go to Register Page</a><br></br>
             <a href='/enrolldash'> Go to Enroll Dashboard</a><br></br>
@@ -59,6 +57,9 @@ export default function IndexPage() {
 
             <h2> You need to be a student for this</h2>
             <a href='/enrollform'>Go to Enroll Form page</a>
+
+            <h2> Calendar</h2>
+            <a href='/AdminCalendar'>Go to Calendar</a>
         </div>
          
             
