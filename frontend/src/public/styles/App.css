@@ -144,6 +144,7 @@ h2{
   margin:10px;
   height: 40%;
   width: 100%;
+
 }
 .enrollment-separate{
   height: 100%;
@@ -364,6 +365,23 @@ td.link{
   text-decoration: underline;
 }
 
+.calendar-container{
+  background-color: "F8ede3";
+  border-radius: 10px;
+  padding:20px;
+  overflow: scroll;
+  width: 100%;
+}
+
+.calendar-container table{
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+}
+
+/* .calendar-container td{
+  border: 1px solid black;
+}
 /*modal css*/
 
 /* .modal {
@@ -455,7 +473,7 @@ button {
 /* TEST 2 */
 
 .main{
-  background-color: rgba(39, 145, 216, 0.719);
+  background-color: rgba(229, 229, 229, 0.5);
   height: 100%;
   width: 100%;
   position: absolute;
@@ -463,17 +481,26 @@ button {
 }
 
 .popup{
-  height: 400px;
-  width: 50%;
+  height: 786px;
+  width: 904px;
   background-color: white;
   position: absolute;
-  top: 25%;
-  right: 25%;
+  top: 79px;
+  left: 268px;
+  border-radius: 20px;
 }
 
 .popup-header{
   display: flex;
   justify-content: space-between;
   padding: 0 30px 0 15px;
-  border-bottom: 2px solid black;
+  margin-left: 20px;
+}
+
+.popup .button1{
+  position: absolute;
+  left: 78.1%;
+  right: 7.52%;
+  top: 91.48%;
+  bottom: 3.44%;
 }
