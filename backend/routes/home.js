@@ -151,5 +151,14 @@ router.post('/enrollfree/filter',async(req,res)=>{
     res.send(data)
 
 })
+router.put('/enrollpending/query',async (req,res)=>{ //Get data of user
+    const id = JSON.stringify(req.body)
 
+    console.log("Teacher name in filter: "+ id)
+    const data = await Users.findOne({_id:req.body.id})
+
+    console.log("Teacher name in filter: "+data)
+
+   res.send(data)
+})
 export default router

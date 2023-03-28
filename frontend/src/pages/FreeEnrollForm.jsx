@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../public/styles/App.css'
 import {decodeToken} from 'react-jwt'
 import { useNavigate } from 'react-router-dom'
+import Table from '../components/Table';
 
 
 export default function EnrollFormPage() {
@@ -171,17 +172,11 @@ export default function EnrollFormPage() {
                             </tr>
                             {preferredClass.map((input,index)=>{//READ DATA of enrollment
                             return(
-                                <tr key={index}>   
-                                {/* index == how many items to render */}
-                                    <td>{input.instrument}</td>
-                                    <td>{input.days}</td>
-                                    <td>????</td>
-                                    <td>{input.firstName+' '+input.lastName}</td>
-                                    <td>{input.status}</td>
-                                    <button>Enroll</button>
-                                </tr>                                
+                                <tr key={index}>
+                                    {/* Use new component if you want to render data from two or more tables */}
+                                    <Table tableData ={input} url='enrollpending/query'/>       
+                                </tr>               
                             )
-                                
                             })}
                         </table>
                     </div>     
