@@ -13,7 +13,7 @@ export default function AdminCalendar() {
                     <option value="saab"></option>
                 </select>
                 <div className='calendar-container'>
-                    <table bgcolor="beige" align="center" 
+                    <table bgcolor="white" align="center" 
                         cellspacing="21" cellpadding="21">
                         <caption align="top"></caption>
                         <thead>
