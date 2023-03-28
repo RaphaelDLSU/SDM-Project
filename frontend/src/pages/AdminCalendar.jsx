@@ -8,8 +8,11 @@ export default function AdminCalendar() {
             <Sidebar/>
             <div className='content-container'>
                 <h1>My Calendar</h1>
-                <h2>Please select an enrollment to schedule</h2>
-                <div className='table-container'>
+                <select className='dateOption'>
+                    <option value="March 2023">March 2023</option>
+                    <option value="saab"></option>
+                </select>
+                <div className='calendar-container'>
                     <table bgcolor="beige" align="center" 
                         cellspacing="21" cellpadding="21">
                         <caption align="top"></caption>
