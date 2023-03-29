@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
-import React,{ useState,useEffect } from 'react'
+import React,{ useState,useEffect,useRef } from 'react'
 // import Modal from 'react-overlays/Modal';
 import { List } from '@mui/material';
 import '../public/styles/App.css'
@@ -8,14 +8,12 @@ import '../public/styles/App.css'
 export default function EnrollPending() {
 
     const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
+    const [details, setDetails] = useState([])
+    const [inputTemp, setInputTemp] = useState([])
+
 
     const[popup, setPop] = useState(false);
-    const handleClickOpen =()=>{
-        setPop(!popup)
-    }
-    const closePopup =()=>{
-        setPop(false);
-    }
+    const isFirstRender = useRef(true)
 
     useEffect(() => { //initialize function
         fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
@@ -29,6 +27,49 @@ export default function EnrollPending() {
         console.log('Data: '+data.offer_ID)
 
     }, [])
+    
+    useEffect(() => { //Checks if details has loaded
+        if (isFirstRender.current) {
+          isFirstRender.current = false // toggle flag after first render/mounting
+          return;
+        }
+        console.log('Details :'+JSON.stringify(details))
+        setPop(!popup) // do something after state has updated
+      }, [details])
+
+
+    const  handleClickOpen =async (input)=>{
+       
+        await fetch('http://localhost:3000/enrollpending/details',{ //get function from home.js (get enrollment data)
+        method:'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            input //Sent enrollment data of student
+        }),
+        
+        }).then(response => {
+             //response == response is enrollment data
+            response.json().then( json=>{ //response needs to be turned into JSON
+                 setDetails(json)
+                 setInputTemp(input.input)
+
+                
+                 //set enrollment data into "data"
+            })
+        })
+        
+        
+        
+    }
+    const closePopup =()=>{
+        setPop(false);
+    }
+    const ewan=()=>{
+        setPop(!popup) 
+    }
+ 
 
     // const [showModal, setShowModal] = useState(false);
 
@@ -62,7 +103,7 @@ export default function EnrollPending() {
                                     <td>{input.offer_ID}</td>
                                     <td>{input.instrument}</td>
                                     <td>{input.status}</td>
-                                    <td><button className='button2' type="button" onClick={handleClickOpen}>View Details</button></td>  
+                                    <td><button className='button2' type="button" onClick={() => handleClickOpen({input})}>View Details</button></td>  
                                 </tr>
                             )
                             })}
@@ -71,11 +112,14 @@ export default function EnrollPending() {
                     <div className='main'>
                         <div className='popup'>
                             <div className='popup-header'>
-                                <h1>juandelacruz@gmail.com</h1>
+                            <h1>{details[0].email}</h1>
+                            
                                 <h1 onClick={closePopup}>x</h1>
                             </div>
                             <div className='popup-content'>
-                                <p>Testtesttest</p>
+                            <p>{details[0].email}</p>
+                            <p>{details[0].firstName} {details[0].lastName}</p>
+                            <p>{details[1].gender}</p>
                             </div>
                             <button className='button1'>Approve</button>
                         </div>

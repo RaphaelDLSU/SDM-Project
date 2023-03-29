@@ -127,7 +127,7 @@ router.post('/payment',async(req,res)=>{
 router.get('/enrollpending',async (req,res)=>{
     const data = await Enrollment.find()
 
-    console.log("DATA IS HERE: "+data)
+
 
    res.send(data)
 })
@@ -161,4 +161,17 @@ router.put('/enrollpending/query',async (req,res)=>{ //Get data of user
 
    res.send(data)
 })
+
+router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
+   
+   
+  
+    const data = await Users.findOne({_id:req.body.input.input.user_ID})
+  
+    const data2  = await Student.findOne({user_ID:req.body.input.input.user_ID})
+    
+    let arr = [data,data2]
+   res.send(arr)
+   console.log('HOme '+arr)
+})  
 export default router
