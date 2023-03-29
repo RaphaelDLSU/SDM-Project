@@ -100,8 +100,8 @@ export default function EnrollPending() {
                             return(
                                 <tr key={index}>   
                                 {/* index == how many items to render */}
-                                    <td>{input.offer_ID}</td>
-                                    <td>{input.instrument}</td>
+                                    <td>{input.date}</td>
+                                    <td>{input.time}</td>
                                     <td>{input.status}</td>
                                     <td><button className='button2' type="button" onClick={() => handleClickOpen({input})}>View Details</button></td>  
                                 </tr>
