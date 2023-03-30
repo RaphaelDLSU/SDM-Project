@@ -172,6 +172,6 @@ router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
     
     let arr = [data,data2]
    res.send(arr)
-   console.log('HOme '+arr)
+   console.log('Home '+arr)
 })  
 export default router
