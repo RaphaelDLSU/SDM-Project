@@ -8,6 +8,7 @@ import Student from '../models/Student.js'
 import Enrollment from "../models/Enrollment.js"
 import PreferredClass from "../models/PreferredClass.js"
 import Teacher from "../models/Teacher.js"
+import FreeTrial from "../models/FreeTrial.js"
 
 
 const router = express.Router()
@@ -25,7 +26,8 @@ router.post('/login',async(req,res)=>{
 
         const token=jwt.sign( // TOKEN = Global Variable
             {
-                email:user.email
+                email:user.email,
+                user_ID:user._id
             },
             process.env.TOKEN_KEY
         )
@@ -164,8 +166,6 @@ router.put('/enrollpending/query',async (req,res)=>{ //Get data of user
 
 router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
    
-   
-  
     const data = await Users.findOne({_id:req.body.input.input.user_ID})
   
     const data2  = await Student.findOne({user_ID:req.body.input.input.user_ID})
@@ -174,4 +174,46 @@ router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
    res.send(arr)
    console.log('HOme '+arr)
 })  
+
+router.post('/enrollfree/enroll',async (req,res)=>{ //Get data of user
+   const preferredClass = await PreferredClass.findOne({_id:req.body.schedule})
+
+   console.log("First Name :"+req.body.firstName)
+   
+    const trial = await FreeTrial.create({
+    class_ID:preferredClass._id,
+    firstName:req.body.firstName,
+    lastName:req.body.lastName,
+    email:req.body.email,
+    country:req.body.country,
+    gender:req.body.gender,
+    parent:req.body.parent,
+    level:req.body.level,
+    status:'Pending'    
+   })
+
+   console.log('Free Trial: '+trial)
+})
+
+router.put('/teacherschedule',async (req,res)=>{
+
+    const data = await PreferredClass.find({teacher_ID:req.body.user.user_ID})
+   res.send(data)
+})
+router.post('/teacherschedule/add',async (req,res)=>{
+
+
+    const preferredClass = await PreferredClass.create({
+        teacher_ID:req.body.user.user_ID,
+        days:req.body.day,
+        zoomLink:req.body.zoom,
+        program:req.body.program,
+        status:'Available',
+
+    })
+    console.log('New Preferred Class: '+preferredClass)
+   res.json({status:'ok'})
+})
+
+
 export default router

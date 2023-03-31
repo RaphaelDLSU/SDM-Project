@@ -29,8 +29,13 @@ const preferredClassSchema = new Schema({
     lastName:{
         type:String,
         required:false
+    },
+    status:{
+        type:String,
+        required:false
+
     }
-   
+
 
 })
 

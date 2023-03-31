@@ -9,12 +9,11 @@ export default function EnrollPending() {
 
     const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
     const [details, setDetails] = useState([])
-    const [inputTemp, setInputTemp] = useState([])
 
 
     const[popup, setPop] = useState(false);
-    const isFirstRender = useRef(true)
 
+    
     useEffect(() => { //initialize function
         fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
             method:'GET'
@@ -27,7 +26,7 @@ export default function EnrollPending() {
         console.log('Data: '+data.offer_ID)
 
     }, [])
-    
+    const isFirstRender = useRef(true)
     useEffect(() => { //Checks if details has loaded
         if (isFirstRender.current) {
           isFirstRender.current = false // toggle flag after first render/mounting
@@ -53,9 +52,6 @@ export default function EnrollPending() {
              //response == response is enrollment data
             response.json().then( json=>{ //response needs to be turned into JSON
                  setDetails(json)
-                 setInputTemp(input.input)
-
-                
                  //set enrollment data into "data"
             })
         })
@@ -66,9 +62,7 @@ export default function EnrollPending() {
     const closePopup =()=>{
         setPop(false);
     }
-    const ewan=()=>{
-        setPop(!popup) 
-    }
+
  
 
     // const [showModal, setShowModal] = useState(false);

@@ -1,34 +1,68 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import axios from 'axios';
 import '../public/styles/App.css'
 import {decodeToken} from 'react-jwt'
 import { useNavigate } from 'react-router-dom'
 import Table from '../components/Table';
+import { stepClasses } from '@mui/material';
 
 
 export default function EnrollFormPage() {
 
     const history=useNavigate()
-
-	const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+    const [firstName,setFirstName] = useState('')
+    const [lastName,setLastName] = useState('')
+	const [email, setEmail] = useState('')
+    const [age,setAge] = useState('')
 	const [country,setCountry] = useState('')
 	const [gender, setGender] = useState('')
     const [parent, setParent] = useState('')
     const [level, setLevel] = useState('')
+    
+    const [schedule, setSchedule] = useState('') 
 
     const [filterInstrument, setFilterInstrument] = useState('')
     const [filterDay, setFilterDay ] = useState('')
     const [preferredClass, setPreferredClass ] = useState([])
-    // const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}])
 
+    
+    const isFirstRender = useRef(true)
+    useEffect(() => { //Checks if details has loaded
+        if (isFirstRender.current) {
+          isFirstRender.current = false // toggle flag after first render/mounting
+          return;
+        }
+        console.log('Details preferred CLsas:'+JSON.stringify(preferredClass))
+        
+      }, [preferredClass])
+      
     useEffect(()=>{
     },[])
 
     async function enrollUser(event){
         event.preventDefault() 
+        console.log('First Name :'+firstName)
+        const response = await fetch('http://localhost:3000/enrollfree/enroll',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                firstName,   
+                lastName,
+                email,
+                age,
+                country,gender,level,schedule,parent
+            })
+        })
+
+        if(response.json().status ==='ok'){
+            alert('Thank you for registering in a free trial program! We will email you for your confirmationa')
+            history('/')
+        }
     }
 
     async function handleFilter (event){
@@ -50,8 +84,16 @@ export default function EnrollFormPage() {
                 setPreferredClass(json)
             })
         })
-
+    
     }
+    const callback = payload => {
+
+       
+        console.log('Callback: ' +JSON.stringify(payload))
+        setSchedule(payload._id)
+        alert('Selected a schedule!')
+    }
+   
 
     return(
 
@@ -66,22 +108,21 @@ export default function EnrollFormPage() {
                                 <p>Email Address</p>
                                 <input 
                                     type='text'
-
-                                    // onChange={(e)=> setAge(e.target.value)}
+                                    onChange={(e)=> setEmail(e.target.value)}
                                 />
                             </div>   
                             <div className='field'>
                                 <p>Country or Residence</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setCountry(e.target.value)}
                                 />
                             </div>
                             <div className='field'>
                                 <p>Parent/Guardian Name</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setParent(e.target.value)}
                                 />
                             </div>
                             <br></br>
@@ -89,21 +130,21 @@ export default function EnrollFormPage() {
                                 <p>First Name</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setFirstName(e.target.value)}
                                 />
                             </div>
                             <div className='field'>
                                 <p>Gender</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setGender(e.target.value)}
                                 />
                             </div>
                             <div className='field'>
                                 <p>Level</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setLevel(e.target.value)}
                                 />
                             </div>
                             <br></br>
@@ -111,14 +152,14 @@ export default function EnrollFormPage() {
                                 <p>Last Name</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setLastName(e.target.value)}
                                 />
                             </div>
                             <div className='field'>
                                 <p>Age</p>
                                 <input 
                                     type='text'
-                                    // onChange={(e)=> setCountry(e.target.value)}
+                                    onChange={(e)=> setAge(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -174,8 +215,9 @@ export default function EnrollFormPage() {
                             return(
                                 <tr key={index}>
                                     {/* Use new component if you want to render data from two or more tables */}
-                                    <Table tableData ={input} url='enrollpending/query'/>       
-                                </tr>               
+                                    <Table tableData ={input} url='enrollpending/query' callback={callback} />       
+                                </tr> 
+                                              
                             )
                             })}
                         </table>

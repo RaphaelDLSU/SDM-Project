@@ -14,6 +14,10 @@ const freeTrialSchema = new Schema({
         type:String,
         required:true
     },
+    email:{
+        type:String,
+        required:true
+    },
     country:{
         type:String,
         required:true
@@ -30,6 +34,10 @@ const freeTrialSchema = new Schema({
         type:String,
         required:true
     },
+    status:{
+        type:String,
+        required:true,
+    }
     
 
 })

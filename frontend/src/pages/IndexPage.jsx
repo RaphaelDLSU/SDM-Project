@@ -58,6 +58,9 @@ export default function IndexPage() {
             <h2> You need to be a student for this</h2>
             <a href='/enrollform'>Go to Enroll Form page</a>
 
+            <h2> You need to be a teacher for this</h2>
+            <a href='/teacherschedule'>Go to Teacher Schedule page</a>
+
             <h2> Calendar</h2>
             <a href='/AdminCalendar'>Go to Calendar</a>
         </div>
