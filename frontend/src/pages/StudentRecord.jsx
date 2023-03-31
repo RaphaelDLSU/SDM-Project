@@ -1,7 +1,29 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
+import React,{ useState,useEffect } from 'react'
+
 
 export default function StudentRecord() {
+    
+    const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
+
+
+
+    
+
+    useEffect(() => { //initialize function
+        fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
+            method:'GET'
+        }).then(response => { //response == response is enrollment data
+            response.json().then(json=>{ //response needs to be turned into JSON
+                setData(json) //set enrollment data into "data"
+            })
+        })
+
+        console.log('Data: '+data.offer_ID)
+
+    }, [])
+
     return(
         <div className='with-sidebar'>
             <Sidebar/>
@@ -19,17 +41,23 @@ export default function StudentRecord() {
                             <td>Email</td>
                             <td></td>
                          </tr>
-                         <tr>
-                            <td>De La Cruz</td>
-                            <td>Juan</td>
-                            <td>Enrolled</td>
-                            <td>juan_delacruz@gmail.com</td>
-                            <td><button className='button2'>View Record</button></td>
-                         </tr>
+                         {data.map((input,index)=>{//READ DATA of enrollment
+                            return(
+                                <tr key={index}>   
+                                {/* index == how many items to render */}
+                                    <td>{input.firstName}</td>
+                                    <td>{input.lastName}</td>
+                                    <td>{input.status}</td>
+                                    <td>{input.email}</td>  
+                                </tr>
+                            )
+                            })}            
                     </table>
                 </div>
             </div>
         </div>
-    )
+    );
 
+    
 }
+

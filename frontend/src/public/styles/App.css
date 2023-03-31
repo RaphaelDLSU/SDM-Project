@@ -490,7 +490,7 @@ button {
   display: flex;
   justify-content: space-between;
   padding: 0 30px 0 15px;
-  margin-left: 20px; 
+  margin-left: 15px; 
 }
 
 .popup .button1{
@@ -499,4 +499,18 @@ button {
   right: 7.52%;
   top: 91.48%;
   bottom: 3.44%;
+}
+
+.popup h2{
+  font-family: 'Inconsolota', monospace;
+  font-size: 24px;
+  color: #640033;
+  margin-left: 20px;
+}
+
+.popup-content p{
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+  color: black;
+  margin-left: 20px;
 }

@@ -107,13 +107,20 @@ export default function EnrollPending() {
                         <div className='popup'>
                             <div className='popup-header'>
                             <h1>{details[0].email}</h1>
-                            
                                 <h1 onClick={closePopup}>x</h1>
                             </div>
                             <div className='popup-content'>
-                            <p>{details[0].email}</p>
-                            <p>{details[0].firstName} {details[0].lastName}</p>
-                            <p>{details[1].gender}</p>
+                            <h2>Personal Details</h2>
+                            <p>Name: {details[0].firstName} {details[0].lastName}</p>
+                            <p>Age: {details[1].age}</p>
+                            <p>Country of Residence: {details[1].country}</p>
+                            <p>Gender: {details[1].gender}</p>
+                            <h2>Selected Program</h2>
+                            <p>Instrument: {inputTemp.instrument}</p>
+                            <p>Program: {inputTemp.program}</p>
+                            <p>Number of Sessions: {inputTemp.numberOfSessions}</p>
+                            {/* <img src = {'inputTemp:image/jpeg;base64',${inputTemp.img.paymentProof}} /> */}
+                            <h2>Payment Details</h2>
                             </div>
                             <button className='button1'>Approve</button>
                         </div>
