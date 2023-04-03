@@ -318,12 +318,11 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
         }else{
             i--
         }
-        startDate = getDay(startDate)
+        startDate = moment(startDate).add(1,"days")
 
 
     }
-    alert('Enrollment Scheduled')
-
+   
 
 })
 
