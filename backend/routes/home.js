@@ -212,6 +212,7 @@ router.post('/enrollfree/enroll',async (req,res)=>{ //Get data of user
     gender:req.body.gender,
     parent:req.body.parent,
     level:req.body.level,
+    age:req.body.age,
     status:'Pending'    
    })
 
@@ -318,12 +319,11 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
         }else{
             i--
         }
-        startDate = getDay(startDate)
+        startDate = moment(startDate).add(1,"days")
 
 
     }
-    alert('Enrollment Scheduled')
-
+   
 
 })
 
