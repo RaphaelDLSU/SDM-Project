@@ -37,6 +37,9 @@ const freeTrialSchema = new Schema({
     status:{
         type:String,
         required:true,
+    },
+    age:{
+        type:String,required:false
     }
     
 
