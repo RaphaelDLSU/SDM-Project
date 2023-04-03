@@ -4,6 +4,15 @@ import React,{useState} from 'react';
 import '../public/styles/App.css'
 
 export default function AdminRecord() {
+   
+   const [isShown, setIsShown] = useState(false);
+
+   const handleClick = event => {
+    setIsShown (current => !current);
+   };
+
+
+   
     return(
         <div className='with-sidebar'>
             <Sidebar/>
@@ -31,9 +40,11 @@ export default function AdminRecord() {
                         <td>8</td>
                         <td>Beginner</td>
                         <td>Partially Paid</td>
-                        <td><button className='button2'>Dropdown</button></td>
+                        <td><button className='button2' onClick={handleClick}>Show</button></td>
                     </tr>
                 </table>
+                { isShown && (
+                <div>
                 <table cellSpacing={0}>
                 <tr className='table-headers3'>
                         <td>Remaining Balance</td>
@@ -56,6 +67,7 @@ export default function AdminRecord() {
                     <tr>Remaining Sessions</tr>
                 </tr>
                 </table>
+                    </div> )}
             </div>
             </div>
         </div>
