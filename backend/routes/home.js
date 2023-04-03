@@ -137,7 +137,7 @@ router.post('/payment',async(req,res)=>{
     }
 })
 
-router.get('/enrollpending',async (req,res)=>{
+router.put('/enrollpending',async (req,res)=>{
     const data = await Enrollment.find({status:'Pending'})
 
 
@@ -270,6 +270,10 @@ router.put  ('/schedulecreate',async (req,res)=>{
 router.put  ('/schedulecreate/table',async (req,res)=>{
     const data = await Users.findOne({_id:req.body.id})
     res.send(data)
+})
+router.put('/schedulecreate/approvesched',async(req,res)=>{
+
+
 })
 
 
