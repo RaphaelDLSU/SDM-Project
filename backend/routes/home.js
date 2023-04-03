@@ -144,6 +144,15 @@ router.put('/enrollpending',async (req,res)=>{
 
    res.send(data)
 })
+router.put('/studentrecords',async (req,res)=>{
+    const data = await Users.find({type:'Student'})
+   res.send(data)
+})
+router.put('/studentrecords/details',async (req,res)=>{
+    const data = await Enrollment.findOne({user_ID:req.body.id})
+    console.log('Enrollment :'+data)
+   res.send(data)
+})
 
 router.post('/enrollfree/filter',async(req,res)=>{
     console.log('This is instrument and day filter '+req.body.filterInstrument+' '+req.body.filterDay)
@@ -272,6 +281,48 @@ router.put  ('/schedulecreate/table',async (req,res)=>{
     res.send(data)
 })
 router.put('/schedulecreate/approvesched',async(req,res)=>{
+    
+    const getDay =(day)=>{
+        const parsedDay = moment(day).format('dddd')
+        if(parsedDay=='Thursday'){
+            return 'H'
+        }else if(parsedDay=='Sunday'){
+            return 'U'
+        }else{
+            return Array.from(parsedDay)[0]
+        }
+    }
+    const hasLetter = (str, char) =>{
+        for(var i = 0; i < str.length; i++) {
+          if (str[i] == char) {
+            return true;
+          }
+        }
+        
+        return false;
+      };
+
+      let startDate =req.body.startDate
+      console.log('Check '+req.body.user.user_ID+' '+req.body.classesTemp._id+' '+moment(req.body.startDate).format('LL'))
+
+    for(let i=0;i<req.body.program.numSessions;i++){
+        let dayLetter = getDay(startDate)
+        if(hasLetter(req.body.classesTemp.days,dayLetter)){
+            await Class.create({
+                user_ID:req.body.user.user_ID,
+                preferred_ClassID:req.body.classesTemp._id,
+                date:moment(startDate).format('LL'),
+                attendance:'',
+                note:''
+            })
+        }else{
+            i--
+        }
+        startDate = getDay(startDate)
+
+
+    }
+    alert('Enrollment Scheduled')
 
 
 })

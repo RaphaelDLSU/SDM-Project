@@ -19,6 +19,7 @@ export default function SchedCreatePage() {
     const [teacherTemp,setTeacherTemp] =useState('')
     const[popup, setPop] = useState(false);
     const [classes, setClasses] = useState([])
+    const [startDate,setStartDate]=useState('')
     const closePopup =()=>{
         setPop(false);
     }
@@ -71,7 +72,7 @@ export default function SchedCreatePage() {
                     'Content-Type':'application/json',
                 },
                 body: JSON.stringify({
-                    classesTemp,teacherTemp,user,program
+                    classesTemp,teacherTemp,user,program,startDate
                 })
             })
     }
@@ -81,6 +82,7 @@ export default function SchedCreatePage() {
             <Sidebar/>
             <div className='content-container'>
                 <h1>Schedule Enrollment</h1>
+                <p>Start Date : <input type='date'onChange={(e)=> setStartDate(e.target.value)}></input></p>
                 <div className='table-container'>
                     <table cellSpacing={0}>
                         <tr className='table-headers'>
@@ -115,7 +117,7 @@ export default function SchedCreatePage() {
                                     <p>Days : {classesTemp.days}</p>
                                     <p>Faculty: {teacherTemp.firstName}  {teacherTemp.lastName}</p>
                                     <p>Time: {classesTemp.startTime} -- {classesTemp.endTime}</p>
-                                    <p>Start Day: ?</p>
+                                    <p>Start Day: {startDate}</p>
                                     <button className='button1' onClick={approveSchedule}>Approve</button>
                                 </div>
 

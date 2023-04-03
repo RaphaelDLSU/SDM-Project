@@ -8,10 +8,6 @@ const classSchema = new Schema({
     },
     preferred_ClassID:{ // All enrollments
         type:String,
-        required: true
-    },
-    enrollment_ID:{
-        type: String,
         required: false
     },
     date:{
@@ -20,15 +16,11 @@ const classSchema = new Schema({
     },
     attendance:{
         type: String,
-        required: true
-    },
-    status:{
-        type: String,
-        required: true
+        required: false
     },
     note:{
         type: String,
-        required: true
+        required: false
     }
     
 

@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 import React,{ useState,useEffect } from 'react'
+import TableStudentRecs from '../components/TableStudentRecs';
 
 
 export default function StudentRecord() {
@@ -12,8 +13,8 @@ export default function StudentRecord() {
     
 
     useEffect(() => { //initialize function
-        fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
-            method:'GET'
+        fetch('http://localhost:3000/studentrecords',{ //get function from home.js (get enrollment data)
+            method:'PUT'
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
                 setData(json) //set enrollment data into "data"
@@ -45,10 +46,7 @@ export default function StudentRecord() {
                             return(
                                 <tr key={index}>   
                                 {/* index == how many items to render */}
-                                    <td>{input.firstName}</td>
-                                    <td>{input.lastName}</td>
-                                    <td>{input.status}</td>
-                                    <td>{input.email}</td>  
+                                    <TableStudentRecs users={input}/>
                                 </tr>
                             )
                             })}            
