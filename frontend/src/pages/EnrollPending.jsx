@@ -9,6 +9,7 @@ export default function EnrollPending() {
 
     const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
     const [details, setDetails] = useState([])
+    const [inputTemp,setInputTemp]=useState('')
 
 
     const[popup, setPop] = useState(false);
@@ -16,7 +17,8 @@ export default function EnrollPending() {
     
     useEffect(() => { //initialize function
         fetch('http://localhost:3000/enrollpending',{ //get function from home.js (get enrollment data)
-            method:'GET'
+            method:'PUT',
+            
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
                 setData(json) //set enrollment data into "data"
@@ -32,12 +34,14 @@ export default function EnrollPending() {
           isFirstRender.current = false // toggle flag after first render/mounting
           return;
         }
-        console.log('Details :'+JSON.stringify(details))
+        console.log('Details :'+JSON.stringify(details[2]))
         setPop(!popup) // do something after state has updated
       }, [details])
 
 
     const  handleClickOpen =async (input)=>{
+
+        setInputTemp(input)
        
         await fetch('http://localhost:3000/enrollpending/details',{ //get function from home.js (get enrollment data)
         method:'PUT',
@@ -61,6 +65,25 @@ export default function EnrollPending() {
     }
     const closePopup =()=>{
         setPop(false);
+    }
+
+    const approveEnrollment =async ()=>{
+        const response = await fetch('http://localhost:3000/enrollpending/approve',{ //get function from home.js (get enrollment data)
+        method:'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            inputTemp //Sent enrollment data of student
+        })
+        
+        })
+        const data = await response.json()
+        if(data.status ==='ok'){
+            alert('Enrollment Approved')
+            closePopup()
+
+        }    
     }
 
  
@@ -116,13 +139,20 @@ export default function EnrollPending() {
                             <p>Country of Residence: {details[1].country}</p>
                             <p>Gender: {details[1].gender}</p>
                             <h2>Selected Program</h2>
-                            <p>Instrument: {inputTemp.instrument}</p>
-                            <p>Program: {inputTemp.program}</p>
-                            <p>Number of Sessions: {inputTemp.numberOfSessions}</p>
+                            {details[2].map((input,index)=>{
+                                return(
+                                    <div key={index}>
+                                        <p>Program: {input.program}</p>
+                                        <p>Instrument: {input.instrument}</p>
+                                        <p>Number of Sessions: {input.numSessions}</p>
+                                    </div>
+                                )
+                            })}
+
                             {/* <img src = {'inputTemp:image/jpeg;base64',${inputTemp.img.paymentProof}} /> */}
                             <h2>Payment Details</h2>
                             </div>
-                            <button className='button1'>Approve</button>
+                            <button className='button1' onClick={approveEnrollment}>Approve</button>
                         </div>
                     </div>:""}
                 </div>

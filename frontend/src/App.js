@@ -25,6 +25,7 @@ import EnrollPending from './pages/EnrollPending';
 import FreeTrialPending from './pages/FreeTrialPending';
 import FreeEnrollForm from'./pages/FreeEnrollForm'
 import TeacherSchedule from './pages/TeacherSchedule';
+import SchedCreatePage from './pages/ScheduleCreate';
 
 
 {/* ALL ROUTES HAPPEN HERE */}
@@ -54,6 +55,7 @@ export default function App() {
           <Route path="freetrialpending" element={<FreeTrialPending />} />
           <Route path = "AdminCalendar" element = {<AdminCalendar/>}/>
           <Route path = "teacherschedule" element = {<TeacherSchedule/>}/>
+          <Route path = "schedulecreate" element = {<SchedCreatePage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

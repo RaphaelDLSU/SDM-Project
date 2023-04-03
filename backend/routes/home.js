@@ -9,6 +9,9 @@ import Enrollment from "../models/Enrollment.js"
 import PreferredClass from "../models/PreferredClass.js"
 import Teacher from "../models/Teacher.js"
 import FreeTrial from "../models/FreeTrial.js"
+import Program from "../models/Program.js"
+import Class from "../models/Classes.js"
+import moment from 'moment'
 
 
 const router = express.Router()
@@ -77,24 +80,32 @@ router.post("/enroll", async (req, res) => {
       country:req.body.country,
       level:req.body.level,
       instrument:req.body.instrument,
-      time:date.getDate()
+      
         
     })
+    const enrollment = await Enrollment.create({
+        status:'Pending',
+        user_ID:findUser._id,
+        time:date.toLocaleTimeString(),
+        date: date.toLocaleDateString()
+    })
+    
+    enrollment.save()
 
 
     try{
-        for(let i=0;i<= req.body.program.length;i++){ // Set Enrollment Values MAX :3
+        for(let i=0;i<= req.body.program.length-1;i++){ // Set Enrollment Values MAX :3
             console.log('How many numPrograms: '+req.body.program.length)
-            const data = await Enrollment.create({
+            const data = await Program.create({
                 user_ID:findUser._id,
+                enrollment_ID:enrollment._id,
                 program:req.body.program[i].programName,
                 instrument:req.body.program[i].instrument,
-                numberOfSessions:req.body.program[i].programName,
-                status:'Pending',
-                time:date.toLocaleTimeString(),
-                date: date.toLocaleDateString(),
+                numSessions:req.body.program[i].numSessions,
+                status:'Not Scheduled'
+                
             }) //CREATE Enrollment of User based on what they enrolled in
-            console.log('THIS IS ENROLLMENT: '+data)
+            console.log('THIS IS PROGRAM: '+data)
             data.save()
         }
     }
@@ -127,7 +138,7 @@ router.post('/payment',async(req,res)=>{
 })
 
 router.get('/enrollpending',async (req,res)=>{
-    const data = await Enrollment.find()
+    const data = await Enrollment.find({status:'Pending'})
 
 
 
@@ -169,8 +180,11 @@ router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
     const data = await Users.findOne({_id:req.body.input.input.user_ID})
   
     const data2  = await Student.findOne({user_ID:req.body.input.input.user_ID})
+
+    const data3= await Program.find({enrollment_ID:req.body.input.input._id})
     
-    let arr = [data,data2]
+    console.log('Data 3: '+data3)
+    let arr = [data,data2,data3]
    res.send(arr)
    console.log('Home '+arr)
 })  
@@ -196,12 +210,28 @@ router.post('/enrollfree/enroll',async (req,res)=>{ //Get data of user
 })
 
 router.put('/teacherschedule',async (req,res)=>{
+   
 
     const data = await PreferredClass.find({teacher_ID:req.body.user.user_ID})
-   res.send(data)
+    const teacher = await Teacher.findOne({teacherId:req.body.user.user_ID})
+    const arr = [data,teacher]
+    res.send(arr)
 })
 router.post('/teacherschedule/add',async (req,res)=>{
+    const startTime = moment(req.body.time, ["HH:mm"]).format("LT");
+    console.log(req.body.program)
+    let endTime
 
+    if(req.body.program=='1 hour'){
+        endTime = moment.utc(req.body.time,'HH:mm').add(1,'h').format('LT')
+        console.log('End time 1 hour: '+endTime)
+    }else if(req.body.program=='30 min'){
+        endTime = moment.utc(req.body.time,'HH:mm').add(30,'m').format('LT')
+        console.log('End time 30 min: '+endTime)
+    }else {
+        endTime = moment.utc(req.body.time,'HH:mm').add(15,'m').format('LT')
+        console.log('End time 15 min    : '+endTime)
+    }
 
     const preferredClass = await PreferredClass.create({
         teacher_ID:req.body.user.user_ID,
@@ -209,11 +239,40 @@ router.post('/teacherschedule/add',async (req,res)=>{
         zoomLink:req.body.zoom,
         program:req.body.program,
         status:'Available',
+        startTime:startTime,
+        endTime:endTime,
+        instrument:req.body.teacher.instrument
 
     })
     console.log('New Preferred Class: '+preferredClass)
    res.json({status:'ok'})
 })
+
+router.put('/enrollpending/approve',async (req,res)=>{
+    const enrollment = req.body.inputTemp.input
+
+    console.log('This is enrollment :'+enrollment._id)
+    await Enrollment.updateOne({_id:enrollment._id},{status:'Approved'})
+    console.log('This is update :'+JSON.stringify(enrollment))
+
+    const newEnroll = Enrollment.find({status:'Pending'})
+    res.json({status:'ok',newEnroll:newEnroll})
+})
+router.put  ('/schedulepage',async (req,res)=>{
+    const data = await Program.find({user_ID:req.body.user.user_ID})
+    res.send(data)
+})
+router.put  ('/schedulecreate',async (req,res)=>{
+    console.log(req.body.program)
+    const data = await PreferredClass.find({instrument:{$regex:req.body.program.instrument},program:{$regex:req.body.program.program}})
+    res.send(data)
+})
+router.put  ('/schedulecreate/table',async (req,res)=>{
+    const data = await Users.findOne({_id:req.body.id})
+    res.send(data)
+})
+
+
 
 
 export default router

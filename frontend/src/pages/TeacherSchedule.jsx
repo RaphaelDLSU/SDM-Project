@@ -8,6 +8,7 @@ export default function TeacherSchedule() {
     const token = localStorage.getItem('token')
     const user = decodeToken(token)
     const [schedule, setSchedule] = useState([])
+    const [teacher, setTeacher] = useState([])
     const[popup, setPop] = useState(false);
 
     const[monday,setMonday]=useState(false)
@@ -36,7 +37,8 @@ export default function TeacherSchedule() {
                 })
             }).then(response=>{
                 response.json().then(json=>{
-                   setSchedule(json)
+                   setSchedule(json[0])
+                   setTeacher(json[1])
                 })
             })
         }
@@ -52,6 +54,15 @@ export default function TeacherSchedule() {
         console.log('Teacher Schedule Details :'+JSON.stringify(schedule))
         // update state is state changes IDK WTF BASTA ETO
     }, [schedule])
+    useEffect(() => { //Checks if details has loaded
+        if (isFirstRender.current) {
+          isFirstRender.current = false // toggle flag after first render/mounting
+          return;
+        }
+        console.log('Teacher Schedule Details :'+JSON.stringify(teacher))
+        // update state is state changes IDK WTF BASTA ETO
+    }, [teacher])
+
 
 
       
@@ -62,7 +73,7 @@ export default function TeacherSchedule() {
 
     const handleFormChange =(event)=>{
         event.preventDefault()
-        console.log('Value final: '+day+' '+time+' '+program+' '+zoom)
+        console.log('Value final: '+day+' '+time+' '+program+' '+zoom+' '+user.user_ID+''+teacher)
 
         const submit =async()=>{
             fetch('http://localhost:3000/teacherschedule/add',{
@@ -71,7 +82,7 @@ export default function TeacherSchedule() {
                     'Content-Type':'application/json',
                 },
                 body: JSON.stringify({
-                    day,time,program,zoom,user
+                    day,time,program,zoom,user,teacher
                 })
             }).then(response=>{
                 response.json().then(json=>{
@@ -118,7 +129,7 @@ export default function TeacherSchedule() {
                                 <tr key={index}>
                                     <td>{input.days}</td>
                                     <td>{input.program}</td>
-                                    <td>????</td>
+                                    <td>{input.startTime} to {input.endTime}</td>
                                     <td>{input.status}</td>
                                 </tr>
                             )

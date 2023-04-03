@@ -6,18 +6,6 @@ const enrollmentSchema = new Schema({
         type:String,
         required:false
     },
-    program:{
-        type:String,
-        required:false
-    },
-    instrument:{
-        type:String,
-        required: true
-    },
-    numberOfSessions:{
-        type:String,
-        required: true
-    },
     status:{
         type:String,
         required: true
@@ -36,8 +24,6 @@ const enrollmentSchema = new Schema({
         required:false
 
     }
-   
-
 })
 
 const Enrollment = mongoose.model('Enrollment', enrollmentSchema)

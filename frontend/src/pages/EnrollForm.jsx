@@ -147,7 +147,7 @@ export default function EnrollFormPage() {
                                                 <select  
                                                     name='instrument'
                                                     onChange={(e)=>handleFormChange(e,index)}>
-                                                   
+                                                   <option disabled selected value> -- select an option -- </option>
                                                         <option>Voice</option>
                                                         <option>Piano</option>
                                                         <option>Guitar</option>
@@ -166,7 +166,7 @@ export default function EnrollFormPage() {
                                                 <select  
                                                     name='programName'
                                                     onChange={(e)=>handleFormChange(e,index)}>
-                                                    
+                                                    <option disabled selected value> -- select an option -- </option>
                                                         <option>1 hour</option>
                                                         <option>30 min</option>
                                                 </select> {/*DROP DOWN (might change to checkbox)*/}
@@ -176,7 +176,7 @@ export default function EnrollFormPage() {
                                                 <p>Number of Sessions</p>
                                                 <input 
                                                     name='numSessions'
-                                                    type='text'
+                                                    type='number'
                                                     onChange={(e)=> handleFormChange(e,index)}
                                                 />
                                             </div>

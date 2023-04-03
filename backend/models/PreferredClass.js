@@ -18,6 +18,14 @@ const preferredClassSchema = new Schema({
         type:String,
         required:false
     },
+    startTime:{
+        type:String,
+        required:false
+    },
+    endTime:{
+        type:String,
+        required:false
+    },
     instrument:{
         type:String,
         required:false

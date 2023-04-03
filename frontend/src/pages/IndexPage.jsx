@@ -54,9 +54,11 @@ export default function IndexPage() {
             <a href='/studentRecord'>Go to Student Records</a><br></br>
             <a href='/enrollpending'>Go to Pending Enrollments</a><br></br>
             <a href='/freetrialpending'>Go to Free Trial Requests</a><br></br>
+            <a href='/schedsummary'>Go to Schedule Summary</a><br></br>
 
             <h2> You need to be a student for this</h2>
-            <a href='/enrollform'>Go to Enroll Form page</a>
+            <a href='/enrollform'>Go to Enroll Form page</a><br></br>
+            <a href='/schedulecreate'>Go to Create Sched page</a>
 
             <h2> You need to be a teacher for this</h2>
             <a href='/teacherschedule'>Go to Teacher Schedule page</a>
