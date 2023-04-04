@@ -219,6 +219,16 @@ router.post('/enrollfree/enroll',async (req,res)=>{ //Get data of user
    console.log('Free Trial: '+trial)
 })
 
+router.put('/freetrialpending',async (req,res) =>{
+    const freeTrial = await FreeTrial.find({status: 'Pending'})
+    const preferredClass = await PreferredClass.findOne({class_ID:req.body.schedule})
+
+    let arr = [freeTrial, preferredClass]
+    res.send(arr)
+
+    console.log('Test' +arr)
+})
+
 router.put('/teacherschedule',async (req,res)=>{
    
 

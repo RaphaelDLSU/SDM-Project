@@ -148,8 +148,7 @@ export default function EnrollPending() {
                                     </div>
                                 )
                             })}
-
-                            {/* <img src = {'inputTemp:image/jpeg;base64',${inputTemp.img.paymentProof}} /> */}
+                            <img src = {'inputTemp:image/jpeg;base64,${inputTemp.img.paymentProof}'} />
                             <h2>Payment Details</h2>
                             </div>
                             <button className='button1' onClick={approveEnrollment}>Approve</button>
