@@ -1,6 +1,7 @@
 
 import React from 'react';
-
+import '../public/assets/placeholder_person.jpg'
+import '../public/assets/logo.png'
 import '../public/styles/App.css'
 
 export default function FacultyPage() {
