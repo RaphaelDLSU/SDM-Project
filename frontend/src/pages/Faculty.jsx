@@ -14,7 +14,7 @@ export default function FacultyPage() {
             <br></br>
             <div className="instrument-container">
             <div className="instrument-card">
-                <img className="instrument-image" src="../public/assets/logo.png" alt="Guitar" />
+                <img className="instrument-image" src="../public/assets/placeholder_person.jpg" alt="../public/assets/placeholder_person.jpg" />
                 <div className="instrument-label">Guitar</div>
             </div>
             <div className="instrument-card">
