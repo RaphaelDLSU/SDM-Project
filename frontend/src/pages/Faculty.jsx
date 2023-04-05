@@ -1,6 +1,8 @@
 
 import React from 'react';
-import '../public/assets/placeholder_person.jpg'
+import guitar from '../public/assets/Guitar.jpg'
+import drums from '../public/assets/Drums.jpg'
+
 import '../public/assets/logo.png'
 import '../public/styles/App.css'
 
@@ -15,11 +17,11 @@ export default function FacultyPage() {
             <br></br>
             <div className="instrument-container">
             <div className="instrument-card">
-                <img className="instrument-image" src="../public/assets/placeholder_person.jpg" alt="../public/assets/placeholder_person.jpg" />
+                <img className="instrument-image" src={guitar} alt="Guitar" />
                 <div className="instrument-label">Guitar</div>
             </div>
             <div className="instrument-card">
-                <img className="instrument-image" src="drums.jpg" alt="Drums" />
+                <img className="instrument-image" src={drums} alt="Drums" />
                 <div className="instrument-label">Drums</div>
             </div>
             <div className="instrument-card">
