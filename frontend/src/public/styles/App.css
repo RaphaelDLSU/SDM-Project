@@ -547,7 +547,7 @@ button {
 }
 
 .instrument-image {
-  max-width: 100%;
+  max-width: 400px;
   height: auto;
 }
 
@@ -556,4 +556,5 @@ button {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
+  color: #640033;
 }
