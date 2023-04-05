@@ -3,15 +3,13 @@ import React from 'react';
 
 import '../public/styles/App.css'
 
-export default function AboutPage() {
-
-
+export default function FacultyPage() {
 
     
     return(
         <div id='aboutUsHeader'>
             <h1>
-            About Son De Musique
+            Faculty
             </h1>
             <br></br>
             <div className='aboutUs-mission'>

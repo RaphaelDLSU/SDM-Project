@@ -56,6 +56,7 @@ export default function IndexPage() {
             <a href='/freetrialpending'>Go to Free Trial Requests</a><br></br>
             <a href='/schedsummary'>Go to Schedule Summary</a><br></br>
             <a href='/enrollfree'>Go to Free Enroll Form</a><br></br>
+            <a href='/facultypage'>Go to Faculty Page</a><br></br>
 
             <h2> You need to be a student for this</h2>
             <a href='/enrollform'>Go to Enroll Form page</a><br></br>
