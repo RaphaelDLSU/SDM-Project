@@ -12,22 +12,35 @@ export default function FacultyPage() {
             Faculty
             </h1>
             <br></br>
-            <div className='aboutUs-mission'>
-                <p>Mission</p>
+            <div className="instrument-container">
+            <div className="instrument-card">
+                <img className="instrument-image" src="../public/assets/logo.png" alt="Guitar" />
+                <div className="instrument-label">Guitar</div>
             </div>
-            <div className='about-block'>
-                <p>Our mission is to be able to deliver sincere and quality music learning to our students wherein we teach music to bring not only talent and skill to the student; but also confidence, encouragement, inspiration and passion. We aim to bring the best out of our student’s differences with diligent planning, intelligent teaching and consistent innovation. With this sincerity comes quality education that no credential can beat.
-</p>
+            <div className="instrument-card">
+                <img className="instrument-image" src="drums.jpg" alt="Drums" />
+                <div className="instrument-label">Drums</div>
             </div>
-            <div className='aboutUs-mission'>
-                <p>Vision</p>
+            <div className="instrument-card">
+                <img className="instrument-image" src="piano.jpg" alt="Piano" />
+                <div className="instrument-label">Piano</div>
             </div>
-            <div className='about-block'>
-                <p>Son De Musique Studio International to be the leading and largest music school in the Philippines, sharing music’s light on a large scale all over the world.</p>
+            <div className="instrument-card">
+                <img className="instrument-image" src="violin.jpg" alt="Violin" />
+                <div className="instrument-label">Violin</div>
             </div>
+            <div className="instrument-card">
+                <img className="instrument-image" src="trumpet.jpg" alt="Trumpet" />
+                <div className="instrument-label">Trumpet</div>
+            </div>
+            <div className="instrument-card">
+                <img className="instrument-image" src="saxophone.jpg" alt="Saxophone" />
+                <div className="instrument-label">Saxophone</div>
+            </div>
+            </div>
+
         </div>
             
-            
-    )
+    );
 
 }

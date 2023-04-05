@@ -1,8 +1,7 @@
 
 
-
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+
 
 import IndexPage from './pages/IndexPage';
 import AboutPage from './pages/AboutUs';
