@@ -6,15 +6,12 @@ import TableStudentRecs from '../components/TableStudentRecs';
 
 export default function StudentRecord() {
     
-    const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
-
-
-
+    const [data, setData] = useState([]) //if mapping, turn it into array (useState([])
     
 
     useEffect(() => { //initialize function
         fetch('http://localhost:3000/studentrecords',{ //get function from home.js (get enrollment data)
-            method:'PUT'
+            method:'PUT',
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
                 setData(json) //set enrollment data into "data"

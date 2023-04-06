@@ -144,10 +144,7 @@ router.put('/enrollpending',async (req,res)=>{
 
    res.send(data)
 })
-router.put('/studentrecords',async (req,res)=>{
-    const data = await Users.find({type:'Student'})
-   res.send(data)
-})
+
 router.put('/studentrecords/details',async (req,res)=>{
     const data = await Enrollment.findOne({user_ID:req.body.id})
     console.log('Enrollment :'+data)
@@ -331,11 +328,14 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
 
 
     }
-   
 
 })
 
-
+router.put('/studentrecords',async (req,res)=>{
+    const data = await Users.find({type:'Student'})
+    console.log('data :'+data)
+   res.send(data)
+})
 
 
 export default router
