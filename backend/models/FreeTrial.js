@@ -30,7 +30,7 @@ const freeTrialSchema = new Schema({
         type:String,
         required:true
     },
-    level:{
+    level:{ 
         type:String,
         required:true
     },

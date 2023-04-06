@@ -12,6 +12,8 @@ export default function AboutPage() {
     
     return(
         <div id='aboutUsHeader'>
+            <>
+            </>
             <h1>
             About Son De Musique
             </h1>
@@ -29,7 +31,11 @@ export default function AboutPage() {
             <div className='about-block'>
                 <p>Son De Musique Studio International to be the leading and largest music school in the Philippines, sharing music’s light on a large scale all over the world.</p>
             </div>
+            <button onClick= {submitEmail}>Send a Test EmaiL</button>
         </div>
+
+        
+        
             
             
     )

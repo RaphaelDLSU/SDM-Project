@@ -13,13 +13,12 @@ export default function SchedCreatePage() {
     const token = localStorage.getItem('token')
     const user = decodeToken(token)
     
-    
-    
     const [classesTemp,setClassesTemp] =useState('')
     const [teacherTemp,setTeacherTemp] =useState('')
     const[popup, setPop] = useState(false);
     const [classes, setClasses] = useState([])
     const [startDate,setStartDate]=useState('')
+
     const closePopup =()=>{
         setPop(false);
     }

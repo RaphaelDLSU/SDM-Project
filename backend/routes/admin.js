@@ -1,9 +1,8 @@
 import express from "express"
+import mongoose from "mongoose"
 
-const router = express.Router()
+const admin={
 
-router.get('/',(req,res) =>{
-    res.send("Hello you are in admin")
-})
+}
 
-export default router
+module.exports = admin;

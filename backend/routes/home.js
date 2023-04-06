@@ -15,7 +15,7 @@ import moment from 'moment'
 
 
 const router = express.Router()
-
+``
 
 router.post('/login',async(req,res)=>{
     const user = await Users.findOne({ //Maghahanap ng user na may email na sinet
@@ -261,9 +261,7 @@ router.post('/teacherschedule/add',async (req,res)=>{
 router.put('/enrollpending/approve',async (req,res)=>{
     const enrollment = req.body.inputTemp.input
 
-    console.log('This is enrollment :'+enrollment._id)
     await Enrollment.updateOne({_id:enrollment._id},{status:'Approved'})
-    console.log('This is update :'+JSON.stringify(enrollment))
 
     const newEnroll = Enrollment.find({status:'Pending'})
     res.json({status:'ok',newEnroll:newEnroll})
