@@ -1,8 +1,7 @@
 
 
-
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+
 
 import IndexPage from './pages/IndexPage';
 import AboutPage from './pages/AboutUs';
@@ -26,6 +25,7 @@ import FreeTrialPending from './pages/FreeTrialPending';
 import FreeEnrollForm from'./pages/FreeEnrollForm'
 import TeacherSchedule from './pages/TeacherSchedule';
 import SchedCreatePage from './pages/ScheduleCreate';
+import FacultyPage from './pages/Faculty';
 
 
 {/* ALL ROUTES HAPPEN HERE */}
@@ -52,6 +52,7 @@ export default function App() {
           <Route path="studentRecord" element={<StudentRecord/>} /> 
           <Route path="enrollpending" element={<EnrollPending/>} /> 
           <Route path="enrollfree" element={<FreeEnrollForm />} />
+          <Route path="facultypage" element={<FacultyPage/>}/>
           <Route path="freetrialpending" element={<FreeTrialPending />} />
           <Route path = "AdminCalendar" element = {<AdminCalendar/>}/>
           <Route path = "teacherschedule" element = {<TeacherSchedule/>}/>
