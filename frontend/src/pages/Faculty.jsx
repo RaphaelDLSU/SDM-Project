@@ -22,7 +22,7 @@ export default function FacultyPage() {
             <div className="instrument-container">
             
                 <div className="instrument-card">
-                <img href="/facultypage"className="instrument-image" src={guitar} alt="Guitar" />
+                <img className="instrument-image" src={guitar} alt="Guitar" />
                 <div className="instrument-label">Guitar</div>
             </div>
             <div className="instrument-card">
