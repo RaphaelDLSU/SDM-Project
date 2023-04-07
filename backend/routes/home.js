@@ -64,11 +64,8 @@ router.post("/enroll", async (req, res) => {
 
     const date = new Date();
   try{
-    console.log ('Working start of enroll')
-    
-    console.log (req.body.program)
 
-    console.log('No. of Programs: '+req.body.numProgram+'Programs: '+JSON.stringify(req.body.program))
+
 
     const findUser = await Users.findOne({email:req.body.userParsed}) //Find user to get its ID
     const date =new Date()
@@ -92,10 +89,38 @@ router.post("/enroll", async (req, res) => {
     
     enrollment.save()
 
-
+    let paymentWhole = 0
     try{
+        
         for(let i=0;i<= req.body.program.length-1;i++){ // Set Enrollment Values MAX :3
             console.log('How many numPrograms: '+req.body.program.length)
+            let program = req.body.program[i].programName
+            let numSessions = req.body.program[i].numSessions
+            let payment =0
+            
+            
+            if(program =='1 hour'){
+                if(numSessions=='4')
+                    payment=3490
+                else if(numSessions=='8'){
+                    payment=6490
+                }
+                else if(numSessions=='12'){
+                    payment=9090
+                }
+                else if(numSessions=='20'){
+                    payment=14490
+                }
+            }else if(program =='30 min'){
+                if(numSessions=='8')
+                payment=3490
+                else if(numSessions=='12'){
+                    payment=4790
+                }
+                else if(numSessions=='20'){
+                    payment=7490
+                }
+            }
             const data = await Program.create({
                 user_ID:findUser._id,
                 enrollment_ID:enrollment._id,
@@ -103,18 +128,21 @@ router.post("/enroll", async (req, res) => {
                 instrument:req.body.program[i].instrument,
                 numSessions:req.body.program[i].numSessions,
                 status:'Not Scheduled',
-
+                payment:payment
                 
-            }) //CREATE Enrollment of User based on what they enrolled in
-            console.log('THIS IS PROGRAM: '+data)
+            })
+            paymentWhole +=payment
+
+            
+
             data.save()
         }
     }
-
-
     catch(err){
         console.log(err)
     }
+    Enrollment.updateOne({_id:enrollment._id},{paymentWhole:paymentWhole})
+
     res.json({status:'ok'})
 
 }catch(err){
@@ -126,9 +154,15 @@ router.post("/enroll", async (req, res) => {
 router.post('/payment',async(req,res)=>{
     const paymentImg = req.body.postImage.myFile;
     const findUser = await Users.findOne({email:req.body.userParsed})
+    let paymentStatus
+    if(req.body.paymentType=='half'){
+        paymentStatus = 'Half Paid'
+    }else{
+        paymentStatus = 'Fully Paid'
+    }
 
     try{
-        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{paymentProof:paymentImg})
+        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType,paymentStatus:paymentStatus}})
         newImage.save();
         res.json({status:'ok'})
    
@@ -139,10 +173,7 @@ router.post('/payment',async(req,res)=>{
 })
 
 router.put('/enrollpending',async (req,res)=>{
-    const data = await Enrollment.find({status:'Pending'})
-
-
-
+    const data = await Enrollment.find({status:'Pending'})              
    res.send(data)
 })
 
@@ -330,7 +361,7 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
 
 router.put('/studentrecords',async (req,res)=>{
     const data = await Users.find({type:'Student'})
-    console.log('data :'+data)
+    console.log('data :'+data)  
    res.send(data)
 })
 

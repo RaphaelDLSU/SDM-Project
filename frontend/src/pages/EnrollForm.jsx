@@ -16,7 +16,8 @@ export default function EnrollFormPage() {
 	const [level, setLevel] = useState('')
     const [numProgram, setNumProgram] = useState(0)
     
-    const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}]) //ARRAY
+    const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}]) 
+    const [selected, setSelected] = useState('');//ARRAY
 
     useEffect(()=>{ //USEEFFECT = Inital Run ng Page
         const token = localStorage.getItem('token') //Check if there is a user logged in
@@ -64,7 +65,7 @@ export default function EnrollFormPage() {
 
     const handleFormChange = (e, index)=>{
         
-        const { name, value } = e.target
+        const { name, value } = e
         
         const list = [...program]
         list[index][name] = value
@@ -77,7 +78,31 @@ export default function EnrollFormPage() {
         console.log(program)
       };
 
+      /** Different arrays for different dropdowns */
 
+      const thiryMin = [9, 12, 20];
+      const oneHour = [ 4, 8, 12, 20];
+      
+      /** Type variable to store different array for different dropdown */
+      let type = null;
+      
+      /** This will be used to create set of options that user will see */
+      let options = null;
+      
+      /** Setting Type variable according to dropdown */
+      if (selected === "1 hour") {
+        type = oneHour;
+      } else if (selected === "30 min") {
+        type = thiryMin;
+      }
+      if (type) {
+        options = type.map((el) => <option key={el}>{el}</option>);
+      }
+
+      const changeDropdown =(e,index)=>{
+        handleFormChange(e,index)
+        setSelected(e)
+      } 
 
 
     return(
@@ -165,7 +190,7 @@ export default function EnrollFormPage() {
                                                 <p>Program</p>
                                                 <select  
                                                     name='programName'
-                                                    onChange={(e)=>handleFormChange(e,index)}>
+                                                    onChange={(e)=>{changeDropdown(e.target.value,index)}}>
                                                     <option disabled selected value> -- select an option -- </option>
                                                         <option>1 hour</option>
                                                         <option>30 min</option>
@@ -174,11 +199,7 @@ export default function EnrollFormPage() {
                                             {}
                                             <div className='field'> 
                                                 <p>Number of Sessions</p>
-                                                <input 
-                                                    name='numSessions'
-                                                    type='number'
-                                                    onChange={(e)=> handleFormChange(e,index)}
-                                                />
+                                                <select>{options}</select>
                                             </div>
                                             
                                         </div>

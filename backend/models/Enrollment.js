@@ -27,6 +27,16 @@ const enrollmentSchema = new Schema({
     paymentStatus:{
         type:String,
         required: false
+    },
+    paymentWhole:{
+        type:Number,
+        required:false
+    },
+    paymentOption:{
+        type:String,required:false
+    },
+    paymentType:{
+        type:String,required:false
     }
 })
 
