@@ -14,7 +14,7 @@ import SchedSumPage from './pages/ScheduleSummary';
 import TeacherPage from './pages/TeacherRecord';
 import Layout from './pages/Layout';
 import RegisterPage from './pages/RegisterPage';
-import AdminRecordPage from './pages/AdminRecord';
+import StudentRecordDetailsPage from './pages/StudentRecordDetails';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PaymentPage from './pages/PaymentPage';
 import AdminCalendar from './pages/AdminCalendar';
@@ -46,7 +46,7 @@ export default function App() {
           <Route path="schedsummary" element={<SchedSumPage />} />
           <Route path="teacher" element={<TeacherPage />} />
           <Route path="register" element={<RegisterPage />} />
-          <Route path="adminrec" element={<AdminRecordPage/>} /> 
+          <Route path="studentrecdetails" element={<StudentRecordDetailsPage/>} /> 
           <Route path="payment" element={<PaymentPage/>} /> 
           <Route path="calendar" element={<AdminCalendar/>} /> 
           <Route path="payroll" element={<PayrollPage/>} /> 

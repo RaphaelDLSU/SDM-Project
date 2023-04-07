@@ -25,6 +25,9 @@ const programSchema = new Schema({
     status:{
         type: String,
         required: true
+    },
+    completedSessions:{
+        type:Number,required:false
     }
     
 

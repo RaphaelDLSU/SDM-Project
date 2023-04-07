@@ -10,6 +10,10 @@ const classSchema = new Schema({
         type:String,
         required: false
     },
+    program_ID:{
+        type:String,
+        required: false
+    },
     date:{
         type:String,
         required: false

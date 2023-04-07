@@ -86,7 +86,8 @@ router.post("/enroll", async (req, res) => {
         status:'Pending',
         user_ID:findUser._id,
         time:date.toLocaleTimeString(),
-        date: date.toLocaleDateString()
+        date: date.toLocaleDateString(),
+        paymentStatus:'Not paid',
     })
     
     enrollment.save()
@@ -101,7 +102,8 @@ router.post("/enroll", async (req, res) => {
                 program:req.body.program[i].programName,
                 instrument:req.body.program[i].instrument,
                 numSessions:req.body.program[i].numSessions,
-                status:'Not Scheduled'
+                status:'Not Scheduled',
+
                 
             }) //CREATE Enrollment of User based on what they enrolled in
             console.log('THIS IS PROGRAM: '+data)
@@ -311,9 +313,10 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
             await Class.create({
                 user_ID:req.body.user.user_ID,
                 preferred_ClassID:req.body.classesTemp._id,
+                program_ID:req.body.program._id,
                 date:moment(startDate).format('LL'),
                 attendance:'',
-                note:''
+                note:''             
             })
         }else{
             i--
@@ -335,6 +338,16 @@ router.put('/studentrecords/details',async (req,res)=>{
     const data = await Enrollment.findOne({user_ID:req.body.id})
     console.log('Enrollment :'+data)
    res.send(data)
+})
+router.put(`/studentrecords/details/specific`,async (req,res)=>{
+    const data = await Enrollment.findOne({user_ID:req.body.student_ID})
+    const data2 = await Program.find({enrollment_ID:data._id})
+    const data3 = await Class.find({program_ID:data2._id})
+    const data4 = await Student.findOne({user_ID:req.body.student_ID})
+    
+
+    const arr = [data,data2,data3,data4]
+   res.send(arr)
 })
 
 router.put('/facultymembers',async (req,res)=>{
