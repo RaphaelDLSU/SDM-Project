@@ -13,7 +13,6 @@ export default function TableStudentRecs (props){
 
     
 
-
     useEffect(() => { //initialize function
         
         fetch(`http://localhost:3000/studentrecords/details`,{ //get function from home.js (get enrollment data)
@@ -30,7 +29,6 @@ export default function TableStudentRecs (props){
             })
         })
     
-       
     
     }, [])
 
@@ -42,7 +40,6 @@ export default function TableStudentRecs (props){
         <td>{props.users.email}</td>
         <a onClick={()=>navigate('/studentrecdetails',{state:{student:props.users}})}>View Records</a>
         </>
-        
             
         
     );

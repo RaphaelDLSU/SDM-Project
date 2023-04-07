@@ -66,7 +66,8 @@ export default function IndexPage() {
             <a href='/teacherschedule'>Go to Teacher Schedule page</a>
 
             <h2> Calendar</h2>
-            <a href='/AdminCalendar'>Go to Calendar</a>
+            <a href='/AdminCalendar'>Go to Calendar</a><br></br>
+            <a href='/facultymembers'>Go to Faculty Members</a>
         </div>
          
             

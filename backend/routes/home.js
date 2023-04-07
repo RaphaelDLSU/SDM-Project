@@ -381,4 +381,12 @@ router.put(`/studentrecords/details/specific`,async (req,res)=>{
    res.send(arr)
 })
 
+router.put('/facultymembers',async (req,res)=>{
+    const data = await Teacher.find({instrument:{$regex:'Guitar'}})
+    console.log('Teacher :'+data)
+    res.send(data)
+})
+
+
+
 export default router
