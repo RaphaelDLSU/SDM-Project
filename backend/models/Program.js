@@ -28,6 +28,12 @@ const programSchema = new Schema({
     },
     completedSessions:{
         type:Number,required:false
+    },
+    payment:{
+        type:Number,required:false
+    },
+    teacher_ID:{
+        type:String,required:false
     }
     
 

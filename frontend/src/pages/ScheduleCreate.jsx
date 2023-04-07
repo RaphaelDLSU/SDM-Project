@@ -31,6 +31,7 @@ export default function SchedCreatePage() {
             navigate(-1)
         }else{
             const program= location.state.program
+            console.log('TeacherTemp: '+teacherTemp)
             //initialize function
             fetch('http://localhost:3000/schedulecreate',{ //get function from home.js (get enrollment data)
                 method:'PUT',

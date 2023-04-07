@@ -25,6 +25,10 @@ const classSchema = new Schema({
     note:{
         type: String,
         required: false
+    },
+    teacher_ID:{
+        type:String,
+        required:false
     }
     
 

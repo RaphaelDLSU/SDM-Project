@@ -68,18 +68,25 @@ export default function PaymentPage() {
             <h1>PAYMENT</h1>
             <form onSubmit={handleSubmit}>
                 <h2>1. Select Payment Option: </h2>
-                    <input type="checkbox" onChange={e=>setPaymentOption(e.target.value)} id="bpi" name="bpi" value="BPI"></input>
-                    <label  for="vehicle1"> BPI</label><br/>
-                    <input type="checkbox" onChange={e=>setPaymentOption(e.target.value)} id="gcash" name="gcash" value="GCash"></input>
-                    <label for="vehicle1"> GCash</label><br/>
-                    <input type="checkbox" onChange={e=>setPaymentOption(e.target.value)} id="maya" name="maya" value="Maya"></input>
-                    <label for="vehicle1"> Maya</label><br/>
+                <select  
+                    name='paymentOption'
+                    onChange={(e)=>setPaymentOption(e.target.value)}>
+                    <option disabled selected value> -- select an option -- </option>
+                        <option>BPI</option>
+                        <option>GCash</option>
+                        <option>Maya</option>
+                </select> {/*DROP DOWN*/}
+                 
                 <h2>2. Select Payment: </h2>
-                    <input type="checkbox" onChange={e=>setPaymentType(e.target.value)} id="half" name="half" value="half"></input>
-                    <label for="vehicle1"> 50% payment</label><br/>
-                    <input type="checkbox"onChange={e=>setPaymentType(e.target.value)} id="full" name="full" value="full"></input>
-                    <label for="vehicle1"> Full Payment</label><br/>
+                <select  
+                    name='paymentType'
+                    onChange={(e)=>setPaymentType(e.target.value)}>
+                    <option disabled selected value> -- select an option -- </option>
+                        <option>Full</option>
+                        <option>50% Payment</option>
+                </select> {/*DROP DOWN*/}
                 <h2>3. Transfer this amount: </h2>
+                
                 
 
                 <label htmlFor="file-upload" className='custom-file-upload'>

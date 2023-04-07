@@ -7,6 +7,7 @@ import TableStudentRecs from '../components/TableStudentRecs';
 export default function StudentRecord() {
     
     const [data, setData] = useState([]) //if mapping, turn it into array (useState([])
+
     
 
     useEffect(() => { //initialize function
@@ -21,6 +22,8 @@ export default function StudentRecord() {
         console.log('Data: '+data.offer_ID)
 
     }, [])
+
+   
 
     return(
         <div className='with-sidebar'>
@@ -41,10 +44,16 @@ export default function StudentRecord() {
                          </tr>
                          {data.map((input,index)=>{//READ DATA of enrollment
                             return(
-                                <tr key={index}>   
-                                {/* index == how many items to render */}
-                                    <TableStudentRecs users={input}/>
+                                <tr key={index}>
+                                 
+                                        <TableStudentRecs users={input}/>
+                                        
+                                        
+                                  
+                                      
                                 </tr>
+
+                                
                             )
                             })}            
                     </table>

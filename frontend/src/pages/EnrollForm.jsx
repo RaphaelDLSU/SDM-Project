@@ -18,6 +18,8 @@ export default function EnrollFormPage() {
     
     const [program, setProgram] = useState([{instrument:"",programName:"",numSessions:""}]) 
     const [selected, setSelected] = useState('');//ARRAY
+    const [selected1, setSelected1] = useState('');//ARRAY
+    const [selected2, setSelected2] = useState('');//ARRAY
 
     useEffect(()=>{ //USEEFFECT = Inital Run ng Page
         const token = localStorage.getItem('token') //Check if there is a user logged in
@@ -40,7 +42,7 @@ export default function EnrollFormPage() {
         const token = localStorage.getItem('token') //Get user email that is logged in RN
         const user = decodeToken(token) 
         const userParsed = user.email // User Email mismo
-        
+        console.log('Program :'+JSON.stringify(program))
         const response = await fetch('http://localhost:3000/enroll',{
             method:'POST',
             headers: {
@@ -64,11 +66,13 @@ export default function EnrollFormPage() {
     }
 
     const handleFormChange = (e, index)=>{
+        console.log('E :'+e)
         
-        const { name, value } = e
+        const { name, value } = e.target
         
         const list = [...program]
         list[index][name] = value
+        console.log('List :'+JSON.stringify(program))
         setProgram(list)
     }
 
@@ -85,9 +89,13 @@ export default function EnrollFormPage() {
       
       /** Type variable to store different array for different dropdown */
       let type = null;
+      let type1 = null;
+      let type2 = null;
       
       /** This will be used to create set of options that user will see */
       let options = null;
+      let options1 = null;
+      let options2 = null;
       
       /** Setting Type variable according to dropdown */
       if (selected === "1 hour") {
@@ -98,11 +106,34 @@ export default function EnrollFormPage() {
       if (type) {
         options = type.map((el) => <option key={el}>{el}</option>);
       }
+      if (selected1 === "1 hour") {
+        type1 = oneHour;
+      } else if (selected1 === "30 min") {
+        type1 = thiryMin;
+      }
+      if (type1) {
+        options1 = type1.map((el) => <option key={el}>{el}</option>);
+      }
+
+      if (selected2 === "1 hour") {
+        type2 = oneHour;
+      } else if (selected2 === "30 min") {
+        type2 = thiryMin;
+      }
+      if (type2) {
+        options2 = type2.map((el) => <option key={el}>{el}</option>);
+      }
+
 
       const changeDropdown =(e,index)=>{
         handleFormChange(e,index)
-        setSelected(e)
-      } 
+        if(index ==0)
+            setSelected(e.target.value)
+        else if(index ==1)
+            setSelected1(e.target.value)
+        else if(index ==2)
+            setSelected2(e.target.value)
+      }
 
 
     return(
@@ -190,16 +221,26 @@ export default function EnrollFormPage() {
                                                 <p>Program</p>
                                                 <select  
                                                     name='programName'
-                                                    onChange={(e)=>{changeDropdown(e.target.value,index)}}>
+                                                    onChange={(e)=>{changeDropdown(e,index)}}>
                                                     <option disabled selected value> -- select an option -- </option>
                                                         <option>1 hour</option>
                                                         <option>30 min</option>
                                                 </select> {/*DROP DOWN (might change to checkbox)*/}
                                             </div>
-                                            {}
+                                            
                                             <div className='field'> 
                                                 <p>Number of Sessions</p>
-                                                <select>{options}</select>
+                                                {index==0 &&(
+                                                    <select  name='numSessions' onChange={(e)=>handleFormChange(e,index)}>{options}</select>
+                                                )}
+                                                {index==1 &&(
+                                                    <select name='numSessions' onChange={(e)=>handleFormChange(e,index)}>{options1}</select>
+                                                )}
+                                                 {index==2 &&(
+                                                    <select name='numSessions' onChange={(e)=>handleFormChange(e,index)}>{options2}</select>
+                                                )}
+                                                
+                                                
                                             </div>
                                             
                                         </div>

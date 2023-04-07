@@ -5,6 +5,7 @@ import React,{ useState,useEffect } from 'react'
 
 import '../public/styles/App.css'
 import { useLocation,useNavigate } from 'react-router-dom'
+import TableStudentRecDetails from '../components/TableStudentRecDetails';
 
 export default function StudentRecordDetails() {
     const navigate = useNavigate()
@@ -16,18 +17,15 @@ export default function StudentRecordDetails() {
    const [studentUser, setStudentUser] = useState('');
 
 
-   const handleClick = event => {
-    setIsShown (current => !current);
-   };
-
    
+
+   const user_ID= location.state.user._id
    useEffect(() => { 
 
     if(location.state ==null){
         alert('You should not be here')
         navigate(-1)
     }else{
-        const student_ID= location.state.student._id
         //initialize function
         fetch(`http://localhost:3000/studentrecords/details/specific`,{ //get function from home.js (get enrollment data)
             method:'PUT',
@@ -35,13 +33,11 @@ export default function StudentRecordDetails() {
                 'Content-Type':'application/json',
             },
             body: JSON.stringify({
-                student_ID
+                user_ID
             })
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-            setEnrollment(json[0])
-            setProgram(json[1]) 
-            setClasses(json[2])  //set enrollment data into "data"
+                setProgram(json)  //set enrollment data into "data"
              })
         })
     }
@@ -49,7 +45,7 @@ export default function StudentRecordDetails() {
     
 }, [])
 
-const student= location.state.student
+const student= location.state.user
 
     return(
         <div className='with-sidebar'>
@@ -71,44 +67,23 @@ const student= location.state.student
                         <td>Payment Status</td>
                         <td></td>
                     </tr>
-                    <tr>
+                    
                         {program.map((input,index)=>{
-                            <>
-                            <td>{enrollment.date}</td>
-                            <td>{studentUser.student}</td>
-                            <td>{input.program}</td>
-                            <td>{input.numSessions}</td>
-                            <td>{studentUser.level}</td>
-                            </>
+                            return(
+                                
+                                <>
+                                    {input.status==='Scheduled' &&(
+                                    <TableStudentRecDetails program={input} user_ID={user_ID}/>
+                                    )}
+                                    
+                                </>
+                            )
+                          
                         })}
-                        <td><button className='button2' onClick={handleClick}>Show</button></td>
-                    </tr>
+                        
+                   
                 </table>
-                { isShown && (
-                <div>
-                <table cellSpacing={0}>
-                <tr className='table-headers3'>
-                        <td>Remaining Balance</td>
-                        <td></td>
-                    </tr>
-                <tr>
-                    <td>PHP X,XXX</td>
-                    <td><button className='button2'>View</button>&nbsp;<button className='button3'>Notify</button>&nbsp;<button className='button1'>Place On Hold</button></td>
-                </tr>
-                </table>
-                <table cellSpacing={0}>
-                <tr className='table-headers3'>
-                        <td>Schedule</td>
-                    </tr>
-                <tr>
-                    <tr>Day/s</tr>
-                    <tr>Time</tr>
-                    <tr>Faculty</tr>
-                    <tr>Completed Sessions</tr>
-                    <tr>Remaining Sessions</tr>
-                </tr>
-                </table>
-                    </div> )}
+                
             </div>
             </div>
         </div>

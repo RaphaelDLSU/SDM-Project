@@ -38,7 +38,7 @@ export default function TableStudentRecs (props){
         <td>{props.users.firstName}</td>
         <td>{enrollment.status}</td>
         <td>{props.users.email}</td>
-        <a onClick={()=>navigate('/studentrecdetails',{state:{student:props.users}})}>View Records</a>
+        <a onClick={()=>navigate('/studentrecdetails',{state:{user:props.users}})}>View Records</a>
         </>
             
         

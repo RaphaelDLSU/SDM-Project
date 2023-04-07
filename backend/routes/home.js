@@ -98,6 +98,7 @@ router.post("/enroll", async (req, res) => {
             let numSessions = req.body.program[i].numSessions
             let payment =0
             
+            console.log('program and payment :'+req.body.program[i].programName+' '+payment)
             
             if(program =='1 hour'){
                 if(numSessions=='4')
@@ -136,12 +137,13 @@ router.post("/enroll", async (req, res) => {
             
 
             data.save()
-        }
+        }   
     }
     catch(err){
         console.log(err)
     }
-    Enrollment.updateOne({_id:enrollment._id},{paymentWhole:paymentWhole})
+    console.log('Payment :'+paymentWhole)
+    await Enrollment.updateOne({_id:enrollment._id},{'$set':{paymentWhole:paymentWhole}})
 
     res.json({status:'ok'})
 
@@ -155,7 +157,7 @@ router.post('/payment',async(req,res)=>{
     const paymentImg = req.body.postImage.myFile;
     const findUser = await Users.findOne({email:req.body.userParsed})
     let paymentStatus
-    if(req.body.paymentType=='half'){
+    if(req.body.paymentType=='50% Payment'){
         paymentStatus = 'Half Paid'
     }else{
         paymentStatus = 'Fully Paid'
@@ -314,6 +316,8 @@ router.put  ('/schedulecreate/table',async (req,res)=>{
     res.send(data)
 })
 router.put('/schedulecreate/approvesched',async(req,res)=>{
+
+    console.log('Teacher Temp: '+JSON.stringify(req.body.teacherTemp))
     
     const getDay =(day)=>{
         const parsedDay = moment(day).format('dddd')
@@ -347,7 +351,8 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
                 program_ID:req.body.program._id,
                 date:moment(startDate).format('LL'),
                 attendance:'',
-                note:''             
+                note:'',
+                teacher_ID:req.body.teacherTemp._id          
             })
         }else{
             i--
@@ -356,6 +361,8 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
 
 
     }
+
+    await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{teacher_ID:req.body.teacherTemp._id}})
 
 })
 
@@ -371,20 +378,37 @@ router.put('/studentrecords/details',async (req,res)=>{
    res.send(data)
 })
 router.put(`/studentrecords/details/specific`,async (req,res)=>{
-    const data = await Enrollment.findOne({user_ID:req.body.student_ID})
+    const data = await Enrollment.findOne({user_ID:req.body.user_ID})
     const data2 = await Program.find({enrollment_ID:data._id})
-    const data3 = await Class.find({program_ID:data2._id})
-    const data4 = await Student.findOne({user_ID:req.body.student_ID})
-    
 
-    const arr = [data,data2,data3,data4]
-   res.send(arr)
+    console.log('Program: '+data2)
+
+
+   res.send(data2)
 })
 
 router.put('/facultymembers',async (req,res)=>{
     const data = await Teacher.find({instrument:{$regex:'Guitar'}})
     console.log('Teacher :'+data)
     res.send(data)
+})
+router.put(`/studentrecords/details/specific/program`,async (req,res)=>{
+
+
+    
+const data = await Enrollment.findOne({user_ID:req.body.user_ID})
+
+
+const data2 = await Class.findOne({program_ID:req.body.program._id})  
+
+console.log('Program:  WHAT THE FUCK IS THIS '+data2+' '+req.body.program._id)
+const data3 = await PreferredClass.findOne({_id:data2.preferred_ClassID})
+const data4 = await Student.findOne({user_ID:req.body.user_ID})  
+
+const arr=[data,data3,data4]
+
+res.send(arr)
+
 })
 
 
