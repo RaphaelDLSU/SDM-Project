@@ -476,7 +476,7 @@ button {
 } */
 
 /* TEST 2 */
-
+/* POP up */
 .main{
   background-color: rgba(229, 229, 229, 0.5);
   height: 100%;
@@ -528,6 +528,7 @@ button {
   display: inline-block;
 }
 
+/*Faculty Page */
 .instrument-container {
   display: flex;
   flex-wrap: wrap;
@@ -558,6 +559,8 @@ button {
   text-align: center;
   color: #640033;
 }
+
+/* Faculty Member Page */
 
 .faculty-container {
   display: flex;
