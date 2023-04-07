@@ -2,8 +2,11 @@
 import '../public/styles/sidebar.css';
 import { SidebarData } from './SidebarData';
 import React,{ useState,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function TableStudentRecs (props){
+    const navigate = useNavigate()
 
     const [enrollment, setEnrollment] = useState('')
     const id=props.users._id
@@ -37,7 +40,9 @@ export default function TableStudentRecs (props){
         <td>{props.users.firstName}</td>
         <td>{enrollment.status}</td>
         <td>{props.users.email}</td>
+        <a onClick={()=>navigate('/studentrecdetails',{state:{student:props.users}})}>View Records</a>
         </>
+        
             
         
     );

@@ -15,7 +15,6 @@ import moment from 'moment'
 
 
 const router = express.Router()
-``
 
 router.post('/login',async(req,res)=>{
     const user = await Users.findOne({ //Maghahanap ng user na may email na sinet
@@ -145,11 +144,6 @@ router.put('/enrollpending',async (req,res)=>{
    res.send(data)
 })
 
-router.put('/studentrecords/details',async (req,res)=>{
-    const data = await Enrollment.findOne({user_ID:req.body.id})
-    console.log('Enrollment :'+data)
-   res.send(data)
-})
 
 router.post('/enrollfree/filter',async(req,res)=>{
     console.log('This is instrument and day filter '+req.body.filterInstrument+' '+req.body.filterDay)
@@ -337,5 +331,10 @@ router.put('/studentrecords',async (req,res)=>{
    res.send(data)
 })
 
+router.put('/studentrecords/details',async (req,res)=>{
+    const data = await Enrollment.findOne({user_ID:req.body.id})
+    console.log('Enrollment :'+data)
+   res.send(data)
+})
 
 export default router
