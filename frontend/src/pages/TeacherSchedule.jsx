@@ -148,19 +148,19 @@ export default function TeacherSchedule() {
                                 <div className='popup-content'>
                                     <p>Day/s select all that apply</p>
                                     <input onChange={e=>handleCheckboxChange(monday,setMonday,e)} type="checkbox" name="monday" value="M"/>
-                                    <label> Monday</label><br/>
+                                    <label> Monday</label>
                                     <input  onChange={e=>handleCheckboxChange(tuesday,setTuesday,e)} type="checkbox" name="tuesday" value="T"/>
-                                    <label>Tuesday</label><br/>
+                                    <label>Tuesday</label>
                                     <input onChange={e=>handleCheckboxChange(wednesday,setWednesday,e)}type="checkbox" name="wednesday" value="W"/>
-                                    <label> Wednesday</label><br/> 
+                                    <label> Wednesday</label>
                                     <input onChange={e=>handleCheckboxChange(thursday,setThursday,e)}type="checkbox" name="thursday" value="H"/>
-                                    <label> Thursday</label><br/>
+                                    <label> Thursday</label>
                                     <input onChange={e=>handleCheckboxChange(friday,setFriday,e)}type="checkbox" name="friday" value="F"/>
-                                    <label>Friday</label><br/>
+                                    <label> Friday</label>
                                     <input onChange={e=>handleCheckboxChange(saturday,setSaturday,e)}type="checkbox" name="saturday" value="S"/>
-                                    <label> Saturday</label><br/> 
+                                    <label> Saturday</label> 
                                     <input onChange={e=>handleCheckboxChange(sunday,setSunday,e)}type="checkbox" name="sunday" value="U"/>
-                                    <label> Sunday</label><br/> 
+                                    <label> Sunday</label><br></br>
 
                                     <input type='time' name='time' onChange={e=>setTime(e.target.value)}/>
                                     <label> Choose a start time</label><br/> 

@@ -478,55 +478,111 @@ button {
 /* TEST 2 */
 /* POP up */
 .main{
-  background-color: rgba(229, 229, 229, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
-}
-
-.popup{
-  height: 786px;
-  width: 904px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .popup{
+  height: auto;
+  width: 70%;
+  max-width: 904px;
   background-color: white;
-  position: absolute;
-  top: 79px;
-  left: 268px;
+  /* position: relative; */
   border-radius: 20px;
-}
-
-.popup-header{
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+  
+  .popup-header{
   display: flex;
   justify-content: space-between;
-  padding: 0 30px 0 15px;
-  margin-left: 15px; 
-}
-
-.popup .button1{
-  position: absolute;
-  left: 78.1%;
-  right: 7.52%;
-  top: 91.48%;
-  bottom: 3.44%;
-}
-
-.popup h2{
+  align-items: center;
+  margin-bottom: 30px;
+  }
+  
+  .popup-header h1{
   font-family: 'Inconsolota', monospace;
-  font-size: 24px;
+  font-size: 28px;
   color: #640033;
-  margin-left: 20px;
-}
-
-.popup-content p{
+  margin: 0;
+  }
+  
+  .popup-header h1:last-of-type{
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .popup-content{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  
+  .popup-content p{
   font-family: 'Work Sans', sans-serif;
   font-size: 20px;
   color: black;
-  margin-left: 20px;
-}
+  margin: 0 0 10px;
+  }
+  
+  .popup-content label{
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .popup-content input[type="checkbox"] {
+    margin: 0px 5px 0 0;
+    float:right;
+  }
 
-.popup-content{
-  display: inline-block;
-}
+
+  .popup-content input[type="time"],
+  .popup-content input[type="text"],
+  .popup-content select{
+  margin: 10px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  font-family: 'Work Sans', sans-serif; 
+  font-size: 18px;
+  color: #333;
+  }
+  
+  /*.popup-content input[type="checkbox"] + label{
+  font-family: 'Work Sans', sans-serif;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  }*/
+  
+  /* .popup-content input[type="submit"]{
+  background-color: #640033;
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  } */
+  
+  .popup-content input[type="submit"]:hover{
+  background-color: #7b004a;
+  }
+  
+  .popup-content input[type="submit"]:focus{
+  outline: none;
+  }
 
 /*Faculty Page */
 .instrument-container {
