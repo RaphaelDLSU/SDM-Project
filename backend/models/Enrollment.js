@@ -23,6 +23,10 @@ const enrollmentSchema = new Schema({
         type:String,
         required:false
 
+    },
+    paymentStatus:{
+        type:String,
+        required: false
     }
 })
 
