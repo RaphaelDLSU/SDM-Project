@@ -619,6 +619,8 @@ button {
   color: #640033;
 }
 
+/*End of Faculty Page */
+
 /* Faculty Member Page */
 
 .faculty-container {
@@ -671,3 +673,5 @@ button {
 .faculty-card .profile-link:hover {
   background-color: #640033;
 }
+
+
