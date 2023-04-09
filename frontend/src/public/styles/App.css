@@ -598,7 +598,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /align-items: center;
+  align-items: center;
   margin: 10px;
   width: 30%;
 }
@@ -615,6 +615,8 @@ button {
   text-align: center;
   color: #640033;
 }
+
+/*End of Faculty Page */
 
 /* Faculty Member Page */
 
@@ -668,3 +670,5 @@ button {
 .faculty-card .profile-link:hover {
   background-color: #640033;
 }
+
+
