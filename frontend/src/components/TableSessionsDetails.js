@@ -52,7 +52,7 @@ export default function TableSessionsDetails (props){
             <td>{classes.day}</td>
             <td>{classes.date}</td>
             <td>{preferredClass.startTime}--{preferredClass.endTime}</td>
-            {isPast &&(
+            {!isPast &&(
                 <td>
                     <select onChange={e=>setAttendance(e.target.value)}>
                         <option>Present</option>
@@ -60,20 +60,20 @@ export default function TableSessionsDetails (props){
                     </select>               
                 </td>
             )}
-            {!isPast &&(
+            {isPast &&(
                 <td>{classes.attendance}</td>
             )}
-            {isPast &&(
+            {!isPast &&(
                 <td><input type='text' onChange={e=>setNotes(e.target.value)}></input></td>
             )}
-            {!isPast &&(
+            {isPast &&(
                 <td>{classes.attendance}</td>
             )}
 
-            {isPast &&(
+            {!isPast &&(
                 <td><button onClick={handleAttendance} >Done</button></td>
             )}
-            {!isPast &&(
+            {isPast &&(
                 <td><a>More</a></td>
             )}
         </>
