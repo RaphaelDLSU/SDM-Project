@@ -42,6 +42,10 @@ const preferredClassSchema = new Schema({
         type:String,
         required:false
 
+    },
+    student_ID:{
+        type:String,
+        required:false
     }
 
 

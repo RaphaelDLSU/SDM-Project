@@ -37,6 +37,9 @@ const enrollmentSchema = new Schema({
     },
     paymentType:{
         type:String,required:false
+    },
+    paymentRemaining:{
+        type:Number,required:false
     }
 })
 

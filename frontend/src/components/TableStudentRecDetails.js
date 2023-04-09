@@ -14,7 +14,9 @@ export default function TableStudentRecDetails (props){
     const [preferredClass, setPreferredClass] = useState('')
     const [student, setStudent] = useState('')
     const [isShown, setIsShown] = useState(false);
-
+    const [teacher, setTeacher] = useState('')
+    const [completedClass, setCompletedClass] = useState('')
+    const [remainingClass, setRemainingClass] = useState('')
     const program = props.program
     const user_ID = props.user_ID
     
@@ -34,7 +36,10 @@ export default function TableStudentRecDetails (props){
             response.json().then(json=>{ //response needs to be turned into JSON
                 setEnrollment(json[0])
                 setPreferredClass(json[1])
-                setStudent(json[2]) //set enrollment data into "data"
+                setStudent(json[2])
+                setTeacher(json[3])
+                setCompletedClass(json[4])
+                setRemainingClass(json[5]) //set enrollment data into "data"
             })
         })
     
@@ -69,7 +74,7 @@ export default function TableStudentRecDetails (props){
                     <td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
             <tr>
-                <td>PHP X,XXX</td><td></td><td></td><td></td><td></td>
+                <td>PHP {enrollment.paymentRemaining}</td><td></td><td></td><td></td><td></td>
                 <td><button className='button2'>View</button>&nbsp;<button className='button3'>Notify</button>&nbsp;<button className='button1'>Place On Hold</button></td>
             </tr>
 
@@ -79,9 +84,9 @@ export default function TableStudentRecDetails (props){
             <tr>
                 <tr>Day/s: {preferredClass.days}</tr>
                 <tr>Time: {preferredClass.startTime} -- {preferredClass.endTime}</tr>
-                <tr>Faculty:</tr>
-                <tr>Completed Sessions</tr>
-                <tr>Remaining Sessions</tr>
+                <tr>Faculty:{teacher.firstName} {teacher.lastName}</tr>
+                <tr>Completed Sessions: {completedClass}</tr>
+                <tr>Remaining Sessions: {remainingClass}</tr>
             </tr>
                 </> )}
         

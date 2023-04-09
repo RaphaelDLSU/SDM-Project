@@ -27,6 +27,10 @@ import TeacherSchedule from './pages/TeacherSchedule';
 import SchedCreatePage from './pages/ScheduleCreate';
 import FacultyPage from './pages/Faculty';
 import FacultyMembers from './pages/FacultyMembers';
+import FacultyManage from './pages/FacultyManage';
+import FacultyManageDetails from './pages/FacultyManageDetails';
+import MyStudents from './pages/MyStudents';
+import MyStudentManage from './pages/MyStudentManage';
 
 
 {/* ALL ROUTES HAPPEN HERE */}
@@ -59,7 +63,10 @@ export default function App() {
           <Route path = "AdminCalendar" element = {<AdminCalendar/>}/>
           <Route path = "teacherschedule" element = {<TeacherSchedule/>}/>
           <Route path = "schedulecreate" element = {<SchedCreatePage/>}/>
-
+          <Route path = "facultymanage" element = {<FacultyManage/>}/>
+          <Route path = "facultymanagedetails" element = {<FacultyManageDetails/>}/>
+          <Route path = "mystudents" element = {<MyStudents/>}/>
+          <Route path = "mystudentmanage" element = {<MyStudentManage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

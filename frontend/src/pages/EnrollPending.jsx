@@ -12,6 +12,7 @@ export default function EnrollPending() {
     const [inputTemp,setInputTemp]=useState('')
 
 
+
     const[popup, setPop] = useState(false);
 
     
@@ -68,13 +69,14 @@ export default function EnrollPending() {
     }
 
     const approveEnrollment =async ()=>{
+let student = details[1]
         const response = await fetch('http://localhost:3000/enrollpending/approve',{ //get function from home.js (get enrollment data)
         method:'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            inputTemp //Sent enrollment data of student
+            inputTemp,student //Sent enrollment data of student
         })
         
         })
@@ -148,7 +150,7 @@ export default function EnrollPending() {
                                     </div>
                                 )
                             })}
-                            <img src = {'inputTemp:image/jpeg;base64,${inputTemp.img.paymentProof}'} />
+                            {/* <img src = {'inputTemp:image/jpeg;base64,${inputTemp.img.paymentProof}'} /> */}
                             <h2>Payment Details</h2>
                             </div>
                             <button className='button1' onClick={approveEnrollment}>Approve</button>

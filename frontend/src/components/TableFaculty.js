@@ -5,18 +5,17 @@ import React,{ useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
-
-export default function TableStudentRecs (props){
+export default function TableFaculty (props){
     const navigate = useNavigate()
 
-    const [enrollment, setEnrollment] = useState('')
-    const id=props.users._id
+    const [teacher, setTeacher] = useState('')
+    const id=props.user._id
 
     
 
     useEffect(() => { //initialize function
         
-        fetch(`http://localhost:3000/studentrecords/details`,{ //get function from home.js (get enrollment data)
+        fetch(`http://localhost:3000/facultymanage/details`,{ //get function from home.js (get enrollment data)
             method:'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +25,7 @@ export default function TableStudentRecs (props){
             }),
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setEnrollment(json) //set enrollment data into "data"
+                setTeacher(json) //set enrollment data into "data"
             })
         })
     
@@ -35,11 +34,17 @@ export default function TableStudentRecs (props){
 
     return (
         <>
-        <td>{props.users.lastName}</td>
-        <td>{props.users.firstName}</td>
-        <td>{enrollment.status}</td>
-        <td>{props.users.email}</td>
-        <a onClick={()=>navigate('/studentrecdetails',{state:{user:props.users}})}>View Records</a>
+        <td>{props.user.lastName}</td>
+        <td>{props.user.firstName}</td>
+        <td>{teacher.instrument}</td>
+        {teacher.hasStudents ===true &&(
+            <td>Has Enrolled Students</td>
+        )}
+        {!teacher.hasStudents &&(
+            <td>No Students</td>
+        )}
+       
+        <a onClick={()=>navigate('/facultymanagedetails',{state:{teacher:teacher,user:props.user}})}>View Schedule</a>
         </>
             
         

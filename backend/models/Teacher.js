@@ -13,6 +13,11 @@ const teacherSchema = new Schema({
     instrument:{
         type: String,
         required: false
+    },
+    hasStudents:{
+        type:Boolean,
+        required:false,
+        default:false
     }
 
 })

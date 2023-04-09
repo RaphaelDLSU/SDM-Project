@@ -142,8 +142,10 @@ h2{
 }
 .content-container{
   margin:10px;
-  height: 40%;
+  height: calc(100% - 67px);
   width: 100%;
+  overflow: scroll;
+  
 }
 .enrollment-separate{
   height: 100%;
@@ -171,6 +173,7 @@ h2{
   border-radius: 10px;
   padding:20px;
   width: 100%;
+  overflow: scroll;
 }
 .table-container2 table{
   width: 100%;
@@ -598,7 +601,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /align-items: center;
+  align-items: center;
   margin: 10px;
   width: 30%;
 }

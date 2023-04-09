@@ -20,7 +20,7 @@ const classSchema = new Schema({
     },
     attendance:{
         type: String,
-        required: false
+        required: false,
     },
     note:{
         type: String,
@@ -28,6 +28,14 @@ const classSchema = new Schema({
     },
     teacher_ID:{
         type:String,
+        required:false
+    },
+    day:{
+        type:String,
+        required:false
+    },
+    realDate:{
+        type:Date,
         required:false
     }
     

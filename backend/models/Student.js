@@ -34,11 +34,11 @@ const studentSchema = new Schema({
         type: String,
         required:false
     },
-    time:{
-        type: String,
+    teacher_ID:{
+        type:String,
         required:false
     }
-    
+
 
 })
 
