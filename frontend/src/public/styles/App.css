@@ -329,6 +329,8 @@ td{
 .schedsum{
   width: 90%;
   margin-left: 30px;
+  overflow: scroll;
+  height: calc(100% - 67px);
 }
 
 p.sumheaders{

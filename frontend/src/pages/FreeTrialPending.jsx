@@ -7,14 +7,15 @@ export default function FreeTrialPending() {
     const [popup, setPop] = useState(false)
     const [details, setDetails] = useState('')
     const [preferredClass, setPreferredClass] = useState('')
+    const [inputTemp,setInputTemp]=useState('')
+    const[teacher,setTeacher]=useState('')
 
     useEffect(() => { //initialize function
         fetch('http://localhost:3000/freetrialpending',{ //get function from home.js (get enrollment data)
             method:'PUT'
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setData(json[0]) //set enrollment data into "data"
-                setPreferredClass(json[1])
+                setData(json) //set enrollment data into "data"
             })
         })
 
@@ -28,16 +29,38 @@ export default function FreeTrialPending() {
           isFirstRender.current = false // toggle flag after first render/mounting
           return;
         }
-        console.log('Details :'+JSON.stringify(details))
         setPop(!popup) // do something after state has updated
-      }, [details])
-
-
-      const  handleClickOpen =async (input)=>{
-      setDetails(input);
-    }
+      }, [preferredClass])
+      
     const closePopup =()=>{
         setPop(false);
+    }
+
+    const  handleClickOpen =async (input)=>{
+
+        setInputTemp(input)
+
+       
+       
+        await fetch('http://localhost:3000/freetrialpending/details',{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                input //Sent enrollment data of student
+        }),
+        
+        }).then(response => {
+            response.json().then( json=>{ 
+                 setPreferredClass(json[0])
+                 setTeacher(json[1])
+                 console.log(JSON.stringify(json))
+            })
+        })
+        
+        
+        
     }
 
 
@@ -70,22 +93,26 @@ export default function FreeTrialPending() {
                     <div className='main'>
                         <div className='popup'>
                             <div className='popup-header'>
-                            <h1>{details.input.email}</h1>
+                            <h1>{inputTemp.input.email}</h1>
                                 <h1 onClick={closePopup}>x</h1>
                             </div>
                             <div className='popup-content'>
                             <h2>Personal Details</h2>
-                            <p>Name: {details.input.firstName} {details.input.lastName}</p>
-                            <p>Age: {details.input.age}</p>
-                            <p>Country of Residence: {details.input.country}</p>
-                            <p>Gender: {details.input.gender}</p>
-                            <p>Parent/Guardian Name: {details.input.parent}</p>
+                            <p>Name: {inputTemp.input.firstName} {inputTemp.input.lastName}</p>
+                            <p>Age: {inputTemp.input.age}</p>
+                            <p>Country of Residence: {inputTemp.input.country}</p>
+                            <p>Gender: {inputTemp.input.gender}</p>
+                            <p>Parent/Guardian Name: {inputTemp.input.parent}</p>
                             </div>
                             <div className='popup-content-right'>
                              <h2>Free Trial Schedule</h2>
-                             <p>Date: {preferredClass.day}</p>
+                             <p>Day: {inputTemp.input.day}</p>
+                             <p>Time: {preferredClass.startTime}--{preferredClass.endTime}</p>
+                             <p>Instrument: {inputTemp.input.instrument}</p>
+                             <p>Faculty: {teacher.firstName}  {teacher.lastName}</p>
+                             <p>Zoom link: {preferredClass.zoomLink}</p>
                             </div>
-                            {/* <button className='button1' onClick={approveEnrollment}>Approve</button> */}
+                             <button className='button1'>Send Email</button>
                         </div>
                     </div>:""}
                 </div>

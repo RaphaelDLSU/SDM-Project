@@ -10,7 +10,7 @@ export default function EnrollPending() {
     const [data, setData] = useState([]) //if mapping, turn it into array (useState([]))
     const [details, setDetails] = useState([])
     const [inputTemp,setInputTemp]=useState('')
-
+    const [image,setImage]=useState('')
 
 
     const[popup, setPop] = useState(false);
@@ -57,6 +57,7 @@ export default function EnrollPending() {
              //response == response is enrollment data
             response.json().then( json=>{ //response needs to be turned into JSON
                  setDetails(json)
+                 setImage(json[3])
                  //set enrollment data into "data"
             })
         })
@@ -150,8 +151,9 @@ let student = details[1]
                                     </div>
                                 )
                             })}
-                            {/* <img src = {'inputTemp:image/jpeg;base64,${inputTemp.img.paymentProof}'} /> */}
+                           
                             <h2>Payment Details</h2>
+                            <img src={image} alt='Someting alt'/>
                             </div>
                             <button className='button1' onClick={approveEnrollment}>Approve</button>
                         </div>

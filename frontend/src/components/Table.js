@@ -71,7 +71,7 @@ export default function Table (props){
         <>
         <td>{props.tableData.instrument}</td>
         <td>{props.tableData.days}</td>
-        <td>????????????</td>
+        <td>{props.tableData.startTime}--{props.tableData.endTime}</td>
         <td>{query.firstName} {query.lastName}</td>
         <button onClick={handleCallback} >Select</button>
         </>

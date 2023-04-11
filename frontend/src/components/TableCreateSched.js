@@ -6,12 +6,16 @@ import React,{ useState,useEffect,useRef } from 'react'
 export default function TableCreateSched (props){
 
     const [query, setQuery] = useState('')
-    
+    const [teacher, setTeacher] = useState('')
+    const[popup, setPop] = useState(false);
    
     const classes= props.tableData
     const id=classes.teacher_ID
 
-    
+    const closePopup =()=>{
+        setPop(false);
+      
+    }
 
     useEffect(() => { //initialize function
         try{
@@ -25,7 +29,8 @@ export default function TableCreateSched (props){
             }),
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setQuery(json) //set enrollment data into "data"
+                setQuery(json[0]) 
+                setTeacher(json[1])//set enrollment data into "data"
             })
         })
     
@@ -37,6 +42,10 @@ export default function TableCreateSched (props){
     }, [])
     const handleCallback = () => props.callback({classes,query})
 
+    const showTeacher=()=>{
+       setPop(!popup)
+    }
+
 
     return (
           
@@ -44,11 +53,29 @@ export default function TableCreateSched (props){
         <td>{classes.instrument}</td>
         <td>{classes.days}</td>
         <td>{classes.startTime} -- {classes.endTime}</td>
-        <td>{query.firstName} {query.lastName}</td>
+        <td onClick={showTeacher}>{query.firstName} {query.lastName}</td>
         <td>{classes.status}</td>
         <td><button onClick={handleCallback}className='button2'>Schedule</button></td>
+
+        {popup?
+            <div className='main'>
+                <div className='popup'>
+                    <div className='popup-header'>
+                    <h1>{query.firstName}  {query.lastName}</h1>
+                    
+                    <h1 onClick={closePopup}>x</h1>
+                    </div>
+                    <div className='popup-content'>
+                        <p>Instrument: {teacher.instrument}</p>
+                        <p>{teacher.biography}</p>
+                    </div>
+                </div>
+            </div>:""}
         
         </>
+
+
+
         
     
 );

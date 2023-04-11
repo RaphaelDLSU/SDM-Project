@@ -45,6 +45,7 @@ export default function IndexPage() {
 
             <h2>STUDENT</h2>
             <a href='/enrollform'>Go to Enroll Form page</a><br></br>
+            <a href='/studentenrollments'> Go to Student's enrollments</a><br></br>
             <a href='/enrolldash'> Go to Enroll Dashboard</a><br></br>
             <a href='/payment'> Go to Payment Page</a><br></br>
             <a href ='/schedpage'>Go to Sched Page</a><br></br>
