@@ -12,12 +12,10 @@ export default function Navbar_top (){
                         <a href='/'> <img className='company-title' src = {Logo} alt={reactLogo} ></img>  </a>
                           
                         <a className='navbar-fields' href='/about'>About us</a>
-                        <a className='navbar-fields' href='/teacher'>Lessons</a>
-                        <a className='navbar-fields' href='/teacher'>Faculty</a>
-                        <a className='navbar-fields' href='/teacher'> Contact us</a>
-                        <a className='navbar-fields' href='/enrollpending'> Enroll Pending</a>
-                        <a className='navbar-fields' href='/payroll'> Payroll</a>
-                        <a className='navbar-fields' href='/studentRecord'> StudentRcrd</a>
+                        <a className='navbar-fields' href='/lessons'>Lessons</a>
+                        <a className='navbar-fields' href='/facultypage'>Faculty</a>
+                        <a className='navbar-fields' href='/contactus'> Contact us</a>
+                        
                     </div>
                     <div>
                         <a className='user-title'>Student</a>

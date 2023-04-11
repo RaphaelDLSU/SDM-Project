@@ -6,6 +6,7 @@ import '../public/styles/index.css'
 import {decodeToken} from 'react-jwt'
 import { useNavigate } from 'react-router-dom'
 
+
 export default function IndexPage() {
     const history=useNavigate()
 
@@ -26,6 +27,15 @@ export default function IndexPage() {
 		
         
     },[])
+
+    const Email = ()=>{
+        fetch('http://localhost:3000/emailer',{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },      
+        })
+    }
 
     return(
 
@@ -73,6 +83,9 @@ export default function IndexPage() {
 
             <h2> Calendar</h2>
             <a href='/AdminCalendar'>Go to Calendar</a><br></br>
+
+            <p> Send Email"  <button onClick={Email}>HERE</button></p>
+
             
         </div>
          

@@ -13,6 +13,7 @@ import Program from "../models/Program.js"
 import Class from "../models/Classes.js"
 import moment from 'moment'
 import e from "express"
+import Emailer from "../models/Emailer.js"
 
 
 const router = express.Router()
@@ -163,6 +164,8 @@ router.post('/payment',async(req,res)=>{
     try{
         const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType}})
         newImage.save();
+        
+        const result = Emailer(req.body.userParsed,'You have submitted your payment','Well done d')
 
         res.json({status:'ok'})
    
@@ -588,6 +591,14 @@ router.put('/schedsummary',async(req,res)=>{
 router.put('/schedsummary/details',async(req,res)=>{
     const preferredClass = await PreferredClass.findOne({_id:req.body.classes.preferred_ClassID})
     res.send(preferredClass)
+}) 
+
+router.put('/emailer',async(req,res)=>{
+    console.log('HERE:')
+    const result = Emailer('raphael_santillan@dlsu.edu.ph','Hi you are recieveing thi emial','HI HIHIHIHIIHIHIH')
+
+    console.log('Result: '+JSON.stringify(result))
+   
 }) 
       
       

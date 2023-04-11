@@ -6,7 +6,6 @@ import {decodeToken} from 'react-jwt'
 import { set } from 'mongoose';
 
 export default function PaymentPage() {
-
     const [postImage,setPostImage]= useState({myFile:''})
     const [paymentOption,setPaymentOption]= useState('')
     const [paymentType,setPaymentType]= useState('')

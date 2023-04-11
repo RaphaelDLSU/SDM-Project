@@ -615,7 +615,7 @@ button {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  max-height: 600px;
+  min-height: 100%;
   overflow-y: scroll;
 }
 
@@ -626,16 +626,28 @@ button {
   align-items: center;
   margin: 10px;
   width: 30%;
+  
+  
+  
 }
 
 .instrument-image {
-  width: 400px;
+  float: left;
+  width:  500px;
   height: 300px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 20px; 
+  object-fit: cover;
+  box-shadow: 10px 10px 5px #c6c7c7
+}
+.instrument-image:hover {
+  filter: brightness(85%);
 }
 
 .instrument-label {
   margin-top: 10px;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
   color: #640033;
