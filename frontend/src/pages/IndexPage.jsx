@@ -41,6 +41,7 @@ export default function IndexPage() {
             <a href='/login'> Go to Login Page</a><br></br>
             <a href='/enrollfree'>Go to Free Enroll Form</a><br></br>
             <a href='/facultypage'>Go to Faculty Page</a><br></br>
+            <a href='/facultymembers'>Go to Faculty Members</a>
 
             <h2>STUDENT</h2>
             <a href='/enrollform'>Go to Enroll Form page</a><br></br>
@@ -72,7 +73,7 @@ export default function IndexPage() {
 
             <h2> Calendar</h2>
             <a href='/AdminCalendar'>Go to Calendar</a><br></br>
-            <a href='/facultymembers'>Go to Faculty Members</a>
+            
         </div>
          
             
