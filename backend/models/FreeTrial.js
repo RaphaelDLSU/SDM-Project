@@ -40,6 +40,18 @@ const freeTrialSchema = new Schema({
     },
     age:{
         type:String,required:false
+    },
+    date:{
+        type:String,required:true
+    },
+    time:{
+        type:String,required:true
+    },
+    instrument:{
+        type:String,required:true
+    },
+    day:{
+        type:String,required:false
     }
     
 

@@ -31,6 +31,7 @@ import FacultyManage from './pages/FacultyManage';
 import FacultyManageDetails from './pages/FacultyManageDetails';
 import MyStudents from './pages/MyStudents';
 import MyStudentManage from './pages/MyStudentManage';
+import StudentEnrollments from './pages/StudentEnrollments';
 
 
 {/* ALL ROUTES HAPPEN HERE */}
@@ -67,6 +68,7 @@ export default function App() {
           <Route path = "facultymanagedetails" element = {<FacultyManageDetails/>}/>
           <Route path = "mystudents" element = {<MyStudents/>}/>
           <Route path = "mystudentmanage" element = {<MyStudentManage/>}/>
+          <Route path = "studentenrollments" element = {<StudentEnrollments/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

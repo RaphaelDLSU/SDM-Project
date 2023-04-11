@@ -10,7 +10,9 @@ import TableStudentEnrollments from '../components/TableStudentEnrollments';
 
 
 
+
 export default function StudentEnrollments() {
+    const navigate = useNavigate()
 
     const token = localStorage.getItem('token')
     const [enrollmentsCurrent, setEnrollmentsCurrent] = useState([])
@@ -36,7 +38,7 @@ export default function StudentEnrollments() {
     }, [])
 
 
-    if (selectedProgram === '') {
+    if (enrollmentsPast === '') {
         return <>Still loading...</>;
       }
       else{
@@ -53,25 +55,38 @@ export default function StudentEnrollments() {
                                 <td>Program</td>
                                 <td>Number of Sessions</td>
                                 <td>Payment Status</td>
-                                <td>Level</td>
+                                <td>Status</td>
                              </tr>
-                             <TableStudentEnrollments teacher={teacher} student={student} program={selectedProgram} status='Present'/>
-                           
+                             {enrollmentsCurrent.map((input,index)=>{
+                                return(
+                                    
+                                        <TableStudentEnrollments enrollment ={input}/>
+                                   
+                                )
+                            })}
+                             
                         </table>
                     </div>
                     <div className='table-container2'>
                         <h1>Past Enrollments</h1>
                         <table cellSpacing={0}>
                              <tr className='table-headers2'>
-                                <td>Number</td>
-                                <td>Day</td>
-                                <td>Date</td>
-                                <td>Time</td>
-                                <td>Attendance</td>
-                                <td>Notes & Feedback</td>
-                                <td></td>
+                             <td>Date</td>
+                                <td>Instrument</td>
+                                <td>Program</td>
+                                <td>Number of Sessions</td>
+                                <td>Payment Status</td>
+                                <td>Status</td>
                              </tr>
-                             <TableStudentEnrollments teacher={teacher} student={student} program={selectedProgram} status='Past'/>
+                             {enrollmentsPast.map((input,index)=>{
+                                return(
+                                   
+                                        <TableStudentEnrollments enrollment ={input}/>
+                                   
+                                )
+                            })}
+
+                            <button onClick={()=>navigate('/enrollform')}>New Enrollment</button>
                            
                         </table>
                     </div>

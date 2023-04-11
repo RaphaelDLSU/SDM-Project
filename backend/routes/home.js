@@ -12,6 +12,7 @@ import FreeTrial from "../models/FreeTrial.js"
 import Program from "../models/Program.js"
 import Class from "../models/Classes.js"
 import moment from 'moment'
+import e from "express"
 
 
 const router = express.Router()
@@ -191,7 +192,7 @@ router.post('/enrollfree/filter',async(req,res)=>{
     }
     console.log('Instrument : '+instrument)
     console.log('Day: '+day)
-    const data = await PreferredClass.find({days:{$regex:day},instrument:{$regex:instrument}})
+    const data = await PreferredClass.find({days:{$regex:day},instrument:{$regex:instrument},program:'Free Trial 15 mins'})
     console.log('Data: '+data)
     res.send(data)
 
@@ -214,9 +215,12 @@ router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
     const data2  = await Student.findOne({user_ID:req.body.input.input.user_ID})
 
     const data3= await Program.find({enrollment_ID:req.body.input.input._id})
+
+    const base64 = req.body.input.input.paymentProof
+    const imagesrc = `data:image/jpeg;base64,${base64   }`
     
     console.log('Data 3: '+data3)
-    let arr = [data,data2,data3]
+    let arr = [data,data2,data3,imagesrc]
    res.send(arr)
    console.log('Home '+arr)
 })  
@@ -236,7 +240,12 @@ router.post('/enrollfree/enroll',async (req,res)=>{ //Get data of user
     parent:req.body.parent,
     level:req.body.level,
     age:req.body.age,
-    status:'Pending'    
+    status:'Pending',
+    date:moment().format('LL'),
+    time:moment().format('LT'),
+    instrument:req.body.filterInstrument,
+    day:req.body.filterDay
+
    })
 
    console.log('Free Trial: '+trial)
@@ -244,12 +253,13 @@ router.post('/enrollfree/enroll',async (req,res)=>{ //Get data of user
 
 router.put('/freetrialpending',async (req,res) =>{
     const freeTrial = await FreeTrial.find({status: 'Pending'})
-    const preferredClass = await PreferredClass.findOne({class_ID:req.body.schedule})
-
-    let arr = [freeTrial, preferredClass]
+    res.send(freeTrial)
+})
+router.put('/freetrialpending/details',async (req,res) =>{
+    const preferredClass = await PreferredClass.findOne({_id:req.body.input.input.class_ID})
+    const user = await Users.findOne({_id:preferredClass.teacher_ID})
+    const arr = [preferredClass,user]
     res.send(arr)
-
-    console.log('Test' +arr)
 })
 
 router.put('/teacherschedule',async (req,res)=>{
@@ -325,7 +335,9 @@ router.put  ('/schedulecreate',async (req,res)=>{
 })
 router.put  ('/schedulecreate/table',async (req,res)=>{
     const data = await Users.findOne({_id:req.body.id})
-    res.send(data)
+    const data2 = await Teacher.findOne({teacherId:req.body.id})
+    const arr = [data,data2]
+    res.send(arr)
 })
 router.put('/schedulecreate/approvesched',async(req,res)=>{
 
@@ -385,7 +397,7 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
     const preferredClass = await PreferredClass.findOneAndUpdate({_id:req.body.classesTemp._id},{'$set':{student_ID:req.body.user.user_ID,status:'Unavailable'}})
 
     console.log('Preferred Class: '+preferredClass)
-    await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{teacher_ID:req.body.teacherTemp._id}})
+    await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{teacher_ID:req.body.teacherTemp._id,status:'Scheduled'}})
 
 })
 
@@ -554,11 +566,32 @@ router.put('/payroll/getcompletedsessions',async(req,res)=>{
     res.send(arr)
 }) 
 router.put('/studentenrollments',async(req,res)=>{
-    const enrollmentsCurrent = await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:{'$not':'Past'}}]})
+    const enrollmentsCurrent = await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:{'$ne':'Past'}}]})
     const enrollmentsPast= await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:'Past'}]})
     const arr=[enrollmentsCurrent,enrollmentsPast]
     res.send(arr)
 }) 
+router.put('/studentenrollments/details',async(req,res)=>{
+    const programs = await Program.find({enrollment_ID:req.body.enrollment._id})
+    res.send(programs)
+}) 
+
+router.put('/schedsummary',async(req,res)=>{
+    const classes = await Class.find({'$and':[{program_ID:req.body.program._id},{attendance:''}]})
+    const classes2 = await Class.find({'$and':[{program_ID:req.body.program._id},{attendance:{'$ne':''}}]})
+    const teacher = await Users.findOne({_id:req.body.program.teacher_ID})
+     const teacher2 = await Teacher.findOne({teacherId:req.body.program.teacher_ID})
+
+    const arr = [classes,teacher,teacher2,classes2]
+    res.send(arr)
+}) 
+router.put('/schedsummary/details',async(req,res)=>{
+    const preferredClass = await PreferredClass.findOne({_id:req.body.classes.preferred_ClassID})
+    res.send(preferredClass)
+}) 
+      
+      
+      
       
       
       

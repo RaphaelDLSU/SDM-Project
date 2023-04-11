@@ -15,12 +15,15 @@ export default function SchedCreatePage() {
     
     const [classesTemp,setClassesTemp] =useState('')
     const [teacherTemp,setTeacherTemp] =useState('')
+    const [teacherTempDetails,setTeacherTempDetails] =useState('')
     const[popup, setPop] = useState(false);
+    
     const [classes, setClasses] = useState([])
     const [startDate,setStartDate]=useState('')
 
     const closePopup =()=>{
         setPop(false);
+      
     }
    
 
@@ -77,6 +80,8 @@ export default function SchedCreatePage() {
             })
     }
 
+    
+
     return(
         <div className='with-sidebar'>
             <Sidebar/>
@@ -128,6 +133,7 @@ export default function SchedCreatePage() {
                 
                             </div>
                         </div>:""}
+                      
                 </div>
             </div>
         </div>

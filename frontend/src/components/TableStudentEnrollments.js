@@ -6,36 +6,23 @@ import TableSessionsDetails from './TableSessionsDetails';
 
 export default function TableStudentEnrollments (props){
 
-    const [classes, setClasses] = useState([])
-    
-   
-    const program = props.program
+    const [programs, setPrograms] = useState([])
 
-    let isPast
-
-    if(props.status ==='Present'){
-        isPast=false
-    }
-        
-    else{ 
-        isPast=true
-
-    }
+    const enrollment = props.enrollment
     
     useEffect(() => { //initialize function
         try{
-            console.log('Program : '+JSON.stringify(program))
-            fetch(`http://localhost:3000/mystudents/manage/sessions`,{ //get function from home.js (get enrollment data)
+            fetch(`http://localhost:3000//studentenrollments/details`,{ //get function from home.js (get enrollment data)
             method:'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                program,isPast 
+                enrollment 
             }),
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setClasses(json) //set enrollment data into "data"
+                setPrograms(json) //set enrollment data into "data"
             })
         })
         }catch(err){
@@ -44,11 +31,16 @@ export default function TableStudentEnrollments (props){
     }, [])
     return (
         <>
-        {classes.map((input,index)=>{
+        {programs.map((input,index)=>{
             return(
-                <tr key={index}>
-                   <TableSessionsDetails classes={input} program={program} isPast={isPast} index={index}/>
-                </tr>
+               <tr key={index}>
+                  <td>{enrollment.date}</td>
+                  <td>{input.instrument}</td>
+                  <td>{input.program}</td>
+                  <td>{input.numSessions}</td>
+                  <td>{enrollment.paymentStatus}</td>
+                  <td>{enrollment.status}</td>
+               </tr> 
             )
         })}
         </>

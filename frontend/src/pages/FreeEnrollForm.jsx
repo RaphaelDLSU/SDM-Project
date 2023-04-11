@@ -55,7 +55,7 @@ export default function EnrollFormPage() {
                 lastName,
                 email,
                 age,
-                country,gender,level,schedule,parent
+                country,gender,level,schedule,parent,filterInstrument,filterDay
             })
         })
 
