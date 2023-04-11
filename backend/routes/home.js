@@ -548,11 +548,19 @@ router.put('/payroll/getclasses/details',async(req,res)=>{
    res.send(arr)
 })
 router.put('/payroll/getcompletedsessions',async(req,res)=>{
-    const payrollCount1hour =await Class.find({'$and':[{teacher_ID:req.body.teacher._id},{program:'1 hour'},{attendance:'Present'}]})
-    const payrollCount30min =await Class.find({'$and':[{teacher_ID:req.body.teacher._id},{program:'30 min'},{attendance:'Present'}]})
+    const payrollCount1hour =await Class.find({'$and':[{teacher_ID:req.body.teacher._id},{program:'1 hour'},{attendance:'Present'},{attendance:'Forfeited'}]})
+    const payrollCount30min =await Class.find({'$and':[{teacher_ID:req.body.teacher._id},{program:'30 min'},{attendance:'Present'},{attendance:'Forfeited'}]})
     const arr = [payrollCount1hour.length,payrollCount30min.length]
     res.send(arr)
 }) 
+router.put('/studentenrollments',async(req,res)=>{
+    const enrollmentsCurrent = await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:{'$not':'Past'}}]})
+    const enrollmentsPast= await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:'Past'}]})
+    const arr=[enrollmentsCurrent,enrollmentsPast]
+    res.send(arr)
+}) 
+      
+      
       
       
     

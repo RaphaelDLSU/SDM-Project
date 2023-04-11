@@ -67,6 +67,7 @@ export default function TableSessionsDetails (props){
                         <option disabled selected value> -- </option>
                         <option>Present</option>
                         <option>Absent</option>
+                        <option>Forfeited</option>
                     </select>               
                 </td>
             )}
