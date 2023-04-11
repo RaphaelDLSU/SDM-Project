@@ -23,7 +23,7 @@ export default function AboutPage() {
                 <p>Our mission is to be able to deliver sincere and quality music learning to our students wherein we teach music to bring not only talent and skill to the student; but also confidence, encouragement, inspiration and passion. We aim to bring the best out of our student’s differences with diligent planning, intelligent teaching and consistent innovation. With this sincerity comes quality education that no credential can beat.
 </p>
             </div>
-            <div className='aboutUs-mission'>
+            <div className='aboutUs-vision'>
                 <p>Vision</p>
             </div>
             <div className='about-block'>
