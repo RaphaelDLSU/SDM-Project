@@ -374,7 +374,11 @@ td.link{
   border-radius: 10px;
   padding:20px;
   overflow: scroll;
-  width:100%
+  width:95%%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .calendar-container table{
@@ -389,6 +393,15 @@ td.link{
   border: 1px solid;
 }
 
+.dateOption {
+  background-color: whitesmoke;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
 
 /*modal css*/
 
