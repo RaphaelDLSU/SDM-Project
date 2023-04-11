@@ -538,6 +538,7 @@ button {
   
   .popup-content{
     display: flex;
+    /* align-items: center; */
     flex-direction: column;
     margin-bottom: 30px;
   }
@@ -550,13 +551,19 @@ button {
   }
   
   .popup-content label{
-    display: inline-block;
+    display:block;
+    padding-left: 15px;
+    text-indent: -15px;
     margin-right: 10px;
   }
   
+  
   .popup-content input[type="checkbox"] {
-    margin: 0px 5px 0 0;
-    float:right;
+    vertical-align: bottom;
+    position: relative;
+    top: 20px;
+    right: 330px;
+    /* float:right; */
   }
 
 
