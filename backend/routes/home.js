@@ -157,23 +157,11 @@ router.post('/payment',async(req,res)=>{
     const paymentImg = req.body.postImage.myFile;
     const findUser = await Users.findOne({email:req.body.userParsed})
     let paymentStatus
-    let paymentMultiplier
 
-    if(req.body.paymentType=='50% Payment'){
-        paymentStatus = 'Half Paid'
-        paymentMultiplier = .5
-    }else{
-        paymentStatus = 'Fully Paid'
-        paymentMultiplier = 0
-    }
-
+  
     try{
-        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType,paymentStatus:paymentStatus}})
+        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType}})
         newImage.save();
-
-        let paymentRemaining = newImage.paymentWhole * paymentMultiplier
-        const newImage2 = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentRemaining:paymentRemaining}})
-        newImage2.save();
 
         res.json({status:'ok'})
    
@@ -304,12 +292,26 @@ router.post('/teacherschedule/add',async (req,res)=>{
 })
 
 router.put('/enrollpending/approve',async (req,res)=>{
+    let paymentStatus
+    let paymentMultiplier
     const enrollment = req.body.inputTemp.input
 
-    await Enrollment.updateOne({_id:enrollment._id},{status:'Approved'})
+    const enrollmentQuery = await Enrollment.findOne({_id:enrollment._id})
+
+
+    
+    if(enrollmentQuery.paymentType=='50% Payment'){
+        paymentStatus = 'Half Paid'
+        paymentMultiplier = .5*enrollmentQuery.paymentWhole   
+      
+    }else{      
+        paymentStatus = 'Fully Paid'
+        paymentMultiplier = 0
+    }
+    await Enrollment.findOneAndUpdate({_id:enrollment._id},{'$set':{paymentStatus:paymentStatus,paymentRemaining:paymentMultiplier,status:'Approved'}})
+
     await Student.findOneAndUpdate({_id:req.body.student._id},{'$set':{status:'Enrolled '}})
 
-    const newEnroll = Enrollment.find({status:'Pending'})
     res.json({status:'ok'})
 })
 router.put  ('/schedulepage',async (req,res)=>{
@@ -361,11 +363,13 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
                 preferred_ClassID:req.body.classesTemp._id,
                 program_ID:req.body.program._id,
                 date:moment(startDate).format('LL'),
-                attendance:'Not Marked',
+                attendance:'',
                 note:'',
                 teacher_ID:req.body.teacherTemp._id,
                 day:parsedDay,
-                realDate:startDate         
+                realDate:startDate ,
+                program:req.body.program.program
+
             })
         }else{
             i--
@@ -378,7 +382,9 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
     }
     const student = await Student.findOneAndUpdate({user_ID:req.body.user.user_ID},{'$set':{teacher_ID:req.body.teacherTemp._id}})
     const teacher = await Teacher.findOneAndUpdate({teacherId:req.body.teacherTemp._id},{'$set':{hasStudents:true}})
-    const preferredClass = await PreferredClass.findOneAndUpdate({_id:req.body.classesTemp._id,},{'$set':{student_ID:req.body.user.user_ID}})
+    const preferredClass = await PreferredClass.findOneAndUpdate({_id:req.body.classesTemp._id},{'$set':{student_ID:req.body.user.user_ID,status:'Unavailable'}})
+
+    console.log('Preferred Class: '+preferredClass)
     await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{teacher_ID:req.body.teacherTemp._id}})
 
 })
@@ -477,7 +483,7 @@ router.put('/mystudents/manage',async(req,res)=>{
 })
 router.put('/mystudents/manage/sessions',async(req,res)=>{
     let classes
-    if(req.body.isPast){
+    if(!req.body.isPast){
         console.log('isPast :'+req.body.program._id)
         classes = await Class.find({'$and':[{program_ID:req.body.program._id},{attendance:''}]})
     }
@@ -497,8 +503,59 @@ router.put('/mystudents/manage/sessions/details',async(req,res)=>{
 })
 router.put('/mystudents/manage/sessions/update',async(req,res)=>{
 
-   const classes = await Class.findOneAndUpdate({_id:req.body.classes._id},{'$set':[{attendance:req.body.attendance},{note:req.body.note}]})
+    const classes = await Class.findOne({_id:req.body.classes._id})
+    const today = new Date()
+    if(classes.realDate.setHours(0,0,0,0)!=today.setHours(0,0,0,0)){
+        res.status(404)
+      
+    }else  {
+        const classes = await Class.findOneAndUpdate({_id:req.body.classes._id},{'$set':{attendance:req.body.attendance,note:req.body.notes}})
+        res.status(500)
+    }
+
+
+  
+   res.send(classes)
 })
+router.put('/payroll',async(req,res)=>{
+
+    const users = await Teacher.find({hasStudents:true})
+
+  
+   res.send(users)
+})
+router.put('/payroll/list',async(req,res)=>{
+    const teacher = await Users.findOne({_id:req.body.teacher.teacherId})
+
+    
+
+  
+   res.send(teacher)
+})
+router.put('/payroll/getclasses',async(req,res)=>{
+
+    const classes = await Class.find({'$and':[{teacher_ID:req.body.user._id},{attendance:'Present'}]})
+  
+   res.send(classes)
+})
+router.put('/payroll/getclasses/details',async(req,res)=>{
+
+    const user = await Users.findOne({_id:req.body.classes.user_ID})
+    const program =await Program.findOne({_id:req.body.classes.program_ID})
+
+    const arr = [user,program]
+  
+   res.send(arr)
+})
+router.put('/payroll/getcompletedsessions',async(req,res)=>{
+    const payrollCount1hour =await Class.find({'$and':[{teacher_ID:req.body.teacher._id},{program:'1 hour'},{attendance:'Present'}]})
+    const payrollCount30min =await Class.find({'$and':[{teacher_ID:req.body.teacher._id},{program:'30 min'},{attendance:'Present'}]})
+    const arr = [payrollCount1hour.length,payrollCount30min.length]
+    res.send(arr)
+}) 
+      
+      
+    
       
     
   

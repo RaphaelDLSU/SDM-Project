@@ -1,7 +1,30 @@
+import { set } from 'mongoose';
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
+import TablePayroll from '../components/TablePayroll';
+import React,{ useState,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+
 
 export default function PayrollPage() {
+
+    const [teachers, setTeachers] = useState([])
+    
+
+
+    useEffect(() => { //initialize function
+        fetch('http://localhost:3000/payroll',{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            
+        }).then(response => { //response == response is enrollment data
+            response.json().then(json=>{ //response needs to be turned into JSON
+                setTeachers(json) //set enrollment data into "data"
+            })
+        })
+
+    }, [])
+
     return(
         <div className='with-sidebar'>
             <Sidebar/>
@@ -21,15 +44,14 @@ export default function PayrollPage() {
                             <td>Status</td>
                             <td></td>
                          </tr>
-                         <tr>
-                            <td>Pepito</td>
-                            <td>Franz</td>
-                            <td>Guitar</td>
-                            <td>11/15/2022</td>
-                            <td>BPI</td>
-                            <td>Not Adjusted</td>
-                            <td><button className='button2'>View History</button></td>
-                         </tr>
+                         {teachers.map((input,index)=>{
+                                return(
+                                    <tr key={index}>
+                                        <TablePayroll teacher={input}/>
+                                    </tr>
+                                )
+                            })}
+                        
                     </table>
                 </div>
             </div>

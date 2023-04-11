@@ -18,6 +18,10 @@ const teacherSchema = new Schema({
         type:Boolean,
         required:false,
         default:false
+    },
+    paymentOption:{
+        type:String,
+        required:false
     }
 
 })

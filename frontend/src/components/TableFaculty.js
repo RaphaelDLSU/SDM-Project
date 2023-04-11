@@ -32,6 +32,8 @@ export default function TableFaculty (props){
     
     }, [])
 
+    
+
     return (
         <>
         <td>{props.user.lastName}</td>
@@ -45,6 +47,7 @@ export default function TableFaculty (props){
         )}
        
         <a onClick={()=>navigate('/facultymanagedetails',{state:{teacher:teacher,user:props.user}})}>View Schedule</a>
+       
         </>
             
         

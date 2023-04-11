@@ -42,7 +42,16 @@ export default function TableSessionsDetails (props){
             body: JSON.stringify({
                 attendance,notes,classes
             }),
-        })
+        }).then(response=>{
+            if(response.status==404){
+                alert('You can only set attendance on the day of the class') 
+            }
+            else{
+                window.location.reload()
+            }
+             
+            })
+       
 
     }
     return (
@@ -55,6 +64,7 @@ export default function TableSessionsDetails (props){
             {!isPast &&(
                 <td>
                     <select onChange={e=>setAttendance(e.target.value)}>
+                        <option disabled selected value> -- </option>
                         <option>Present</option>
                         <option>Absent</option>
                     </select>               
@@ -67,7 +77,7 @@ export default function TableSessionsDetails (props){
                 <td><input type='text' onChange={e=>setNotes(e.target.value)}></input></td>
             )}
             {isPast &&(
-                <td>{classes.attendance}</td>
+                <td>{classes.note}</td>
             )}
 
             {!isPast &&(

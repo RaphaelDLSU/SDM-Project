@@ -22,7 +22,6 @@ const enrollmentSchema = new Schema({
     date:{
         type:String,
         required:false
-
     },
     paymentStatus:{
         type:String,

@@ -37,6 +37,10 @@ const classSchema = new Schema({
     realDate:{
         type:Date,
         required:false
+    },
+    program:{
+        type:String,
+        required:false
     }
     
 
