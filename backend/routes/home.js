@@ -31,7 +31,10 @@ router.post('/login',async(req,res)=>{
         const token=jwt.sign( // TOKEN = Global Variable
             {
                 email:user.email,
-                user_ID:user._id
+                user_ID:user._id,
+                firstName:user.firstName,
+                lastName:user.lastName,
+                type:user.type
             },
             process.env.TOKEN_KEY
         )

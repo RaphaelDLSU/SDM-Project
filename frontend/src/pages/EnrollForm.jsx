@@ -444,7 +444,7 @@ export default function EnrollFormPage() {
                                             <div className='field'>
                                             
                                             {program.length - 1 === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
-                                                <button
+                                                <button className='button2'
                                                 type="button"
                                                 onClick={programAdd}
                                                 >

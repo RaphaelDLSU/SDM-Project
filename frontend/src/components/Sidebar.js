@@ -1,29 +1,46 @@
 import React from 'react';
 import '../public/styles/sidebar.css';
 import { SidebarData } from './SidebarData';
+import {decodeToken} from 'react-jwt'
+
 
 
 export default function Sidebar (){
-    return (
-    <nav className="sidebar">
-        <ul className='sidebar_list'>
-            {SidebarData.map((val,key)=>{
-                return(
-                    <li key={key} className='row' onClick={()=>{
-                        window.location.pathname = val.link
-                    }}>
-                        {""}
-                        <div className='icon'>{val.icon}</div>
-                        <div className='title'>{val.title}</div>
 
-                    </li>
+    const token = localStorage.getItem('token')
+    const user = decodeToken(token) 
+    return ( 
 
-                );
-            })}
-        </ul>
+        <>
+        {user &&(
+        <nav className="sidebar">
+           
+                <ul className='sidebar_list'>
+                
+                {SidebarData.map((val,key)=>{
+                    return(
+                        <>
+                        {user.type===val.type&&(
+                        <li key={key} className='row' onClick={()=>{
+                            window.location.pathname = val.link
+                        }}>
+                                    <div className='icon'>{val.icon}</div>
+                                    <div className='title'>{val.title}</div>
+                        </li>
+                        )}
+                        </>
+
+                    );
+                })}
+            </ul>
+
+            
+            
         
         
         
-    </nav>  
+        </nav>  
+        )}
+        </>
     );
 }
