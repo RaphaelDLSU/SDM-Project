@@ -9,7 +9,7 @@ export default function AboutPage() {
 
     
     return(
-        <div className="container">
+        
         <div id='aboutUsHeader'>
             <>
             </>
@@ -17,6 +17,7 @@ export default function AboutPage() {
             About Son De Musique
             </h1>
             <br></br>
+            <div className="container">
             <div className='aboutUs-mission'>
                 <p>Mission</p>
             </div>
