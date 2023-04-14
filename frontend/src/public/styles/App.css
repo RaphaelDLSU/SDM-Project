@@ -665,8 +665,8 @@ button {
   max-height: calc(100vh - 110px);
   /* min-height: 100%;  */
   overflow-y: scroll;
-  padding-left: 230px;
-  padding-right: 230px;
+  padding-left: 150px;
+  padding-right: 150px;
 }
 
 .instrument-card {
@@ -782,4 +782,64 @@ td input[type=text]{
   border-color: #7b004a;
   border-radius: 5px;
   border-width: 1px;
+}
+
+#contactUsHeader{
+  background-color: #781548;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* margin-bottom: 10px; */
+}
+
+#contactUsHeader h1{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+  font-size: 80px;
+}
+
+#contactUsContainer{
+  background-color: #E5E5E5;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#contactUsBody{
+  background-color: #FFF;
+  margin: auto;
+  margin-top: 5% ;
+  height: 50%;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+#contactContainer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#contactContainer p{
+  font-family: 'Work Sans', sans-serif;
+  color: #781548;
+  font-size: 40px;
+  margin-left: 20px;
+}
+
+#contactContainer  a{
+  font-family: 'Work Sans', sans-serif;
+  font-size: 40px;
+  margin-left: 20px;
 }
