@@ -28,7 +28,7 @@ export default function FacultyPage() {
         </div>
         <div id='contactContainer'>
         <img src= {email}></img>
-        <p>Email us at sondemusique.studio@gmail.com</p>
+        <p>Email us at: sondemusique.studio@gmail.com</p>
         </div>
            
         </div>

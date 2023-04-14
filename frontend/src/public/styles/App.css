@@ -10,6 +10,20 @@ html, body{
   width: 100%;
   overflow: hidden;
 }
+
+button {
+  background-color: #640033; /* Green */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 15px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 17px;
+}
+
 button:hover{
   cursor:pointer;
   filter: brightness(95%);
@@ -353,6 +367,7 @@ td{
 }
 .bbody{
   overflow: auto;
+  margin-left: 20px;
 }
 
 .fields-free{
@@ -845,3 +860,42 @@ td input[type=text]{
   font-size: 40px;
   margin-left: 20px;
 }
+
+#paymentTitle{
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+#paymentTitle p{
+  margin-left: 20px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+}
+
+#paymentOptionsContainer{
+  display: flex;
+  margin: auto;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+
+#paymentDetails{
+  background-color: white;
+  height: 50%;
+  margin-left: 20px;
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+ }
+
+#paymentDetails h2{
+  font-family: 'Inconsolota', monospace;
+  font-size: 32px;
+  color: #640033;
+}
+

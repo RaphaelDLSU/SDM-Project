@@ -62,10 +62,16 @@ export default function PaymentPage() {
       }
 
     return(
-        
+        <div className='with-sidebar'>
+            <Sidebar/>
         <div className='bbody'>
-            <h1>PAYMENT</h1>
+            <div id='paymentTitle'>
+            <h1>Payment</h1>
+            <p>Please check that both account details and amount are correct before confirming payment</p>
+            </div>
+            <div id='paymentDetails'>
             <form onSubmit={handleSubmit}>
+
                 <h2>1. Select Payment Option: </h2>
                 <select  
                     name='paymentOption'
@@ -85,9 +91,9 @@ export default function PaymentPage() {
                         <option>50% Payment</option>
                 </select> {/*DROP DOWN*/}
                 <h2>3. Transfer this amount: </h2>
-                
-                
+           
 
+              
                 <label htmlFor="file-upload" className='custom-file-upload'>
                     <img src={postImage.myFile || placeholder} alt="" />
                 </label>
@@ -98,8 +104,12 @@ export default function PaymentPage() {
                     accept='.jpeg, .png, .jpg'
                     onChange={(e) => handleFileUpload(e)}
                 />
+                
+              
                 <button type='submit'>Submit</button>
             </form>
+            </div>
+        </div>
         </div>
     )
 
