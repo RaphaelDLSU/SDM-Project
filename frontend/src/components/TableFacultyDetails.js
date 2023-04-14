@@ -12,6 +12,7 @@ export default function TableFacultyDetails (props){
     
     const [classes, setClasses] = useState([])
     const [isShown, setIsShown] = useState(false);
+    const [student, setStudent] = useState('')
 
 
     const user = props.user
@@ -34,7 +35,8 @@ export default function TableFacultyDetails (props){
             response.json().then(json=>{ 
 
                 console.log(JSON.stringify(preferredClass._id)+'  '+JSON.stringify(json))
-                setClasses(json)//response needs to be turned into JSON
+                setClasses(json[0])
+                setStudent(json[1])
             })
         })
     }, [])
@@ -52,8 +54,16 @@ export default function TableFacultyDetails (props){
             <td>{preferredClass.program}</td>
             <td>{preferredClass.startTime} -- {preferredClass.endTime}</td>
             <td>{preferredClass.status}</td>
-            <td>{user.firstName} {user.lastName}</td>
-            <td><button className='button2' onClick={handleClick}>Show</button></td>
+            {student!=undefined &&(
+                <td>{student.firstName} {student.lastName}</td> 
+            )}
+            {student==undefined &&(
+                <td>None</td> 
+            )}
+            {student!=undefined &&(
+                 <td><button className='button2' onClick={handleClick}>Show</button></td> 
+            )}
+           
         </tr>
         
      

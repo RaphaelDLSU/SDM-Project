@@ -19,6 +19,7 @@ export default function Sidebar (){
                 
                 {SidebarData.map((val,key)=>{
                     return(
+                        
                         <>
                         {user.type===val.type&&(
                         <li key={key} className='row' onClick={()=>{

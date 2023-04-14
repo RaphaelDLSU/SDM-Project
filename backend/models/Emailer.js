@@ -2,7 +2,7 @@ import NodeMailer from 'nodemailer'
 
     import { google } from 'googleapis';
 
-export default async function Emailer (receiver,subject,text){
+export default async function Emailer (receiver,subject,text,html){
 
     
 
@@ -45,7 +45,7 @@ export default async function Emailer (receiver,subject,text){
                 text: text,
 
                 // HTML body
-                // html: <p><b>Hello</b> to myself </p>,
+                html: text +'<br></br><br></br>'+ html
                 };
 
                 const result = transport.sendMail(mailOptions)

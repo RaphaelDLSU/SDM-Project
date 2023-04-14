@@ -77,7 +77,9 @@ export default function SchedCreatePage() {
                 body: JSON.stringify({
                     classesTemp,teacherTemp,user,program,startDate
                 })
-            })
+            }).then(
+                alert('You have successfully scheduled your program'),
+                setPop(!popup))
     }
 
     

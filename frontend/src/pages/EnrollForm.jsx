@@ -434,7 +434,7 @@ export default function EnrollFormPage() {
                             </div>
                             
                             <h1>Select Program</h1>
-                            <div className='program'>
+                            <div className='fields'>
 
                                 
 
@@ -485,13 +485,13 @@ export default function EnrollFormPage() {
                                             <div className='field'> 
                                                 <p>Number of Sessions</p>
                                                 {index==0 &&(
-                                                    <select  name='numSessions' onChange={(e)=>handleFormChange(e,index)}>{options}</select>
+                                                    <select  name='numSessions' onChange={(e)=>handleFormChange(e,index)}> <option disabled selected value> -- select an option -- </option>{options}</select>
                                                 )}
                                                 {index==1 &&(
-                                                    <select name='numSessions' onChange={(e)=>handleFormChange(e,index)}>{options1}</select>
+                                                    <select name='numSessions' onChange={(e)=>handleFormChange(e,index)}> <option disabled selected value> -- select an option -- </option>{options1}</select>
                                                 )}
                                                  {index==2 &&(
-                                                    <select name='numSessions' onChange={(e)=>handleFormChange(e,index)}>{options2}</select>
+                                                    <select name='numSessions' onChange={(e)=>handleFormChange(e,index)}> <option disabled selected value> -- select an option -- </option>{options2}</select>
                                                 )}
                                                 
                                                 

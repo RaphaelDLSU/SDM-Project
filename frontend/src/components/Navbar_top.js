@@ -33,12 +33,12 @@ export default function Navbar_top (){
                         <a className='navbar-fields' href='/contactus'> Contact us</a>
                         
                     </div>
-                    <div>
+                    <div className='right-side-nav'>
                     {user===null&&(
                         <a><button onClick={()=>navigate('/login')} className='button1'>Log in</button> <button onClick={()=>navigate('/register')} className='button2'>Sign in</button></a>
                     )}
                     {user!= null &&(
-                         <a className='user-title'>{user.firstName} {user.lastName} &nbsp;      <a className='button' onClick={logout}><LogoutIcon style={{fontSize:25}}/></a></a>
+                         <a className='user-title'>{user.firstName} {user.lastName} &nbsp;      <a className='logout' onClick={logout}><LogoutIcon style={{fontSize:25}}/></a></a>
                     )}
                        
                     </div>

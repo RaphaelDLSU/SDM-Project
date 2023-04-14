@@ -8,6 +8,7 @@ export default function TableMyStudent (props){
     const navigate = useNavigate()
 
     const [studentUser, setStudentUser] = useState('')
+    const [enrollment, setEnrollment] = useState('')
     const student=props.student
 
     
@@ -25,7 +26,8 @@ export default function TableMyStudent (props){
             }),
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setStudentUser(json) //set enrollment data into "data"
+                setStudentUser(json[0])
+                setEnrollment(json[1]) //set enrollment data into "data"
             })
         })
     
@@ -51,7 +53,7 @@ export default function TableMyStudent (props){
     return (
           
             <>
-            <td>?</td>
+            <td>{enrollment.date}</td>
             <td>{studentUser.lastName}</td>
             <td>{studentUser.firstName}</td>
             <td>
@@ -63,7 +65,7 @@ export default function TableMyStudent (props){
                 </select>
             </td>
             <td>{student.status}</td>
-            <td> <button onClick={()=>navigate('/mystudentmanage',{state:{student:studentUser,teacher:props.teacher}})}>Manage</button></td>
+            <td> <button className='button2' onClick={()=>navigate('/mystudentmanage',{state:{student:studentUser,teacher:props.teacher}})}>Manage</button></td>
             </>
         
     );

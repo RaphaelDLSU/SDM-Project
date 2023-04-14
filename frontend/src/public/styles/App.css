@@ -23,6 +23,10 @@ button:hover{
   cursor:pointer;
   font-weight: bold;
 }
+.right-side-nav  a.logout:hover{
+  cursor:pointer;
+
+}
 h1{
   font-size: 56px;
   font-family: 'Rubik' , sans-serif;
@@ -37,6 +41,10 @@ h2{
   height: 100vh;
   width: 100%;
   
+}
+.clickable{
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .with-sidebar {
@@ -78,6 +86,7 @@ h2{
   box-sizing: border-box;
   height:35px;
   width: 100%;
+  
 }
  .box-content input[type=submit]{
   display: block;
@@ -114,6 +123,7 @@ h2{
 .fields input[type='text']{
   height: 30px;
   width: 80%;
+  
 }
 .personal{
   margin-left: 20px;
@@ -343,6 +353,9 @@ td{
 .fields-free input[type='text']{
   height: 30px;
   width: 80%;
+  border-color: #7b004a;
+  border-radius: 5px;
+  border-width: 1px;
 }
 
 .fields-free .field{
@@ -733,7 +746,30 @@ button {
   background-color: #640033;
 }
 
-option{
-  
+.form select{
+  height: 30px;
+  width: 80%;
+  background-color: white;
+  border-color: #7b004a;
+  border-radius: 5px;
+  border-width: 1px;
 }
-
+.form input[type=number]{
+  height: 28px;
+  width: 79%;
+  background-color: white;
+  border-color: #7b004a;
+  border-radius: 5px;
+  border-width: 1px;
+}
+td select{
+  border-color: #7b004a;
+  border-radius: 5px;
+  border-width: 1px;
+  background-color: white;
+}
+td input[type=text]{
+  border-color: #7b004a;
+  border-radius: 5px;
+  border-width: 1px;
+}

@@ -59,6 +59,11 @@ router.post('/register', async (req,res)=>{
 
         console.log('New User : '+ newUser)
         res.json({status:'ok'}) //Send response to front end
+        Emailer(req.body.email,
+            'Welcome to SDM Flow!',
+            'We hope that you use our services and enroll in one of our programs now!',
+            '<a href="http://localhost:3000/enrollform">Enroll now! </a> <br></br> <a href="http://localhost:3000/enrollfree">Get your free trial! </a> '
+            )
 
     }catch(err){
         res.json({ status: 'error', error: 'Duplicate email' })
@@ -90,6 +95,7 @@ router.post("/enroll", async (req, res) => {
         time:date.toLocaleTimeString(),
         date: date.toLocaleDateString(),
         paymentStatus:'Not paid',
+        realDate:date
     })
     
     enrollment.save()
@@ -161,11 +167,12 @@ router.post("/enroll", async (req, res) => {
 router.post('/payment',async(req,res)=>{
     const paymentImg = req.body.postImage.myFile;
     const findUser = await Users.findOne({email:req.body.userParsed})
+    var date = new Date()
     let paymentStatus
 
   
     try{
-        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType}})
+        const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentDate:date,paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType}})
         newImage.save();
         
         const result = Emailer(req.body.userParsed,'You have submitted your payment','Well done d')
@@ -311,8 +318,12 @@ router.put('/enrollpending/approve',async (req,res)=>{
     let paymentStatus
     let paymentMultiplier
     const enrollment = req.body.inputTemp.input
+    let date = new Date()
+    const fromNow = moment(date+30).format('ll')
 
     const enrollmentQuery = await Enrollment.findOne({_id:enrollment._id})
+
+    const user = await Users.findOne({_id:enrollmentQuery.user_ID})
 
 
     
@@ -327,6 +338,12 @@ router.put('/enrollpending/approve',async (req,res)=>{
     await Enrollment.findOneAndUpdate({_id:enrollment._id},{'$set':{paymentStatus:paymentStatus,paymentRemaining:paymentMultiplier,status:'Approved'}})
 
     await Student.findOneAndUpdate({_id:req.body.student._id},{'$set':{status:'Enrolled '}})
+
+    Emailer(user.email,
+        'Your SDM Enrollment has been approved!',
+        `Your ${enrollmentQuery.paymentStatus} enrollment is now approved! You can now set a schedule for you program/s. If you only paid in half, you have until ${fromNow} to pay the remaining balance`,
+        '<a href="http://localhost:3000/payment">Pay here</a> <br></br> <a href="http://localhost:3000/schedpage">Schedule here! </a> '
+        )
 
     res.json({status:'ok'})
 })
@@ -476,7 +493,11 @@ router.put('/facultymanage/details/specific/class',async(req,res)=>{
 
 
     const classes = await Class.find({preferred_ClassID:req.body.preferredClass._id})
-    res.send(classes)
+    const user = await Users.findOne({_id:req.body.preferredClass.student_ID})
+
+    console.log('User: '+user)
+    const arr=[classes,user]
+    res.send(arr)
 })
 router.put('/mystudents',async(req,res)=>{   
 
@@ -489,7 +510,9 @@ router.put('/mystudents/details',async(req,res)=>{
     console.log(req.body.student)
 
     const user = await Users.findOne({_id:req.body.student.user_ID})
-    res.send(user)
+    const enrollment = await Enrollment.findOne({user_ID:req.body.student.user_ID})
+    const arr= [user,enrollment]
+    res.send(arr)
 })
 router.put('/mystudents/levelchange',async(req,res)=>{
     const level = await Student.findOneAndUpdate({_id:req.body.student._id},{'$set':{level:req.body.e}})
@@ -521,15 +544,15 @@ router.put('/mystudents/manage/sessions/details',async(req,res)=>{
 })
 router.put('/mystudents/manage/sessions/update',async(req,res)=>{
 
-    const classes = await Class.findOne({_id:req.body.classes._id})
+    // const classes = await Class.findOne({_id:req.body.classes._id})
     const today = new Date()
-    if(classes.realDate.setHours(0,0,0,0)!=today.setHours(0,0,0,0)){
-        res.status(404)
+    // if(classes.realDate.setHours(0,0,0,0)!=today.setHours(0,0,0,0)){
+    //     res.status(404)
       
-    }else  {
+    // }else  {
         const classes = await Class.findOneAndUpdate({_id:req.body.classes._id},{'$set':{attendance:req.body.attendance,note:req.body.notes}})
         res.status(500)
-    }
+    // }
 
 
   
@@ -598,11 +621,98 @@ router.put('/schedsummary/details',async(req,res)=>{
 
 router.put('/emailer',async(req,res)=>{
     console.log('HERE:')
-    const result = Emailer('raphael_santillan@dlsu.edu.ph','Hi you are recieveing thi emial','HI HIHIHIHIIHIHIH')
 
     console.log('Result: '+JSON.stringify(result))
    
 }) 
+router.put('/generateenrollment',async(req,res)=>{
+    const programs = await Program.find({status:{'$ne':'Not Scheduled'}})
+
+    let voice=0,piano=0,guitar=0,drums=0,ukulele=0,violin=0,cello=0,sax=0,flute=0,clarinet=0
+    let info =[]
+    const info2 = []
+    const startDate = new Date(req.body.dateEnrollmentStart)
+    const endDate = new Date(req.body.dateEnrollmentEnd)
+    let total =0
+
+    await Promise.all(programs.map(async(element)=>{
+        
+
+        const enrollment = await Enrollment.findOne({_id:element.enrollment_ID})
+            
+        if(enrollment.realDate >= startDate && enrollment.realDate <=endDate){
+
+           
+            
+            if(element.instrument =='Voice')
+                voice++
+            else if(element.instrument =='Piano')
+                piano++
+            else if(element.instrument =='Guitar')
+                guitar++
+            else if(element.instrument =='Drums')
+                drums++
+            else if(element.instrument =='Ukulele')
+                ukulele++
+            else if(element.instrument =='Violin')
+                violin++    
+            else if(element.instrument =='Cello')
+                cello++
+            else if(element.instrument =='Saxophone')
+                sax++
+            else if(element.instrument =='Flute')
+                flute++
+            else if(element.instrument =='Clarinet')
+                clarinet++
+        }
+   })) 
+    
+          
+    pushToArray('Voice',voice,info)
+    pushToArray('Piano',piano,info)
+    pushToArray('Guitar',guitar,info)
+    pushToArray('Drums',drums,info)
+    pushToArray('Ukulele',ukulele,info)
+    pushToArray('Cello',cello,info)
+    pushToArray('Saxophone',sax,info)
+    pushToArray('Flute',flute,info)
+    pushToArray('Clarinet',clarinet,info)
+    pushToArray('Violin',violin,info)
+
+    total=voice+piano+guitar+drums+ukulele+cello+sax+flute+clarinet+violin
+    info.push(['TOTAL',total])
+
+    console.log('Element: '+info)
+    
+
+
+    await Promise.all(programs.map(async(element)=>{
+        const enrollment = await Enrollment.findOne({_id:element.enrollment_ID})
+        if(enrollment.realDate >= startDate && enrollment.realDate <=endDate){
+            const user = await Users.findOne({_id:element.user_ID})
+            const name = user.firstName+' '+user.lastName
+            info2.push([element.instrument,user.email,name,enrollment.status,enrollment.date])
+        } 
+    }))
+    const arr = [info,info2]
+    res.send(arr)
+
+}) 
+
+router.put('/generatesalessummary',async(req,res)=>{
+   
+   
+   
+}) 
+
+
+const pushToArray =(instrument,tally,array)=>{
+    if(tally >0){
+        array.push([instrument,tally])
+    }
+
+
+}
       
       
       

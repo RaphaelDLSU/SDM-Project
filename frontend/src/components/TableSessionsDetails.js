@@ -82,10 +82,10 @@ export default function TableSessionsDetails (props){
             )}
 
             {!isPast &&(
-                <td><button onClick={handleAttendance} >Done</button></td>
+                <td><button className={'button2'} onClick={handleAttendance} >Done</button></td>
             )}
             {isPast &&(
-                <td><a>More</a></td>
+                <td>    </td>
             )}
         </>
         

@@ -24,6 +24,8 @@
     "googleapis": "^115.0.0",
     "jquery": "^3.6.4",
     "jsonwebtoken": "^9.0.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
     "moment": "^2.29.4",
     "mongoose": "^6.10.5",
     "nodemailer": "^6.9.1",

@@ -47,15 +47,23 @@ export default function TableCreateSched (props){
     }
 
 
+
+
     return (
           
         <>
         <td>{classes.instrument}</td>
         <td>{classes.days}</td>
         <td>{classes.startTime} -- {classes.endTime}</td>
-        <td onClick={showTeacher}>{query.firstName} {query.lastName}</td>
+        <td onClick={showTeacher}  className='clickable'>{query.firstName} {query.lastName}</td>
         <td>{classes.status}</td>
-        <td><button onClick={handleCallback}className='button2'>Schedule</button></td>
+        {classes.status=='Unavailable' &&(
+            <td></td>
+        )}
+        {classes.status=='Available' &&(
+            <td><button onClick={handleCallback}className='button2'>Schedule</button></td>
+        )}
+        
 
         {popup?
             <div className='main'>

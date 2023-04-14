@@ -8,6 +8,7 @@ import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import FileOpenOutlinedIcon from '@mui/icons-material/FileOpenOutlined';
 
 
 export const SidebarData = [
@@ -34,7 +35,7 @@ export const SidebarData = [
     {
         title: "Students",
         icon:<LocalLibraryOutlinedIcon style={{fontSize:60}}/>,
-        link: '/schedpage',
+        link: '/studentRecord',
         type:"Admin"
     },
     {
@@ -66,6 +67,12 @@ export const SidebarData = [
         icon:<CalendarMonthOutlinedIcon style={{fontSize:60}}/>,
         link: '/teacherschedule',
         type:"Teacher"
+    },
+    {
+        title: "Reports",
+        icon:<FileOpenOutlinedIcon style={{fontSize:60}}/>,
+        link: '/generatereport',
+        type:"Admin"
     },
     
    

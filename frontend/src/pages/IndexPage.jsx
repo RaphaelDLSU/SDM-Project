@@ -42,7 +42,7 @@ export default function IndexPage() {
         <div className='with-sidebar'>
             <Sidebar/>
                 <div className='body'>
-                    <h1>YOU ARE IN INDEX PAGE</h1>
+                    {/* <h1>YOU ARE IN INDEX PAGE</h1>
                 
                     <h2>NONE USER</h2>
                     <a href='/register'> Go to Register Page</a><br></br>
@@ -82,7 +82,7 @@ export default function IndexPage() {
                     <h2> Calendar</h2>
                     <a href='/AdminCalendar'>Go to Calendar</a><br></br>
 
-                    <p> Send Email"  <button onClick={Email}>HERE</button></p>
+                    <p> Send Email"  <button onClick={Email}>HERE</button></p> */}
 
                     
                 </div>

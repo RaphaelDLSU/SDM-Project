@@ -39,6 +39,12 @@ const enrollmentSchema = new Schema({
     },
     paymentRemaining:{
         type:Number,required:false
+    },
+    realDate:{
+        type:Date,required:false
+    },
+    paymentDate:{
+        type:Date,required:false
     }
 })
 

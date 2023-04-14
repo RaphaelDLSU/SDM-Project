@@ -46,7 +46,7 @@ export default function TableFaculty (props){
             <td>No Students</td>
         )}
        
-        <a onClick={()=>navigate('/facultymanagedetails',{state:{teacher:teacher,user:props.user}})}>View Schedule</a>
+        <a className='clickable' onClick={()=>navigate('/facultymanagedetails',{state:{teacher:teacher,user:props.user}})}>View Schedule</a>
        
         </>
             

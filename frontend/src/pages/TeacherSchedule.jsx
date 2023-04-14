@@ -113,8 +113,8 @@ export default function TeacherSchedule() {
         <div className='with-sidebar'>
             <Sidebar/>
             <div className='content-container'>
-                <h1>My Schedule</h1>
-                <button onClick={()=>setPop(!popup)}>Add sched</button>
+                <h1>My Schedule                        <button className='button2' onClick={()=>setPop(!popup)}>Add sched</button></h1>
+                
                 <div className='table-container'>
                     <table cellSpacing={0}>
                         <tr className='table-headers'>
