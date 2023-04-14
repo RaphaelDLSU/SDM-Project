@@ -653,8 +653,12 @@ button {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  min-height: 100%;
+  /* height: calc(100% - 67px); */
+  max-height: calc(100vh - 110px);
+  /* min-height: 100%;  */
   overflow-y: scroll;
+  padding-left: 150px;
+  padding-right: 150px;
 }
 
 .instrument-card {
@@ -662,11 +666,9 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  width: 30%;
-  
-  
-  
+  /* margin: 10px; */
+  width: 48%;
+  margin: 1%;
 }
 
 .instrument-image {
