@@ -665,8 +665,8 @@ button {
   max-height: calc(100vh - 110px);
   /* min-height: 100%;  */
   overflow-y: scroll;
-  padding-left: 150px;
-  padding-right: 150px;
+  padding-left: 230px;
+  padding-right: 230px;
 }
 
 .instrument-card {
