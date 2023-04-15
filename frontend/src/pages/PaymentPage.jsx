@@ -2,6 +2,9 @@ import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 import React,{useState,useEffect,useRef} from 'react';
 import placeholder from '../public/assets/placeholder_person.jpg'
+import bpi from '../public/assets/bpi.png'
+import maya from '../public/assets/maya.png'
+import gcash from '../public/assets/gcash.png'
 import {decodeToken} from 'react-jwt'
 import { set } from 'mongoose';
 
@@ -146,95 +149,81 @@ export default function PaymentPage() {
     }
 
     return(
-        
         <div className='with-sidebar'>
             <Sidebar/>
-            <div className='content-container'>
-            <h1>PAYMENT 
-                <select onChange={e=>handleOptionChange(e.target.value)}>
-                <option disabled selected value> -- Choose what to pay for -- </option>
-                    <option>Enrollment</option>
-                    <option>Pay Half</option>
-                </select></h1>
-            {option=='Enrollment'&&(
-                <form onSubmit={handleSubmit}>
-                    <h2>1. Select Payment Option: </h2>
-                    <select  
-                        name='paymentOption'
-                        onChange={(e)=>setPaymentOption(e.target.value)}>
-                        <option disabled selected value> -- select an option -- </option>
-                            <option>BPI</option>
-                            <option>GCash</option>
-                            <option>Maya</option>
-                    </select> {/*DROP DOWN*/}
-                    
-                    <h2>2. Select Payment: </h2>
-                    <select  
-                        name='paymentType'
-                        onChange={(e)=>handlePaymentType(e.target.value)}>
-                        <option disabled selected value> -- select an option -- </option>
-                            <option>Full</option>
-                            <option>50% Payment</option>
-                    </select> {/*DROP DOWN*/}
-                    <h2>3. Transfer this amount:P {onEnrollment.paymentWhole*multiplier} </h2>
-                    <label htmlFor="file-upload" className='custom-file-upload'>
-                        <img src={postImage.myFile || placeholder} alt="" />
-                    </label>
-
-                    <input 
-                        type="file"
-                        name="myFile"
-                        accept='.jpeg, .png, .jpg'
-                        onChange={(e) => handleFileUpload(e)}
-                    />
-                    <button type='submit'>Submit</button>
-                </form>
-
-            )}
-              {option=='Pay Half'&&(
-                    <form onSubmit={handleSubmit}>
-                    <h2>1. Select Programs on hold: </h2>
-                    <select onChange={e=>setSelected(e.target.value)}>
-                        <option disabled selected value> -- Choose what to pay for -- </option>
-                        {onHold.map((input,index)=>{
-                            return(
-                                <option value={input._id}> {input.program} {input.numSessions} sessions</option>
-                            )
-                            
-                        })}
-
-                    </select>
-
-                    <h2>1. Select Payment: </h2>
-                   
-                    
-                    
-                    <select  
-                        name='paymentOption'
-                        onChange={(e)=>setPaymentOption(e.target.value)}>
-                        <option disabled selected value> -- select an option -- </option>
-                            <option>BPI</option>
-                            <option>GCash</option>
-                            <option>Maya</option>
-                    </select> {/*DROP DOWN*/}
-                    
-
-                    <h2>2. Transfer this amount: P{enrollment.paymentRemaining  } </h2>
-                    <label htmlFor="file-upload" className='custom-file-upload'>
-                        <img src={postImage.myFile || placeholder} alt="" />
-                    </label>
-
-                    <input 
-                        type="file"
-                        name="myFile"
-                        accept='.jpeg, .png, .jpg'
-                        onChange={(e) => handleFileUpload(e)}
-                    />
-                    <button onClick={handleSubmitHalf} type='submit'>Submit Half</button>
-                </form>
-            )}
-            
+        <div id='paymentContainer'>
+            <div id='paymentTitle'>
+            <h1>Payment</h1>
+            <p>Please check that both account details and amount are correct before confirming payment</p>
             </div>
+
+            <div id='paymentOptionsContainer'>
+                <div id='paymentOptions'>
+                <img src= {bpi}></img>
+                <p>Account Name</p>
+                <p>Account Number</p>
+                    </div>
+                <div id='paymentOptions'>
+                <img src= {gcash}></img>
+                <p>Account Name</p>
+                <p>Account Number</p>
+                    </div>
+                <div id='paymentOptions'>
+                <img src= {maya}></img>
+                <p>Account Name</p>
+                <p>Account Number</p>
+                    </div>
+            </div>
+            
+            <form onSubmit={handleSubmit}>
+            <div id='paymentDetails'>
+                <div id='paymentDetailsContainer'>
+                <h2>1. Select Payment Option: </h2>
+                <select  
+                    name='paymentOption'
+                    onChange={(e)=>setPaymentOption(e.target.value)}>
+                    <option disabled selected value> -- select an option -- </option>
+                        <option>BPI</option>
+                        <option>GCash</option>
+                        <option>Maya</option>
+                </select> {/*DROP DOWN*/}
+                 
+                <h2>2. Select Payment: </h2>
+                <select  
+                    name='paymentType'
+                    onChange={(e)=>setPaymentType(e.target.value)}>
+                    <option disabled selected value> -- select an option -- </option>
+                        <option>Full</option>
+                        <option>50% Payment</option>
+                </select> {/*DROP DOWN*/}
+                <h2>3. Transfer this amount: </h2>
+           
+                </div>
+              
+                <div id='paymentDetailsContainer'>
+
+                <h2>4. Upload Proof Of Payment (.png/.jpeg) </h2>
+
+                
+
+                <label htmlFor="file-upload" className='custom-file-upload'>
+                    <img src={postImage.myFile || placeholder} alt="" />
+                </label>
+
+                <input 
+                    type="file"
+                    name="myFile"
+                    accept='.jpeg, .png, .jpg'
+                    onChange={(e) => handleFileUpload(e)}
+                />
+                
+            
+                <button type='submit'>Submit</button>
+                </div>
+                </div>
+            </form>
+            
+        </div>
         </div>
     )
 
