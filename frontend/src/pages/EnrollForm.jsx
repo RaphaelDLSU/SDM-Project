@@ -454,7 +454,7 @@ export default function EnrollFormPage() {
                                                 <span>Add a Program</span>
                                                 </button>
                                             )}
-                                            {program.length  === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
+                                            {program.length-1  === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
                                                 <button className='button2'
                                                 type="button"
                                                 onClick={programRemove}
