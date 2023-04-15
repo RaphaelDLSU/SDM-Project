@@ -861,9 +861,18 @@ td input[type=text]{
   margin-left: 20px;
 }
 
+#paymentContainer{
+  margin: 0;
+  height: 95%;
+  width: 100%;
+  overflow: scroll;
+ }
+
 #paymentTitle{
+  margin-left: 20px;
   display: flex;
-  justify-content: flex-end;
+  
+  justify-content: flex-start;
   align-items: baseline;
 }
 
@@ -875,27 +884,58 @@ td input[type=text]{
 
 #paymentOptionsContainer{
   display: flex;
-  margin: auto;
-  justify-content: flex-end;
-  align-items: baseline;
+  flex-direction: row;
+  margin: 2%;
+  justify-content: space-evenly;
+  align-items: center;
+  
+}
+
+#paymentOptions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+#paymentOptions p{
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+}
+
+#paymentOptionsContainer img{
+ height: 150px;
+  width: auto;
+ 
 }
 
 
 #paymentDetails{
-  background-color: white;
+  background-color: #FFF;
   height: 50%;
-  margin-left: 20px;
-  width: auto;
+  width: 90%;
+  margin: auto;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
-  justify-content: space-evenly;
  }
+
+
 
 #paymentDetails h2{
   font-family: 'Inconsolota', monospace;
   font-size: 32px;
   color: #640033;
 }
+
+#paymentDetailsContainer{
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+
 

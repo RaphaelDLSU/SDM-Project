@@ -2,6 +2,9 @@ import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
 import React,{useState,useEffect} from 'react';
 import placeholder from '../public/assets/placeholder_person.jpg'
+import bpi from '../public/assets/bpi.png'
+import maya from '../public/assets/maya.png'
+import gcash from '../public/assets/gcash.png'
 import {decodeToken} from 'react-jwt'
 import { set } from 'mongoose';
 
@@ -64,14 +67,33 @@ export default function PaymentPage() {
     return(
         <div className='with-sidebar'>
             <Sidebar/>
-        <div className='bbody'>
+        <div id='paymentContainer'>
             <div id='paymentTitle'>
             <h1>Payment</h1>
             <p>Please check that both account details and amount are correct before confirming payment</p>
             </div>
-            <div id='paymentDetails'>
-            <form onSubmit={handleSubmit}>
 
+            <div id='paymentOptionsContainer'>
+                <div id='paymentOptions'>
+                <img src= {bpi}></img>
+                <p>Account Name</p>
+                <p>Account Number</p>
+                    </div>
+                <div id='paymentOptions'>
+                <img src= {gcash}></img>
+                <p>Account Name</p>
+                <p>Account Number</p>
+                    </div>
+                <div id='paymentOptions'>
+                <img src= {maya}></img>
+                <p>Account Name</p>
+                <p>Account Number</p>
+                    </div>
+            </div>
+            
+            <form onSubmit={handleSubmit}>
+            <div id='paymentDetails'>
+                <div id='paymentDetailsContainer'>
                 <h2>1. Select Payment Option: </h2>
                 <select  
                     name='paymentOption'
@@ -92,8 +114,14 @@ export default function PaymentPage() {
                 </select> {/*DROP DOWN*/}
                 <h2>3. Transfer this amount: </h2>
            
-
+                </div>
               
+                <div id='paymentDetailsContainer'>
+
+                <h2>4. Upload Proof Of Payment (.png/.jpeg) </h2>
+
+                
+
                 <label htmlFor="file-upload" className='custom-file-upload'>
                     <img src={postImage.myFile || placeholder} alt="" />
                 </label>
@@ -105,10 +133,12 @@ export default function PaymentPage() {
                     onChange={(e) => handleFileUpload(e)}
                 />
                 
-              
+            
                 <button type='submit'>Submit</button>
+                </div>
+                </div>
             </form>
-            </div>
+            
         </div>
         </div>
     )
