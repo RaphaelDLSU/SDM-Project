@@ -8,7 +8,8 @@ const enrollmentSchema = new Schema({
     },
     status:{
         type:String,
-        required: true
+        required: true,
+        default:'Not Enrolled'
     },
     paymentProof:{
         type:String,

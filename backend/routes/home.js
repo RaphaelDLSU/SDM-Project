@@ -452,7 +452,7 @@ router.put('/studentrecords',async (req,res)=>{
 })
 
 router.put('/studentrecords/details',async (req,res)=>{
-    const data = await Enrollment.findOne({user_ID:req.body.id})
+    const data = await Enrollment.findOne({user_ID:req.body.id,status:{'$ne':'Past'}})
     console.log('Enrollment :'+data)
    res.send(data)
 })

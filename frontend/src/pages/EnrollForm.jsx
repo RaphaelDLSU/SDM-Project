@@ -145,7 +145,7 @@ export default function EnrollFormPage() {
             <Sidebar/>
             <form onSubmit={enrollUser} className='form'>
                     <div className='fields'>
-                        <h1>Personal Details</h1>
+                        <h1>Personal Details <submit className='button2'>Submit</submit></h1>
                             <div className='personal'>
                                 <div className='field'>
                                     <p>Age</p>
