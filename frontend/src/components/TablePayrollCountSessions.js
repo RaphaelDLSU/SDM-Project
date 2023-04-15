@@ -49,7 +49,10 @@ export default function TablePayrollCountSessions (props){
         
     // }
 
-    
+    if (minCount === '') {
+        return <>Still loading...</>;
+      }
+      else{
     return (
         <>
         <h3>{hourCount} Completed 1 hour Sessions </h3>
@@ -58,7 +61,7 @@ export default function TablePayrollCountSessions (props){
         </>
             
     );
-
+    }
       
 
     

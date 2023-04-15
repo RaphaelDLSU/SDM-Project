@@ -13,6 +13,7 @@ export default function TableSchedSummary (props){
     const isPast = props.attendance
     const [preferredClass, setPreferredClass] = useState('')
     const [popup, setPop] = useState(false)
+    const [resched, setResched] = useState('')
     
 
     useEffect(() => { //initialize function
@@ -35,9 +36,16 @@ export default function TableSchedSummary (props){
         setPop(false)
     }
 
-    const handleResched = ()=>{  
-        
-        setPop(!popup)
+    const handleResched = async ()=>{  
+        await fetch(`http://localhost:3000/reschedule`,{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                resched,classes,preferredClass
+            }),
+        })
 
         
     }
@@ -65,7 +73,7 @@ export default function TableSchedSummary (props){
              <td>{classes.attendance}</td>
 
             {classes.attendance=='Absent' &&(
-                <td><button onClick={handleResched}>Reschedule</button></td>              
+                <td><button className='button2' onClick={()=>setPop(!popup)}>Reschedule</button></td>              
             )}
             {classes.attendance!='Absent' &&(
                  <td>{classes.note}</td>              
@@ -86,17 +94,15 @@ export default function TableSchedSummary (props){
                         <h2> Days: {preferredClass.days}</h2>
                         <h2> Time: {preferredClass.startTime}--{preferredClass.endTime}</h2>
                         <p> Make sure to set Date according to Class Day/s</p>
-                        <input type='Date'/>
+                        <input type='Date' onChange={(e)=>{setResched(e.target.value)}}/>
                         <br></br>
-                        <button>Reschedule</button>
+                        <button className='button2' onClick={handleResched}>Reschedule</button>
                       
                         
                     </div>
                 </div>
-            </div>
-                
-                </>:""}
-            
+            </div>      
+                </>:""}  
         </>
         );
     }

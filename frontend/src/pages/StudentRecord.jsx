@@ -45,12 +45,8 @@ export default function StudentRecord() {
                          {data.map((input,index)=>{//READ DATA of enrollment
                             return(
                                 <tr key={index}>
-                                 
                                         <TableStudentRecs users={input}/>
                                         
-                                        
-                                  
-                                      
                                 </tr>
 
                                 

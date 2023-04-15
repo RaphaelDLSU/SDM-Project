@@ -34,7 +34,11 @@ const programSchema = new Schema({
     },
     teacher_ID:{
         type:String,required:false
+    },
+    level:{
+        type:String,required:false
     }
+
     
 
 })

@@ -773,3 +773,13 @@ td input[type=text]{
   border-radius: 5px;
   border-width: 1px;
 }
+.alert1{
+  color: #ff0029 !important;
+  font-weight: bolder;
+}
+
+.table-headers td:hover{
+  cursor:pointer;
+  filter: brightness(75%);
+  background-color: #84766a;
+}

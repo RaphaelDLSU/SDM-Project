@@ -22,10 +22,6 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
-    level:{
-        type: String,
-        required: true
-    },
     instrument:{
         type:String,
         required:false

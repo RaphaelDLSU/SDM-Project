@@ -8,6 +8,7 @@ export default function TableSessionsDetails (props){
     const classes = props.classes
     const program = props.program
     const isPast = props.isPast
+    const user = props.user
     
     const [preferredClass, setPreferredClass] = useState('')
     const [attendance, setAttendance] = useState('')
@@ -31,7 +32,7 @@ export default function TableSessionsDetails (props){
         }catch(err){
             console.log('ERROR: '+err)
         }
-    }, [])
+    }, [classes])
 
     const handleAttendance =()=>{
         fetch(`http://localhost:3000/mystudents/manage/sessions/update`,{ //get function from home.js (get enrollment data)
@@ -40,7 +41,7 @@ export default function TableSessionsDetails (props){
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                attendance,notes,classes
+                attendance,notes,classes,program,user
             }),
         }).then(response=>{
             if(response.status==404){

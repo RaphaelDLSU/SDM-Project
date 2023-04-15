@@ -41,6 +41,9 @@ const classSchema = new Schema({
     program:{
         type:String,
         required:false
+    },
+    paid:{
+        type:Boolean,required:false
     }
     
 

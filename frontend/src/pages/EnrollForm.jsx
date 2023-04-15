@@ -81,6 +81,9 @@ export default function EnrollFormPage() {
         setNumProgram(numProgram+1)
         console.log(program)
       };
+    const programRemove = () => {
+       program.pop()
+      };
 
       /** Different arrays for different dropdowns */
 
@@ -451,6 +454,14 @@ export default function EnrollFormPage() {
                                                 <span>Add a Program</span>
                                                 </button>
                                             )}
+                                            {program.length  === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
+                                                <button className='button2'
+                                                type="button"
+                                                onClick={programRemove}
+                                                >
+                                                <span>Remove</span>
+                                                </button>
+                                            )}
                                             </div>
                                             <div className='field'>
                                                 <p>Instrument</p>
@@ -504,22 +515,7 @@ export default function EnrollFormPage() {
                              
                             </div>
                     </div>
-                    <div className='summary'>
-                        <div className='summary-container'>
-                            <div>
-                                <h1>Summary</h1>
-                                <p>Details: </p>
-                                <p>Instrument: </p>
-                                <p>Minutes: </p>
-                                <p>Sessions: </p>
-                                <p>*Might change to Popup*</p><br></br>
-                            </div>
-                            <div className='summary-bottom'>
-                                <p>Total: </p>
-                                <input type='submit' value='Proceed' ></input>              
-                            </div>             
-                        </div> 
-                    </div>
+                    
                 
             </form>
         </div>

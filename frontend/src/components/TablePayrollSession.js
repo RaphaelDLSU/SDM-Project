@@ -1,7 +1,7 @@
 
 import '../public/styles/sidebar.css';
 import { SidebarData } from './SidebarData';
-import React,{ useState,useEffect } from 'react'
+import React,{ useState,useEffect,useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -10,6 +10,8 @@ export default function TablePayrollSession (props){
     const classes = props.class
     const [student, setStudent] = useState('')
     const [program, setProgram] = useState('')
+
+    let total = 0
     
 
     useEffect(() => { //initialize function
@@ -32,6 +34,25 @@ export default function TablePayrollSession (props){
     
     }, [])
 
+    const isFirstRender = useRef(true);
+    useEffect(() => {
+        if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+        } 
+
+        {program.program =='1 hour' &&(
+            total+=600
+        )}
+        {program.program =='30 min' &&(
+            total+=300
+        )}
+        
+        handleCallback()
+    }, [program]); 
+
+    const handleCallback = () => props.callback(total)
+
     if (program === '') {
         return <>Still loading...</>;
       }else{
@@ -40,7 +61,13 @@ export default function TablePayrollSession (props){
                 <td>{classes.date}</td>
                 <td>{student.firstName} {student.lastName}</td>
                 <td>{program.program}</td>
-                <td>Payment</td>
+                {program.program =='1 hour' &&(
+                    <td>600</td>
+                )}
+                {program.program =='30 min' &&(
+                    <td>300</td>
+                )}
+                
             </>
     );
 

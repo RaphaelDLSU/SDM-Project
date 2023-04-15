@@ -13,19 +13,19 @@ export default function IndexPage() {
     useEffect(()=>{
         
         const token = localStorage.getItem('token')
-        console.log(token)
+       
         // if (token ==null) {
 		// 	localStorage.removeItem('token')
         //     alert('You cannot browse this. Going back to login...')
 		// 	history('/login')
 		// }
         // else  {
-        //     const user = decodeToken(token)
-        //     console.log(user)
+        //     
+        //     
 		// 	console.log('User is registered. Given Access')
 		// }// Authentication
-		
-        
+		const user = decodeToken(token)
+        console.log(user)
     },[])
 
     const Email = ()=>{

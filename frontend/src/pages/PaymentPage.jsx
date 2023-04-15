@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar';
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import placeholder from '../public/assets/placeholder_person.jpg'
 import {decodeToken} from 'react-jwt'
 import { set } from 'mongoose';
@@ -9,7 +9,34 @@ export default function PaymentPage() {
     const [postImage,setPostImage]= useState({myFile:''})
     const [paymentOption,setPaymentOption]= useState('')
     const [paymentType,setPaymentType]= useState('')
+    const [multiplier,setMultiplier]= useState(1)
 
+    const [option,setOption]= useState('')
+    const [selected,setSelected]= useState('')
+    const [enrollment,setEnrollment]= useState('')
+
+    const [onHold,setOnHold]= useState([])
+    const [onEnrollment,setOnEnrollment]= useState(0)
+
+    const token = localStorage.getItem('token')
+    const user = decodeToken(token)
+
+    useEffect(() => { 
+        fetch('http://localhost:3000/payment/getonhold',{
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                user
+            })
+        }).then(response => { 
+            response.json().then(json=>{ 
+                setOnHold(json[0])  
+                setOnEnrollment(json[1]) 
+            })
+        })
+    }, [])
 
 
     const handleFileUpload = async (e) => {
@@ -18,9 +45,6 @@ export default function PaymentPage() {
         console.log(base64)
         setPostImage({ ...postImage, myFile : base64 })
       }
-
-    
-
     async function handleSubmit (event){
         event.preventDefault()
         
@@ -60,46 +84,157 @@ export default function PaymentPage() {
           }
         })
       }
+    const handleOptionChange=(e)=>{
+
+        setOption(e)
+        
+    }
+    const isFirstRender = useRef(true)
+    useEffect(() => {
+        if (isFirstRender.current) {
+          isFirstRender.current = false 
+          return;
+        }
+        console.log('Selected: '+selected)
+        console.log('Option: '+option)
+        fetch('http://localhost:3000/payment/getenrollment',{
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                user,selected
+            })
+        }).then(response => { 
+            response.json().then(json=>{ 
+                setEnrollment(json)   
+            })
+        })
+    }, [selected])
+
+    async function handleSubmitHalf (){
+        const token = localStorage.getItem('token')
+        const user = decodeToken(token)
+
+        const response = await fetch('http://localhost:3000/payment/submithalf',{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                postImage,
+                user,
+                paymentOption,
+                paymentType,
+                onHold
+            }),
+        })
+
+        const data = await response.json()
+        if(data.status ==='ok'){
+            alert('Payment Image sent. Please wait for confirmation of your enrollment ')
+            window.location.href = '/'
+        } 
+
+    }
+    const handlePaymentType=(e)=>{
+        console.log(e)
+        setPaymentType(e)
+        if(e=='Full')setMultiplier(1)
+        else if(e=='50% Payment')setMultiplier(.5)
+
+    }
 
     return(
         
-        <div className='bbody'>
-            <h1>PAYMENT</h1>
-            <form onSubmit={handleSubmit}>
-                <h2>1. Select Payment Option: </h2>
-                <select  
-                    name='paymentOption'
-                    onChange={(e)=>setPaymentOption(e.target.value)}>
-                    <option disabled selected value> -- select an option -- </option>
-                        <option>BPI</option>
-                        <option>GCash</option>
-                        <option>Maya</option>
-                </select> {/*DROP DOWN*/}
-                 
-                <h2>2. Select Payment: </h2>
-                <select  
-                    name='paymentType'
-                    onChange={(e)=>setPaymentType(e.target.value)}>
-                    <option disabled selected value> -- select an option -- </option>
-                        <option>Full</option>
-                        <option>50% Payment</option>
-                </select> {/*DROP DOWN*/}
-                <h2>3. Transfer this amount: </h2>
-                
-                
+        <div className='with-sidebar'>
+            <Sidebar/>
+            <div className='content-container'>
+            <h1>PAYMENT 
+                <select onChange={e=>handleOptionChange(e.target.value)}>
+                <option disabled selected value> -- Choose what to pay for -- </option>
+                    <option>Enrollment</option>
+                    <option>Pay Half</option>
+                </select></h1>
+            {option=='Enrollment'&&(
+                <form onSubmit={handleSubmit}>
+                    <h2>1. Select Payment Option: </h2>
+                    <select  
+                        name='paymentOption'
+                        onChange={(e)=>setPaymentOption(e.target.value)}>
+                        <option disabled selected value> -- select an option -- </option>
+                            <option>BPI</option>
+                            <option>GCash</option>
+                            <option>Maya</option>
+                    </select> {/*DROP DOWN*/}
+                    
+                    <h2>2. Select Payment: </h2>
+                    <select  
+                        name='paymentType'
+                        onChange={(e)=>handlePaymentType(e.target.value)}>
+                        <option disabled selected value> -- select an option -- </option>
+                            <option>Full</option>
+                            <option>50% Payment</option>
+                    </select> {/*DROP DOWN*/}
+                    <h2>3. Transfer this amount:P {onEnrollment.paymentWhole*multiplier} </h2>
+                    <label htmlFor="file-upload" className='custom-file-upload'>
+                        <img src={postImage.myFile || placeholder} alt="" />
+                    </label>
 
-                <label htmlFor="file-upload" className='custom-file-upload'>
-                    <img src={postImage.myFile || placeholder} alt="" />
-                </label>
+                    <input 
+                        type="file"
+                        name="myFile"
+                        accept='.jpeg, .png, .jpg'
+                        onChange={(e) => handleFileUpload(e)}
+                    />
+                    <button type='submit'>Submit</button>
+                </form>
 
-                <input 
-                    type="file"
-                    name="myFile"
-                    accept='.jpeg, .png, .jpg'
-                    onChange={(e) => handleFileUpload(e)}
-                />
-                <button type='submit'>Submit</button>
-            </form>
+            )}
+              {option=='Pay Half'&&(
+                    <form onSubmit={handleSubmit}>
+                    <h2>1. Select Programs on hold: </h2>
+                    <select onChange={e=>setSelected(e.target.value)}>
+                        <option disabled selected value> -- Choose what to pay for -- </option>
+                        {onHold.map((input,index)=>{
+                            return(
+                                <option value={input._id}> {input.program} {input.numSessions} sessions</option>
+                            )
+                            
+                        })}
+
+                    </select>
+
+                    <h2>1. Select Payment: </h2>
+                   
+                    
+                    
+                    <select  
+                        name='paymentOption'
+                        onChange={(e)=>setPaymentOption(e.target.value)}>
+                        <option disabled selected value> -- select an option -- </option>
+                            <option>BPI</option>
+                            <option>GCash</option>
+                            <option>Maya</option>
+                    </select> {/*DROP DOWN*/}
+                    
+
+                    <h2>2. Transfer this amount: P{enrollment.paymentRemaining  } </h2>
+                    <label htmlFor="file-upload" className='custom-file-upload'>
+                        <img src={postImage.myFile || placeholder} alt="" />
+                    </label>
+
+                    <input 
+                        type="file"
+                        name="myFile"
+                        accept='.jpeg, .png, .jpg'
+                        onChange={(e) => handleFileUpload(e)}
+                    />
+                    <button onClick={handleSubmitHalf} type='submit'>Submit Half</button>
+                </form>
+            )}
+            
+            </div>
         </div>
     )
 

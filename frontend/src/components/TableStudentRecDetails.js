@@ -51,6 +51,37 @@ export default function TableStudentRecDetails (props){
     const handleClick = event => {
         setIsShown (current => !current);
        };
+
+    const handleHold=async ()=>{
+        const confirm = window.confirm(`Are you sure you want to place this student's enrollment on hold?`)
+
+        if(confirm){
+            await fetch(`http://localhost:3000/studentrecords/onhold`,{ //get function from home.js (get enrollment data)
+                method:'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    program,user_ID, 
+                })
+            })
+        }
+    }
+    const notifyStudent=async ()=>{
+        const confirm = window.confirm(`Are you sure you want to email student about his/her due payment?`)
+
+        if(confirm){
+            await fetch(`http://localhost:3000/notify`,{ //get function from home.js (get enrollment data)
+                method:'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    program,user_ID, 
+                })
+            })
+        }
+    }
    
 
     return (
@@ -64,29 +95,32 @@ export default function TableStudentRecDetails (props){
             <td>{enrollment.paymentStatus}</td>
             <td><button className='button2' onClick={handleClick}>Show</button></td>
         </tr>
-        
-     
-
         { isShown && (
             <>  
-            <tr className='table-headers3'>
+            <tr className='table-headers2'>
                     <td>Remaining Balance</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td>Remaining Sessions</td><td>Completed Sessions</td><td></td><td></td><td></td>
             </tr>
             <tr>
-                <td>PHP {enrollment.paymentRemaining}</td><td></td><td></td><td></td><td></td>
-                <td><button className='button2'>View</button>&nbsp;<button className='button3'>Notify</button>&nbsp;<button className='button1'>Place On Hold</button></td>
+                <td>PHP {enrollment.paymentRemaining}</td><td></td><td>{remainingClass} </td><td>{completedClass}</td><td></td>
+                <td><button className='button2'>View</button>&nbsp;
+                {enrollment.paymentStatus=='Half Paid' &&(
+                     <button className='button3' onClick={notifyStudent}>Notify</button>
+                )}
+               
+                {enrollment.paymentStatus=='Half Paid' &&(
+                    <button className='button1' onClick={handleHold}>Place On Hold</button>
+                )}
+                </td>
             </tr>
 
-            <tr className='table-headers3'>
+            <tr className='table-headers2'>
                     <td>Schedule</td><td></td><td></td><td></td><td></td><td></td><td></td>
                 </tr>
             <tr>
                 <tr>Day/s: {preferredClass.days}</tr>
                 <tr>Time: {preferredClass.startTime} -- {preferredClass.endTime}</tr>
                 <tr>Faculty:{teacher.firstName} {teacher.lastName}</tr>
-                <tr>Completed Sessions: {completedClass}</tr>
-                <tr>Remaining Sessions: {remainingClass}</tr>
             </tr>
                 </> )}
         

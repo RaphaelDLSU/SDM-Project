@@ -9,7 +9,7 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import FileOpenOutlinedIcon from '@mui/icons-material/FileOpenOutlined';
-
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 
 export const SidebarData = [
 
@@ -27,7 +27,13 @@ export const SidebarData = [
         type:"Student"
     },
     {
-        title: "Enrollment",
+        title: "Payment",
+        icon:<AccountBalanceWalletOutlinedIcon style={{fontSize:60}}/>,
+        link: '/payment',
+        type:"Student"
+    },
+    {
+        title:  `Pending`,
         icon:<EnrollIcon style={{fontSize:60}}/>,
         link: '/enrollpending',
         type:"Admin"
@@ -50,12 +56,7 @@ export const SidebarData = [
         link: '/payroll',
         type:"Admin"
     },
-    {
-        title: "Enrollment",
-        icon:<EnrollIcon style={{fontSize:60}}/>,
-        link: '/enrollpending',
-        type:"Teacher"
-    },
+    
     {
         title: "Students",
         icon:<LocalLibraryOutlinedIcon style={{fontSize:60}}/>,

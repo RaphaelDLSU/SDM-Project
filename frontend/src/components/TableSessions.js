@@ -7,6 +7,7 @@ import TableSessionsDetails from './TableSessionsDetails';
 export default function TableSessions (props){
 
     const [classes, setClasses] = useState([])
+    const user = props.student
     
    
     const program = props.program
@@ -41,13 +42,13 @@ export default function TableSessions (props){
         }catch(err){
             console.log('ERROR: '+err)
         }
-    }, [])
+    }, [program])
     return (
         <>
         {classes.map((input,index)=>{
             return(
                 <tr key={index}>
-                   <TableSessionsDetails classes={input} program={program} isPast={isPast} index={index}/>
+                   <TableSessionsDetails classes={input} program={program} isPast={isPast} index={index} user={user}/>
                 </tr>
             )
         })}

@@ -45,6 +45,39 @@ export default function StudentRecordDetails() {
     
 }, [])
 
+const getPastPrograms= ()=>{
+    console.log('HERE')
+    fetch(`http://localhost:3000/studentrecords/details/specific/past`,{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                user_ID
+            })
+        }).then(response => { //response == response is enrollment data
+            response.json().then(json=>{ //response needs to be turned into JSON
+                setProgram(json)  //set enrollment data into "data"
+             })
+        })
+}
+const getCurrentPrograms=async ()=>{
+   
+    await fetch(`http://localhost:3000/studentrecords/details/specific`,{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({
+                user_ID
+            })
+        }).then(response => { //response == response is enrollment data
+            response.json().then(json=>{ //response needs to be turned into JSON
+                setProgram(json)  //set enrollment data into "data"
+             })
+        })
+}
+
 const student= location.state.user
 
     return(
@@ -55,10 +88,10 @@ const student= location.state.user
             <div className='table-container2'>
                 <table cellSpacing={0}>
                     <tr className='table-headers'>
-                        <td>Current Enrollment/s</td>
-                        <td>Past Enrollments</td>
+                        <td onClick={getCurrentPrograms}>Current Enrollment/s</td>
+                        <td onClick={getPastPrograms}>Past Enrollments</td>
                     </tr>
-                    <tr className='table-headers2'>
+                    <tr className='table-headers3'>
                         <td>Date Enrolled</td>
                         <td>Instrument</td>
                         <td>Program</td>
@@ -72,7 +105,7 @@ const student= location.state.user
                             return(
                                 
                                 <>
-                                    {input.status==='Scheduled' &&(
+                                    {input.status==='Scheduled' || input.status==='Past' &&(
                                     <TableStudentRecDetails program={input} user_ID={user_ID}/>
                                     )}
                                     

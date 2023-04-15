@@ -9,7 +9,8 @@ export default function TableMyStudent (props){
 
     const [studentUser, setStudentUser] = useState('')
     const [enrollment, setEnrollment] = useState('')
-    const student=props.student
+    const [student, setStudent] = useState('')
+    const program=props.program
 
     
 
@@ -22,12 +23,13 @@ export default function TableMyStudent (props){
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                student, 
+                program, 
             }),
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
                 setStudentUser(json[0])
-                setEnrollment(json[1]) //set enrollment data into "data"
+                setEnrollment(json[1])
+                setStudent(json[2]) //set enrollment data into "data"
             })
         })
     
@@ -43,7 +45,7 @@ export default function TableMyStudent (props){
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                student,e 
+                program,e 
             }),
         })
 
@@ -51,22 +53,20 @@ export default function TableMyStudent (props){
     }
 
     return (
-          
             <>
             <td>{enrollment.date}</td>
             <td>{studentUser.lastName}</td>
             <td>{studentUser.firstName}</td>
             <td>
                 <select onChange={e=>handleLevelChange(e.target.value)}>
-                    <option>{student.level}</option>
+                    <option>{program.level}</option>
                     <option>Beginner</option>
                     <option>Intermediate</option>
                     <option>Expert</option>
                 </select>
             </td>
-            <td>{student.status}</td>
-            <td> <button className='button2' onClick={()=>navigate('/mystudentmanage',{state:{student:studentUser,teacher:props.teacher}})}>Manage</button></td>
+            <td>{program.program} {program.instrument}</td>
+            <td> <button className='button2' onClick={()=>navigate('/mystudentmanage',{state:{student:studentUser,teacher:props.teacher,program:program}})}>Manage</button></td>
             </>
-        
     );
 }   

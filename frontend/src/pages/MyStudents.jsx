@@ -14,7 +14,7 @@ export default function MyStudents() {
 
    
     
-    const [student, setStudent] = useState([]) //if mapping, turn it into array (useState([])
+    const [programs, setPrograms] = useState([]) //if mapping, turn it into array (useState([])
 
     
 
@@ -30,7 +30,7 @@ export default function MyStudents() {
             
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setStudent(json) //set enrollment data into "data"
+                setPrograms(json) //set enrollment data into "data"
             })
         })
     }, [])
@@ -49,13 +49,13 @@ export default function MyStudents() {
                             <td>Last Name</td>
                             <td>First Name</td>
                             <td>Level</td>
-                            <td>Enrollment Status</td>
+                            <td>Program</td>
                             <td></td>
                          </tr>
-                         {student.map((input,index)=>{//READ DATA of enrollment
+                         {programs.map((input,index)=>{//READ DATA of enrollment
                             return(
                                 <tr key={index}>
-                                    <TableMyStudent student={input} teacher={user}/>
+                                    <TableMyStudent program={input} teacher={user}/>
                                 </tr>
 
                                 

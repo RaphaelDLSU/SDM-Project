@@ -11,6 +11,7 @@ export default function SchedPage() {
     const user = decodeToken(token)
 
     const [enrollment, setEnrollment] = useState([])
+    
     useEffect(() => { 
         
         //initialize function
@@ -32,8 +33,8 @@ export default function SchedPage() {
         <div className='with-sidebar'>
             <Sidebar/>
             <div className='content-container'>
-                <h1>Schedule Enrollment</h1>
-                <h2>Please select an enrollment to schedule</h2>
+                <h1>Schedule Program</h1>
+                <h2>Please select a program to schedule</h2>
                 <div className='table-container'>
                     <table cellSpacing={0}>
                         <tr className='table-headers'>
@@ -49,7 +50,13 @@ export default function SchedPage() {
                                     <td>{input.instrument}</td>
                                     <td>{input.program}</td>
                                     <td>{input.numSessions}</td>
-                                    <td>{input.status}</td>
+                                    {input.status=='On Hold' &&(
+                                               <td className='alert1'>{input.status}</td>
+                                    )}
+                                    {input.status!='On Hold' &&(
+                                               <td >{input.status}</td>
+                                    )}
+                                    
 
                                     {input.status=='Scheduled' &&(
                                                <td><button onClick={()=>navigate('/schedsummary',{state:{program:input,user_ID:user.user_ID}})} className='button2'>View</button></td>    
