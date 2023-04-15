@@ -236,9 +236,9 @@ router.put('/enrollpending/details',async (req,res)=>{ //Get data of user
     const imagesrc = `data:image/jpeg;base64,${base64   }`
     
     console.log('Data 3: '+data3)
-    let arr = [data,data2,data3,imagesrc]
+    let arr = [data,data2,data3,base64]
 
-    console.log('base image: '+imagesrc)
+    console.log('base image: '+base64)
    res.send(arr)
    console.log('Home '+arr)
 })  
