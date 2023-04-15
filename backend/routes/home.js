@@ -452,7 +452,7 @@ router.put('/studentrecords',async (req,res)=>{
 })
 
 router.put('/studentrecords/details',async (req,res)=>{
-    const data = await Enrollment.findOne({user_ID:req.body.id,status:{'$ne':'Past'}})
+    const data = await Enrollment.findOne({user_ID:req.body.id,status:{'$ne':'Past'},status:{'$ne':'Not Enrolled'}})
     console.log('Enrollment :'+data)
    res.send(data)
 })
@@ -493,7 +493,7 @@ router.put(`/studentrecords/details/specific/program`,async (req,res)=>{
     const data5= await Users.findOne({_id:data3.teacher_ID})
 
     const completeClass = await Class.find({program_ID:req.body.program._id,attendance:'Present'})
-    const remainingClass = await Class.find({program_ID:req.body.program._id,$or:[{attendance:'Absent'},{attendance:''}]})
+    const remainingClass = await Class.find({program_ID:req.body.program._id},{'$or':[{attendance:'Absent'},{attendance:''}]})
 
     const arr=[data,data3,data4,data5,completeClass.length,remainingClass.length]
 

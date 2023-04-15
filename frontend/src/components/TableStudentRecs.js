@@ -35,12 +35,17 @@ export default function TableStudentRecs (props){
 
     return (
         <>
-        <td>{props.users.lastName}</td>
-        <td>{props.users.firstName}</td>
-        <td>{enrollment.status}</td>
-        <td>{props.users.email}</td>
-        <td><button className='button2'onClick={()=>navigate('/studentrecdetails',{state:{user:props.users}})}>View Records</button></td>
+        {enrollment!=''&&(
+            <>
+            <td>{props.users.lastName}</td>
+            <td>{props.users.firstName}</td>
+            <td>{enrollment.status}</td>
+            <td>{props.users.email}</td>
+            <td><button className='button2'onClick={()=>navigate('/studentrecdetails',{state:{user:props.users}})}>View Records</button></td>
+            </>
+        )}
         </>
+        
             
         
     );

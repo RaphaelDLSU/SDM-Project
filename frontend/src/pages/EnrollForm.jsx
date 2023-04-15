@@ -82,7 +82,7 @@ export default function EnrollFormPage() {
         console.log(program)
       };
     const programRemove = () => {
-       program.pop()
+        setProgram(program.slice(0, -1));
       };
 
       /** Different arrays for different dropdowns */
@@ -145,7 +145,7 @@ export default function EnrollFormPage() {
             <Sidebar/>
             <form onSubmit={enrollUser} className='form'>
                     <div className='fields'>
-                        <h1>Personal Details <submit className='button2'>Submit</submit></h1>
+                        <h1>Personal Details <input type='submit' className='button2' value='Proceed' ></input></h1>
                             <div className='personal'>
                                 <div className='field'>
                                     <p>Age</p>
@@ -454,7 +454,7 @@ export default function EnrollFormPage() {
                                                 <span>Add a Program</span>
                                                 </button>
                                             )}
-                                            {program.length-1  === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
+                                            {program.length-1  === index && program.length < 3 &&program.length >1 && ( // IF ELSE SA FRONTEND (only appears if program <3)
                                                 <button className='button2'
                                                 type="button"
                                                 onClick={programRemove}
