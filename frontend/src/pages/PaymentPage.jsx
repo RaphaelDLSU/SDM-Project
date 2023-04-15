@@ -223,7 +223,7 @@ export default function PaymentPage() {
                 />
                 
             
-                <button type='submit'>Submit</button>
+                <button type='submit' style={{marginTop:'15px', padding: '10px'}}>Submit</button>
                 </div>
                 </div>
             
@@ -276,9 +276,10 @@ export default function PaymentPage() {
                         onChange={(e) => handleFileUpload(e)}
                     />
                     
-                
-                    <button type='submit'>Submit</button>
+                <button type='submit' style={{marginTop:'15px', padding: '10px'}}>Submit</button>
+                    
                     </div>
+                    
                     </div>
                 </form>
 

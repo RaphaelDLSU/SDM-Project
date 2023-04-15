@@ -16,8 +16,7 @@ button {
   border: none;
   border-radius: 4px;
   color: white;
-  padding: 15px 50px;
-  text-align: center;
+  text-align:center;
   text-decoration: none;
   display: inline-block;
   font-family: 'Work Sans', sans-serif;
@@ -571,7 +570,7 @@ button {
   }
   
   .popup{
-  height: auto;
+  height: 90%;
   width: 70%;
   max-width: 904px;
   background-color: white;
@@ -579,6 +578,7 @@ button {
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  overflow: scroll;
   }
   
   .popup-header{
@@ -935,6 +935,10 @@ td input[type=text]{
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+}
+
+#paymentDetailsContainer button{
+  padding: 15px, 50p;
 }
 
 
