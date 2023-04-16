@@ -14,6 +14,7 @@ import Class from "../models/Classes.js"
 import moment from 'moment'
 import e from "express"
 import Emailer from "../models/Emailer.js"
+import Event from "../models/Events.js"
 
 
 const router = express.Router()
@@ -981,6 +982,33 @@ router.put('/notify',async(req,res)=>{
 
    
 }) 
+
+router.post('/createevent', async (req,res)=>{ 
+    
+    try{
+    
+            const newEvent = await Event.create({
+            eventName:req.body.eventName,
+            eventDate:req.body.eventDate,
+            eventLink:req.body.eventLink,
+            eventParticipant:req.body.eventParticipant,
+            eventStart:req.body.eventStart,
+            eventEnd:req.body.eventEnd
+        }) // Create Student User in MongoDB  
+
+        console.log('New Event : '+ newEvent)
+        res.json({status:'ok'}) //Send response to front end
+        Emailer(req.body.eventParticipant,
+            'Hello!',
+            'We would like to inform you of your upcoming event: ${event.eventName}',
+            '<a href="http://localhost:3000/enrollform">Enroll now! </a> <br></br> <a href="http://localhost:3000/enrollfree">Get your free trial! </a> '
+            )
+
+    }catch(err){
+        res.json({ status: 'error', error: 'Duplicate email' })
+    }
+    
+})
 
              
       

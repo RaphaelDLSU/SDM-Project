@@ -1,8 +1,54 @@
 import Navbar from '../components/Navbar_top'
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Sidebar'
 import '../public/styles/App.css'
+import Popup from '../components/Popup'
+import React, { useState } from 'react';
+import { create } from '@mui/material/styles/createTransitions';
+ 
+
+  
 
 export default function AdminCalendar() {
+
+    const [isOpen, setIsOpen] = useState(false);
+ 
+    const [eventName, setEventName] = useState('')
+    {/* Email == VARIABLE VALUE setEmail == FUNCTION TO SET VALUE OF VARIABLE  */}
+	const [eventDate,setEventDate] = useState('')
+	const [eventLink, setEventLink] = useState('')
+    const [eventParticipant, setEventParticipant] = useState('')
+	const [eventStart,setEventStart] = useState('')
+    const [eventEnd,setEventEnd] = useState('')
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
+
+   async function createEvent(event){
+        event.preventDefault() 
+
+        const response = await fetch ('http://localhost:3000/createevent',{ // PUPUNTA NA SA BACKEND USING FETCH, URL is same in routes/home.js in router.post('/register')
+            method: 'POST', //PARA MAS SPECIFIC
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body :JSON.stringify({
+                eventName,
+                eventDate,
+                eventLink,
+                eventParticipant,
+                eventStart,
+                eventEnd
+            }), 
+        })
+        const data = await response.json() //Fetch response
+
+        console.log('Here is data from Create Events '+ data.status) //Data.status == OK
+        
+        console.log(eventParticipant) 
+
+        }
+
     return(
         <div className='with-sidebar'>
             <Sidebar/>
@@ -81,6 +127,73 @@ export default function AdminCalendar() {
                         </tbody>
                     </table>
                 </div>
+                <input
+            type="button" className='button2'
+            value="Schedule"
+            onClick={togglePopup}
+            />
+
+            {isOpen && <Popup
+            content={<>
+            <h1>Create Event</h1>
+            <form className='form' onSubmit={createEvent}>
+           <div className='fields'>
+           
+                        <div className='eventField'>
+                                    <p>Event Name</p>
+                                    <input 
+                                        type='text' value={eventName}
+                                        onChange={(e)=> setEventName(e.target.value)}
+                                    />
+                                </div> 
+                                <div className='eventField'>
+                                    <p>Date</p>
+                                    <input 
+                                    type='date' 
+                                    value={eventDate}  
+                                    onChange={(e)=> setEventDate(e.target.value)}
+                                    />
+                                </div> 
+                                <div className='eventField'>
+                                    <p>Zoom Link</p>
+                                    <input 
+                                        type='text'
+                                        value={eventLink}  
+                                    onChange={(e)=> setEventLink(e.target.value)}
+                                    />
+                                </div> 
+                                <div className='eventField'>
+                                    <p>Participants</p>
+                                    <select name='eventParticipant' 
+                                    onChange={(e)=>setEventParticipant(e.target.value)}>
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option value='ramon_sabarre@dlsu.edu.ph'>Rami Sabarre</option>
+                                    </select>
+                                </div> 
+                                <div className='eventField'>
+                                    <p>Event Start</p>
+                                    <input 
+                                        type='time' 
+                                        value={eventStart}  
+                                        onChange={(e)=> setEventStart(e.target.value)}
+                                    />
+                                </div> 
+                                <div className='eventField'>
+                                    <p>Event End</p>
+                                    <input 
+                                        type='time' 
+                                        value={eventEnd}  
+                                        onChange={(e)=> setEventEnd(e.target.value)}
+                                    />
+                                </div> 
+                
+                                <button type='submit' style={{marginTop:'15px', padding: '10px'}}>Confirm</button>
+            </div>
+            
+            </form>
+            </>}
+            handleClose={togglePopup}
+             />}
             </div>
         </div>
     )
