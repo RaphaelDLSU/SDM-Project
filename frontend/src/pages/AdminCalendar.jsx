@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar_top'
 import Sidebar from '../components/Sidebar'
 import '../public/styles/App.css'
 import Popup from '../components/Popup'
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { create } from '@mui/material/styles/createTransitions';
  
 
@@ -16,9 +16,25 @@ export default function AdminCalendar() {
     {/* Email == VARIABLE VALUE setEmail == FUNCTION TO SET VALUE OF VARIABLE  */}
 	const [eventDate,setEventDate] = useState('')
 	const [eventLink, setEventLink] = useState('')
-    const [eventParticipant, setEventParticipant] = useState('')
+    const [eventParticipant, setEventParticipant] = useState([])
+    const [eventJoiners, setEventJoiners] = useState('')
 	const [eventStart,setEventStart] = useState('')
     const [eventEnd,setEventEnd] = useState('')
+
+    useEffect(() => { //initialize function
+        fetch('http://localhost:3000/getparts',{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+        }).then(response => { //response == response is enrollment data
+            response.json().then(json=>{ //response needs to be turned into JSON
+                setEventParticipant(json) //set enrollment data into "data"
+            })
+        })
+        console.log(JSON.stringify(eventParticipant)) 
+    }, [])
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -33,6 +49,7 @@ export default function AdminCalendar() {
                 'Content-Type':'application/json',
             },
             body :JSON.stringify({
+                eventJoiners,
                 eventName,
                 eventDate,
                 eventLink,
@@ -45,7 +62,7 @@ export default function AdminCalendar() {
 
         console.log('Here is data from Create Events '+ data.status) //Data.status == OK
         
-        console.log(eventParticipant) 
+        
 
         }
 
@@ -165,9 +182,16 @@ export default function AdminCalendar() {
                                 <div className='eventField'>
                                     <p>Participants</p>
                                     <select name='eventParticipant' 
-                                    onChange={(e)=>setEventParticipant(e.target.value)}>
+                                    onChange={(e)=>setEventJoiners(e.target.value)}>
                                     <option disabled selected value> -- select an option -- </option>
-                                    <option value='ramon_sabarre@dlsu.edu.ph'>Rami Sabarre</option>
+                                    {eventParticipant.map((input,index)=>{ 
+                                    return(<>
+                                        <option value={input.email}>{eventParticipant.firstName} {eventParticipant.lastName}</option>
+                                        </>
+                                        )
+                                    
+                                    })}
+                                  
                                     </select>
                                 </div> 
                                 <div className='eventField'>

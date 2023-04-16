@@ -971,6 +971,7 @@ router.post('/payment/submithalf',async(req,res)=>{
 router.put('/notify',async(req,res)=>{
 
     const user = await Users.findOne({_id:req.body.user_ID})
+
     const program = req.body.program
 
     Emailer(user.email,
@@ -987,7 +988,7 @@ router.post('/createevent', async (req,res)=>{
     
     try{
     
-            const newEvent = await Event.create({
+        const newEvent = await Event.create({
             eventName:req.body.eventName,
             eventDate:req.body.eventDate,
             eventLink:req.body.eventLink,
@@ -996,11 +997,11 @@ router.post('/createevent', async (req,res)=>{
             eventEnd:req.body.eventEnd
         }) // Create Student User in MongoDB  
 
-        console.log('New Event : '+ newEvent)
+        console.log('New Event : '+ req.body.eventJoiners)
         res.json({status:'ok'}) //Send response to front end
-        Emailer(req.body.eventParticipant,
+        Emailer(req.body.eventJoiners,
             'Hello!',
-            'We would like to inform you of your upcoming event: ${event.eventName}',
+            `We would like to inform you of your upcoming event: ${req.body.eventName}`,
             '<a href="http://localhost:3000/enrollform">Enroll now! </a> <br></br> <a href="http://localhost:3000/enrollfree">Get your free trial! </a> '
             )
 
@@ -1009,7 +1010,12 @@ router.post('/createevent', async (req,res)=>{
     }
     
 })
+router.put('/getparts',async(req,res)=>{   
 
+    const users = await Users.find({type:'Student'}) 
+    console.log(users) 
+    res.send(users)
+})
              
       
       

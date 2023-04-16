@@ -81,6 +81,12 @@ export const SidebarData = [
         link: '/freetrialpending',
         type:"Admin"
     },
+    {
+        title: "Calendar",
+        icon:<CalendarMonthOutlinedIcon style={{fontSize:60}}/>,
+        link: '/calendar',
+        type:"Admin"
+    },
     
    
  
