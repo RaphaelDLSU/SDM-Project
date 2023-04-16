@@ -85,6 +85,7 @@ router.post("/enroll", async (req, res) => {
       gender:req.body.gender,
       country:req.body.country,
       instrument:req.body.instrument,
+      status:'Not Enrolled'
       
         
     })
@@ -123,7 +124,7 @@ router.post("/enroll", async (req, res) => {
                     payment=14490
                 }
             }else if(program =='30 min'){
-                if(numSessions=='8')
+                if(numSessions=='9')
                 payment=3490
                 else if(numSessions=='12'){
                     payment=4790
@@ -138,7 +139,7 @@ router.post("/enroll", async (req, res) => {
                 program:req.body.program[i].programName,
                 instrument:req.body.program[i].instrument,
                 numSessions:req.body.program[i].numSessions,
-                status:'Not Scheduled',
+                status:'Not Paid',
                 payment:payment,
                 level:req.body.level
                 
@@ -173,6 +174,7 @@ router.post('/payment',async(req,res)=>{
   
     try{
         const newImage = await Enrollment.findOneAndUpdate({user_ID:findUser._id},{'$set':{paymentDate:date,paymentProof:paymentImg,paymentOption:req.body.paymentOption,paymentType:req.body.paymentType}})
+        
         newImage.save();
         
        Emailer(req.body.userParsed,
@@ -279,7 +281,17 @@ router.put('/freetrialpending/details',async (req,res) =>{
     const arr = [preferredClass,user]
     res.send(arr)
 })
+router.put('/freetrialpending/send',async (req,res) =>{
 
+
+    const inputTemp = req.body.inputTemp.input
+    console.log(inputTemp.email)
+    Emailer(inputTemp.email,
+        'Your Free Trial has been approved!',
+        `Good day ${inputTemp.firstName} ${req.body.preferredClass.zoomLink}`,
+        '<a href="http://localhost:3000/schedpage">Schedule your program/s here! </a> '
+        )
+})
 router.put('/teacherschedule',async (req,res)=>{
    
 
@@ -312,7 +324,8 @@ router.post('/teacherschedule/add',async (req,res)=>{
         status:'Available',
         startTime:startTime,
         endTime:endTime,
-        instrument:req.body.teacher.instrument
+        instrument:req.body.teacher.instrument,
+        
 
     })
     console.log('New Preferred Class: '+preferredClass)
@@ -343,7 +356,7 @@ router.put('/enrollpending/approve',async (req,res)=>{
         await Enrollment.findOneAndUpdate({_id:enrollment._id},{'$set':{paymentStatus:paymentStatus,paymentRemaining:paymentMultiplier,status:'Approved'}})
     
         await Student.findOneAndUpdate({_id:req.body.student._id},{'$set':{status:'Enrolled '}})
-    
+        await Program.updateMany({enrollment_ID:enrollment._id},{'$set':{status:'Not Scheduled'}})
         Emailer(user.email,
             'Your SDM Enrollment has been approved!',
             `Your  enrollment is now approved! You can now set a schedule for you program/s. If you only paid in half, your program will be put on hold after half of your sessions.`,
@@ -420,7 +433,8 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
                 teacher_ID:req.body.teacherTemp._id,
                 day:parsedDay,
                 realDate:startDate ,
-                program:req.body.program.program
+                program:req.body.program.program,
+                paid:false
 
             })
         }else{
@@ -458,6 +472,8 @@ router.put('/studentrecords/details',async (req,res)=>{
 })
 router.put(`/studentrecords/details/specific`,async (req,res)=>{
 
+    console.log('Here')
+
     const data = await Enrollment.findOne({user_ID:req.body.user_ID})
     const data2 = await Program.find({enrollment_ID:data._id,status:{'$ne':'Past'}})
 
@@ -466,7 +482,7 @@ router.put(`/studentrecords/details/specific`,async (req,res)=>{
    res.send(data2)
 })
 router.put(`/studentrecords/details/specific/past`,async (req,res)=>{
-    
+    console.log('Here2')
     const data = await Enrollment.findOne({user_ID:req.body.user_ID})
     const data2 = await Program.find({enrollment_ID:data._id,status:'Past'})
     console.log('Program: '+data2)
@@ -493,7 +509,7 @@ router.put(`/studentrecords/details/specific/program`,async (req,res)=>{
     const data5= await Users.findOne({_id:data3.teacher_ID})
 
     const completeClass = await Class.find({program_ID:req.body.program._id,attendance:'Present'})
-    const remainingClass = await Class.find({program_ID:req.body.program._id},{'$or':[{attendance:'Absent'},{attendance:''}]})
+    const remainingClass = await Class.find({program_ID:req.body.program._id,attendance:'Absent',attendance:''})
 
     const arr=[data,data3,data4,data5,completeClass.length,remainingClass.length]
 
@@ -654,7 +670,7 @@ router.put('/schedsummary/details',async(req,res)=>{
 }) 
 
 router.put('/generateenrollment',async(req,res)=>{
-    const programs = await Program.find({status:{'$ne':'Not Scheduled'}})
+    const programs = await Program.find({status:{'$ne':'Not Scheduled'},status:{'$ne':'Not Paid'}})
 
     let voice=0,piano=0,guitar=0,drums=0,ukulele=0,violin=0,cello=0,sax=0,flute=0,clarinet=0
     let info =[]
@@ -727,7 +743,7 @@ router.put('/generatesalessummary',async(req,res)=>{
     const startDate = new Date(req.body.dateSalesStart)
     const endDate = new Date(req.body.dateSalesEnd)
 
-    const programs = await Program.find({status:{'$ne':'Not Scheduled'}})
+    const programs = await Program.find({status:{'$ne':'Not Scheduled'},status:{'$ne':'Not Paid'}})
 
     await Promise.all(programs.map(async(element)=>{
         const enrollment = await Enrollment.findOne({_id:element.enrollment_ID,paymentStatus:'Fully Paid'})
@@ -833,7 +849,8 @@ router.put('/reschedule',async(req,res)=>{
                     teacher_ID:req.body.classes.teacher_ID,
                     day:parsedDay,
                     realDate:startDate ,
-                    program:req.body.classes.program
+                    program:req.body.classes.program,
+                    paid:false
                 })
             }else{
                 i--
@@ -883,8 +900,9 @@ router.put('/mystudents/changeprogram',async(req,res)=>{
 }) 
 router.put('/payment/getonhold',async(req,res)=>{
 
-    const program = await Program.find({user_ID:req.body.user.user_ID,status:'On Hold'})
+    const program = await Enrollment.findOne({user_ID:req.body.user.user_ID,paymentStatus:'Half Paid'})
     const enrollment = await Enrollment.findOne({user_ID:req.body.user.user_ID,status:'Pending'})
+    console.log('onhodlss'+enrollment)
     const arr=[program,enrollment]
     res.send(arr)
 }) 
@@ -896,17 +914,17 @@ router.put('/payment/getenrollment',async(req,res)=>{
     console.log(enrollment)
     res.send(enrollment)
 }) 
-router.put('/payment/submithalf',async(req,res)=>{
+router.post('/payment/submithalf',async(req,res)=>{
 
     const paymentImg = req.body.postImage.myFile;
     const findUser = await Users.findOne({email:req.body.user.user_ID})
     var date = new Date()
-
-    console.log('Here: ')
+    console.log("????s")
+    
     try{
         const newImage = await Enrollment.findOneAndUpdate({user_ID:req.body.user.user_ID},{'$set':{paymentDate:date,paymentProof:paymentImg,paymentOption:req.body.paymentOption,status:'Pending-Half',time:date.toLocaleTimeString()}})
         newImage.save();
-
+        console.log('Here: '+newImage)
         res.json({status:'ok'})
    
         

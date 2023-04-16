@@ -43,7 +43,7 @@ const classSchema = new Schema({
         required:false
     },
     paid:{
-        type:Boolean,required:false
+        type:Boolean,required:true
     }
     
 

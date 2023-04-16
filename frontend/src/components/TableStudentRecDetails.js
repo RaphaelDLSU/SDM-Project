@@ -91,7 +91,7 @@ export default function TableStudentRecDetails (props){
             <td>{program.instrument}</td>
             <td>{program.program}</td>
             <td>{program.numSessions} Sessions</td>
-            <td>{student.level}</td>
+            <td>{program.level}</td>
             <td>{enrollment.paymentStatus}</td>
             <td><button className='button2' onClick={handleClick}>Show</button></td>
         </tr>

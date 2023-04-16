@@ -62,6 +62,22 @@ export default function FreeTrialPending() {
         
         
     }
+    const  sendEmail =()=>{
+       
+        fetch('http://localhost:3000/freetrialpending/send',{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                inputTemp,preferredClass //Sent enrollment data of student
+        }),
+        
+        })
+        
+        
+        
+    }
 
 
 
@@ -112,7 +128,7 @@ export default function FreeTrialPending() {
                              <p>Faculty: {teacher.firstName}  {teacher.lastName}</p>
                              <p>Zoom link: {preferredClass.zoomLink}</p>
                             </div>
-                             <button className='button1'>Send Email</button>
+                             <button className='button1' onClick={sendEmail}>Approve</button>
                         </div>
                     </div>:""}
                 </div>

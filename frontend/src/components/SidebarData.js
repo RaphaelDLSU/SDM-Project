@@ -75,6 +75,12 @@ export const SidebarData = [
         link: '/generatereport',
         type:"Admin"
     },
+    {
+        title: "Trials",
+        icon:<EnrollIcon style={{fontSize:60}}/>,
+        link: '/freetrialpending',
+        type:"Admin"
+    },
     
    
  

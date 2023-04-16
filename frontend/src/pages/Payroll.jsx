@@ -40,7 +40,6 @@ export default function PayrollPage() {
                             <td>First Name</td>
                             <td>Instrument</td>
                             <td>Salary Date</td>
-                            <td>Payment Option</td>
                             <td>Status</td>
                             <td></td>
                          </tr>

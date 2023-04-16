@@ -45,6 +45,7 @@ export default function SchedPage() {
                             <td></td>
                         </tr>
                         {enrollment.map((input,index)=>{
+                            
                             return(
                                 <tr key={index}>
                                     <td>{input.instrument}</td>

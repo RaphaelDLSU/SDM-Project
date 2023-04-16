@@ -100,7 +100,6 @@ export default function TablePayroll (props){
             <td>{user.lastName}</td>
             <td>{user.firstName}</td>
             <td>{teacher.instrument}</td>
-            <td>?</td>
             <td>{teacher.paymentOption}</td>
             <td><button className='button2' onClick={showPayroll}>Generate Pay</button></td>
             

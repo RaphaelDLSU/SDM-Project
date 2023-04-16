@@ -18,7 +18,7 @@ export default function PaymentPage() {
     const [selected,setSelected]= useState('')
     const [enrollment,setEnrollment]= useState('')
 
-    const [onHold,setOnHold]= useState([])
+    const [onHold,setOnHold]= useState('')
     const [onEnrollment,setOnEnrollment]= useState(0)
 
     const token = localStorage.getItem('token')
@@ -116,11 +116,12 @@ export default function PaymentPage() {
     }, [selected])
 
     async function handleSubmitHalf (){
+        console.log('HEREE')
         const token = localStorage.getItem('token')
         const user = decodeToken(token)
-
+        console.log('HEREE')
         const response = await fetch('http://localhost:3000/payment/submithalf',{
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -128,7 +129,6 @@ export default function PaymentPage() {
                 postImage,
                 user,
                 paymentOption,
-                paymentType,
                 onHold
             }),
         })
@@ -138,6 +138,7 @@ export default function PaymentPage() {
             alert('Payment Image sent. Please wait for confirmation of your enrollment ')
             window.location.href = '/'
         } 
+
 
     }
     const handlePaymentType=(e)=>{
@@ -231,20 +232,10 @@ export default function PaymentPage() {
             
             )}
             {option=='Pay Half'&&(
-                <form onSubmit={handleSubmitHalf}>
+                
                 <div id='paymentDetails'>
                     <div id='paymentDetailsContainer'>
-
-                    <h2>1. Select Programs on hold: </h2>
-                    <select onChange={e=>setSelected(e.target.value)}>
-                        <option disabled selected value> -- Choose what to pay for -- </option>
-                        {onHold.map((input,index)=>{
-                            return(
-                                <option value={input._id}> {input.program} {input.numSessions} sessions</option>
-                            )  
-                        })}
-                    </select>
-                    <h2>2. Select Payment Option: </h2>
+                    <h2>1.Select Payment Option: </h2>
                     <select  
                         name='paymentOption'
                         onChange={(e)=>setPaymentOption(e.target.value)}>
@@ -255,13 +246,13 @@ export default function PaymentPage() {
                     </select> {/*DROP DOWN*/}
                      
                     
-                    <h2>3. Transfer this amount: P{onEnrollment.paymentRemaining} </h2>
+                    <h2>2. Transfer this amount: P{onHold.paymentRemaining} </h2>
                
                     </div>
                   
                     <div id='paymentDetailsContainer'>
     
-                    <h2>4. Upload Proof Of Payment (.png/.jpeg) </h2>
+                    <h2>3. Upload Proof Of Payment (.png/.jpeg) </h2>
     
                     
     
@@ -277,10 +268,10 @@ export default function PaymentPage() {
                     />
                     
                 
-                    <button type='submit'>Submit</button>
+                    <button className='button2' onClick={handleSubmitHalf}>Submit</button>
                     </div>
                     </div>
-                </form>
+                
 
             )}
             
