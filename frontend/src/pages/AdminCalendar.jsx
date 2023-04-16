@@ -135,8 +135,8 @@ export default function AdminCalendar() {
 
             {isOpen && <Popup
             content={<>
-            <form className='form' onSubmit={createEvent}>
             <h1>Create Event</h1>
+            <form className='form' onSubmit={createEvent}>
            <div className='fields'>
            
                         <div className='eventField'>
@@ -187,9 +187,9 @@ export default function AdminCalendar() {
                                     />
                                 </div> 
                 
-                                
+                                <button type='submit' style={{marginTop:'15px', padding: '10px'}}>Confirm</button>
             </div>
-            <button type='submit' style={{marginTop:'15px', padding: '10px'}}>Confirm</button>
+            
             </form>
             </>}
             handleClose={togglePopup}
