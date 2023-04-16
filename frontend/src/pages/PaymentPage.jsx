@@ -154,12 +154,12 @@ export default function PaymentPage() {
             <Sidebar/>
         <div id='paymentContainer'>
             <div id='paymentTitle'>
-            <h1>Payment  <select onChange={e=>handleOptionChange(e.target.value)}>
+            <h1>Payment  </h1>
+            <p>Please check that both account details and amount are correct before confirming payment <select onChange={e=>handleOptionChange(e.target.value)}>
                 <option disabled selected value> -- Choose what to pay for -- </option>
                     <option>Enrollment</option>
                     <option>Pay Half</option>
-                </select></h1>
-            <p>Please check that both account details and amount are correct before confirming payment</p>
+                </select></p>
             </div>
 
             <div id='paymentOptionsContainer'>
@@ -179,7 +179,7 @@ export default function PaymentPage() {
                 <p>Account Number</p>
                     </div>
             </div>
-        </div>
+        
             {option=='Enrollment'&&(
             <form onSubmit={handleSubmit}>
             <div id='paymentDetails'>
@@ -224,7 +224,7 @@ export default function PaymentPage() {
                 />
                 
             
-                <button type='submit'>Submit</button>
+                <button type='submit' style={{marginTop:'15px', padding: '10px'}}>Submit</button>
                 </div>
                 </div>
             
@@ -268,14 +268,15 @@ export default function PaymentPage() {
                     />
                     
                 
-                    <button className='button2' onClick={handleSubmitHalf}>Submit</button>
+                    <button className='button2' style={{marginTop:'15px', padding: '10px'}} onClick={handleSubmitHalf}>Submit</button>
                     </div>
+                    
                     </div>
                 
 
             )}
             
-        
+            </div>
         </div>
     )
 
