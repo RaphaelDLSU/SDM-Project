@@ -85,6 +85,7 @@ let student = details[1]
         if(data.status ==='ok'){
             alert('Enrollment Approved')
             closePopup()
+            window.location.reload()
 
         }    
     }

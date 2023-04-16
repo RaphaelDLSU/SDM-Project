@@ -42,10 +42,10 @@ export default function TablePayrollSession (props){
         } 
 
         {program.program =='1 hour' &&(
-            total+=600
+            total+=1
         )}
         {program.program =='30 min' &&(
-            total+=300
+            total+=.5
         )}
         
         handleCallback()

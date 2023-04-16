@@ -53,7 +53,7 @@ export default function PaymentPage() {
         
         const token = localStorage.getItem('token')
         const user = decodeToken(token)
-        const userParsed = user.email
+        const userParsed = user.email   
 
         const response = await fetch('http://localhost:3000/payment',{
             method: 'POST',
@@ -155,10 +155,14 @@ export default function PaymentPage() {
         <div id='paymentContainer'>
             <div id='paymentTitle'>
             <h1>Payment  </h1>
-            <p>Please check that both account details and amount are correct before confirming payment <select onChange={e=>handleOptionChange(e.target.value)}>
+            <p>Please check that both account details and amount are correct before confirming payment <select className='small' onChange={e=>handleOptionChange(e.target.value)}>
                 <option disabled selected value> -- Choose what to pay for -- </option>
+                 {onEnrollment!=null &&(
                     <option>Enrollment</option>
+                )}
+                {onHold!=null &&(
                     <option>Pay Half</option>
+                )}
                 </select></p>
             </div>
 

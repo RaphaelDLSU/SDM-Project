@@ -108,6 +108,22 @@ export default function TeacherSchedule() {
         console.log('Day mismo :'+day)
 
     }
+    const removeSchedule=async (input)=>{
+        const confirmation = window.confirm('Are you sure you want to delete schedule?')
+        if(confirmation){
+            await fetch('http://localhost:3000/teacherschedule/remove',{
+                method:'PUT',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({
+                    input
+                })
+            })
+            
+        }
+        
+    }
     return(
         
         <div className='with-sidebar'>
@@ -131,6 +147,10 @@ export default function TeacherSchedule() {
                                     <td>{input.program}</td>
                                     <td>{input.startTime} to {input.endTime}</td>
                                     <td>{input.status}</td>
+                                    {input.status !='Unavailable'&&(
+                                        <td><button className='button2' onClick={()=>removeSchedule(input)}>Remove</button></td>
+                                    )}
+                                    
                                 </tr>
                             )
                         })}
@@ -161,19 +181,20 @@ export default function TeacherSchedule() {
                                     <label> Saturday</label> 
                                     <input onChange={e=>handleCheckboxChange(sunday,setSunday,e)}type="checkbox" name="sunday" value="U"/>
                                     <label> Sunday</label><br></br>
-
-                                    <input type='time' name='time' onChange={e=>setTime(e.target.value)}/>
+<br></br><br></br>
                                     <label> Choose a start time</label><br/> 
-
+                                    <input type='time' name='time' onChange={e=>setTime(e.target.value)}/>
+                                   
+                                    <label> Choose a program</label><br/> 
                                     <select onChange={e=>setProgram(e.target.value)}>
                                     <option disabled selected value> -- select an option -- </option>
                                         <option>1 hour</option>
                                         <option>30 min</option>
                                         <option>Free Trial 15 mins</option>
                                     </select>
-                                    <label> Choose a program</label><br/> 
-                                    <input type="text" name="zoom" onChange={e=>setZoom(e.target.value)}/>
                                     <label> Zoom Link</label><br/> 
+                                    <input type="text" name="zoom" onChange={e=>setZoom(e.target.value)}/>
+                                    
                                 </div>
                                 <input type='submit' className='button1' value='Add Schedule'/>
                             </form>

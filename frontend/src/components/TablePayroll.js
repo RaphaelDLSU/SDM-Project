@@ -57,11 +57,12 @@ export default function TablePayroll (props){
             }),
         }).then(response => { //response == response is enrollment data
             response.json().then(json=>{ //response needs to be turned into JSON
-                setClasses(json) //set enrollment data into "data"
+                setClasses(json[0]) 
+                setTotal(json[1]*600) //set enrollment data into "data"
             }).then(()=>{
-                console.log('Total :'+total)
+
                 setPopFirst(!popupFirst)
-                console.log('Total :'+total)})
+})
         })
         
     }
@@ -89,10 +90,9 @@ export default function TablePayroll (props){
         }
     }
 
-    const callback = payload => {
-        console.log('Payload: '+payload)
-        setTotal(total+payload)
-    }
+   const callback=()=>{
+
+   }
    
 
     return (

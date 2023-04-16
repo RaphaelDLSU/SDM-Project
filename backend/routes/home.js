@@ -331,6 +331,10 @@ router.post('/teacherschedule/add',async (req,res)=>{
     console.log('New Preferred Class: '+preferredClass)
    res.json({status:'ok'})
 })
+router.put('/teacherschedule/remove',async (req,res)=>{
+   await PreferredClass.findOneAndDelete({_id:req.body.input._id})
+    
+})
 
 router.put('/enrollpending/approve',async (req,res)=>{
     let paymentStatus
@@ -446,9 +450,9 @@ router.put('/schedulecreate/approvesched',async(req,res)=>{
     const teacher = await Teacher.findOneAndUpdate({teacherId:req.body.teacherTemp._id},{'$set':{hasStudents:true}})
     const preferredClass = await PreferredClass.findOneAndUpdate({_id:req.body.classesTemp._id},{'$set':{student_ID:req.body.user.user_ID,status:'Unavailable'}})
     const program = await Program.findOne({_id:req.body.program._id})
-
+    const userteacher = await Users.findOne({_id:teacher.teacherId})
     const user = await Users.findOne({_id:req.body.user.user_ID})
-    Emailer(req.body.teacherTemp.email,
+    Emailer(userteacher.email,
         'One of your schedules have been taken!',
         `${user.firstName} ${user.lastName} has taken your ${program.program} ${program.instrument} in ${preferredClass.days} ${preferredClass.startTime}--${preferredClass.endTime}`,
         '<a href="http://localhost:3000/mystudents">Check your new student here!</a>'
@@ -474,16 +478,16 @@ router.put(`/studentrecords/details/specific`,async (req,res)=>{
 
     console.log('Here')
 
-    const data = await Enrollment.findOne({user_ID:req.body.user_ID})
-    const data2 = await Program.find({enrollment_ID:data._id,status:{'$ne':'Past'}})
-
+    const data = await Enrollment.findOne({user_ID:req.body.user_ID,status:'Approved'})
+    const data2 = await Program.find({enrollment_ID:data._id,status:'Scheduled'})
+    console.log('Program: '+data2)
 
 
    res.send(data2)
 })
 router.put(`/studentrecords/details/specific/past`,async (req,res)=>{
     console.log('Here2')
-    const data = await Enrollment.findOne({user_ID:req.body.user_ID})
+    const data = await Enrollment.findOne({user_ID:req.body.user_ID,status:'Approved'})
     const data2 = await Program.find({enrollment_ID:data._id,status:'Past'})
     console.log('Program: '+data2)
 
@@ -497,6 +501,8 @@ router.put('/facultymembers',async (req,res)=>{
     res.send(data)
 })
 router.put(`/studentrecords/details/specific/program`,async (req,res)=>{
+
+    console.log('REQ'+req.body.program)
  
     const data = await Enrollment.findOne({user_ID:req.body.user_ID})
 
@@ -537,11 +543,16 @@ router.put('/facultymanage/details/specific',async(req,res)=>{
 })
 router.put('/facultymanage/details/specific/class',async(req,res)=>{
 
-
+    let user = undefined
     const classes = await Class.find({preferred_ClassID:req.body.preferredClass._id})
-    const user = await Users.findOne({_id:req.body.preferredClass.student_ID})
+    if(req.body.preferredClass.student_ID ==''){
+         user = undefined
+    }else{
+         user = await Users.findOne({_id:req.body.preferredClass.student_ID})
 
-    console.log('User: '+user)
+    }
+    
+
     const arr=[classes,user]
     res.send(arr)
 })
@@ -598,9 +609,9 @@ router.put('/mystudents/manage/sessions/update',async(req,res)=>{
 
         console.log('Remaining Classes" '+remainingClass.length)
         if(remainingClass.length ==0){// Program dead
-            const program = await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{status:'Past'}})
+            const program = await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{status:'Past',teacher_ID:''}})
             const programMany = await Program.find({user_ID:req.body.user._id,status:{'$ne':'Past'}})
-            const preferredClass = await PreferredClass.findOneAndUpdate({student_ID:program._id,status:'Available'})
+            const preferredClass = await PreferredClass.findOneAndUpdate({student_ID:program.user_ID},{'&set':{status:'Available',student_ID:''}})
             console.log('Remaining Programs: '+programMany.length) 
             if(programMany.length==0){ //Student Dead
                 await Student.findOneAndUpdate({user_ID:req.body.user._id},{'$set':{status:'Not Enrolled'}})
@@ -624,10 +635,18 @@ router.put('/payroll/list',async(req,res)=>{
    res.send(teacher)
 })
 router.put('/payroll/getclasses',async(req,res)=>{
-
+    let total =0
     const classes = await Class.find({'$and':[{teacher_ID:req.body.user._id},{attendance:'Present'},{paid:'false'}]})
-  
-   res.send(classes)
+    
+    classes.forEach((element,index)=>{
+        if(element.program=='1 hour')
+            total+=1
+        else{
+            total+=.5
+        }
+    })
+    const arr=[classes,total]
+   res.send(arr)
 })
 router.put('/payroll/getclasses/details',async(req,res)=>{
 
@@ -647,6 +666,8 @@ router.put('/payroll/getcompletedsessions',async(req,res)=>{
 router.put('/studentenrollments',async(req,res)=>{
     const enrollmentsCurrent = await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:{'$ne':'Past'}}]})
     const enrollmentsPast= await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:'Past'}]})
+
+    console.log('ARRRR: '+arr)
     const arr=[enrollmentsCurrent,enrollmentsPast]
     res.send(arr)
 }) 
@@ -765,16 +786,17 @@ router.put('/generatesalessummary',async(req,res)=>{
                 thir20++
         }
    })) 
-    pushToArray2('1 hour, 4 sessions',3490,one4,info)
-    pushToArray2('1 hour, 8 sessions',6490,one8,info)
-    pushToArray2('1 hour, 12 sessions',9090,one12,info)
-    pushToArray2('1 hour, 20 sessions',14490,one20,info)
-    pushToArray2('30 min, 9 sessions',3490,thir9,info)
-    pushToArray2('30 min, 12 sessions',4790,thir12,info)
-    pushToArray2('30 min, 20 sessions',7490,thir20,info)
+   let total=0
+    total+= pushToArray2('1 hour, 4 sessions',3490,one4,info,total)
+    total+= pushToArray2('1 hour, 8 sessions',6490,one8,info,total)
+    total+= pushToArray2('1 hour, 12 sessions',9090,one12,info,total)
+    total+= pushToArray2('1 hour, 20 sessions',14490,one20,info,total)
+    total+= pushToArray2('30 min, 9 sessions',3490,thir9,info,total)
+    total+= pushToArray2('30 min, 12 sessions',4790,thir12,info,total)
+    total+= pushToArray2('30 min, 20 sessions',7490,thir20,info,total)
 
-    let total=one4+one8+one12+one20+thir9+thir12+thir20
-    info.push(['TOTAL','','',total])
+    console.log(total)
+    info.push(['TOTAL','','','P'+total])
 
     await Promise.all(programs.map(async(element)=>{
         let time =''
@@ -800,9 +822,15 @@ const pushToArray =(instrument,tally,array)=>{
     }
 }
 const pushToArray2 =(instrument,price,tally,array)=>{
+    let total = 0
     if(tally >0){
-        array.push([instrument,`P${price}`,tally,`P${price*tally}`])     
+        array.push([instrument,`P${price}`,tally,`P${price*tally}`])  
+        total+=price*tally
+        console.log('TALLY: '+total)
+        return total
+        
     }
+    return 0
 }
 router.put('/studentenrollments',async(req,res)=>{
     const enrollmentsCurrent = await Enrollment.find({'$and':[{user_ID:req.body.user.user_ID},{status:{'$ne':'Past'}}]})
@@ -869,23 +897,29 @@ router.put('/reschedule',async(req,res)=>{
 })
 router.put('/payroll/payment',async(req,res)=>{
 
-    const classes = await Class.find({'$and':[{teacher_ID:req.body.user._id},{attendance:'Present'},{paid:'false'}]})
+   
 
-    await Promise.all(classes.map(async(element)=>{
-        element.updateOne({'$set':{paid:true}})      
-    }))
+    
+    const classes = await Class.updateMany({teacher_ID:req.body.user._id,attendance:'Present'},{'$set':{paid:true}})
+    console.log('Classes: '+classes)
     Emailer(req.body.user.email,
-        'Welcome to SDM Flow!',
+        'Your payment has been submitted',
         'We hope that you use our services and enroll in one of our programs now!',
-        '<a href="http://localhost:3000/enrollform">Enroll now! </a> <br></br> <a href="http://localhost:3000/enrollfree">Get your free trial! </a> '
+        '<a href="ht    tp://localhost:3000/enrollform">Enroll now! </a> <br></br> <a href="http://localhost:3000/enrollfree">Get your free trial! </a> '
         )
     
 }) 
 
 router.put('/studentrecords/onhold',async(req,res)=>{
+    const user = await Users.findOne({_id:req.body.user_ID})
 
     const program = await Program.findOneAndUpdate({_id:req.body.program._id},{'$set':{status:'On Hold'}})
     console.log('Program putting on hold:'+program)
+    Emailer(user.email,
+        'You account has been put on hold',
+        'Please deposit your remaining half now if you want to continue..',
+        '<a href="http://localhost:3000/payment">Pay here! </a>  '
+        )
 }) 
 
             

@@ -9,10 +9,11 @@ import { useNavigate } from 'react-router-dom'
 
 export default function IndexPage() {
     const history=useNavigate()
-
+    const token = localStorage.getItem('token')
+    const user = decodeToken(token)
     useEffect(()=>{
         
-        const token = localStorage.getItem('token')
+       
        
         // if (token ==null) {
 		// 	localStorage.removeItem('token')
@@ -24,7 +25,7 @@ export default function IndexPage() {
         //     
 		// 	console.log('User is registered. Given Access')
 		// }// Authentication
-		const user = decodeToken(token)
+		
         console.log(user)
     },[])
 
@@ -83,6 +84,10 @@ export default function IndexPage() {
                     <a href='/AdminCalendar'>Go to Calendar</a><br></br>
 
                     <p> Send Email"  <button onClick={Email}>HERE</button></p> */}
+                    {user==null &&(
+                        <button className='button' id='gitna' onClick={()=>history('/enrollfree')}>Start Free Trial</button>
+                    )}
+                  
 
                     
                 </div>

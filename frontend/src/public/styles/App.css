@@ -118,7 +118,7 @@ h2{
   margin:3px;
   height: 100%;
   overflow-y: scroll;
-  max-height: calc(100vh - 110px) !important; /*WHAT THE FUCK */
+  max-height: calc(100vh - 110px) !important;
 
   
   
@@ -773,7 +773,7 @@ button {
   background-color: #640033;
 }
 
-.form select{
+ select{
   height: 30px;
   width: 80%;
   background-color: white;
@@ -940,6 +940,31 @@ td input[type=text]{
 #paymentDetailsContainer button{
   padding: 15px, 50p;
 }
+input[type='password']{
+  box-sizing: border-box;
+  height:35px;
+  width: 100%;
+}
+#paymentContainer{
+  overflow: scroll;
+  max-height: calc(100vh - 110px) !important;
+}
+.small select{
+  width: 30%;
+}
+#clickableheaders:hover{
+  cursor: pointer;
+  background-color:#6a7062
+  
+}
 
-
-
+#gitna{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  font-size: 30px;
+}

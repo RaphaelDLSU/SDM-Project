@@ -42,7 +42,7 @@ export default function LoginPage() {
                 <form onSubmit={loginUser}>
                 <img className='company-title' src = {Logo} alt={reactLogo} ></img> 
                 <p>Email</p><input type='text' value={email} onChange={(e)=> setEmail(e.target.value)}  ></input>
-                <p>Password</p> <input type='text' value={password} onChange={(e)=> setPassword(e.target.value)}  ></input>
+                <p>Password</p> <input type='password' value={password} onChange={(e)=> setPassword(e.target.value)}  ></input>
                 <p>No account? <a href='/register'>Enroll now!</a></p>
                 <input type='submit' value='Login'></input>
                 </form>

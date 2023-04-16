@@ -22,27 +22,34 @@ export default function RegisterPage() {
     async function registerUser(event){
         event.preventDefault() 
 
-        const response = await fetch ('http://localhost:3000/register',{ // PUPUNTA NA SA BACKEND USING FETCH, URL is same in routes/home.js in router.post('/register')
-            method: 'POST', //PARA MAS SPECIFIC
-            headers:{
-                'Content-Type':'application/json',
-            },
-            body :JSON.stringify({
-                email,
-                password,
-                confirmPassword,
-                firstName,
-                lastName
-            }), //put data to be used in routes/home.js register post
-        })
-        const data = await response.json() //Fetch response
+        if(password!=confirmPassword){
+            alert('Not matching password')
+        }else{
+            const response = await fetch ('http://localhost:3000/register',{ // PUPUNTA NA SA BACKEND USING FETCH, URL is same in routes/home.js in router.post('/register')
+                method: 'POST', //PARA MAS SPECIFIC
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body :JSON.stringify({
+                    email,
+                    password,
+                    confirmPassword,
+                    firstName,
+                    lastName
+                }), //put data to be used in routes/home.js register post
+            })
+            const data = await response.json() //Fetch response
 
-        console.log('Here is data from Register '+ data.status) //Data.status == OK
-        
+            console.log('Here is data from Register '+ data.status) //Data.status == OK
+            
 
-        if(data.status === 'ok'){ //If I am registered
-            history('/login') // History (Function ng react sa frontend na naglilipat ng page)
+            if(data.status === 'ok'){ //If I am registered
+                history('/login') // History (Function ng react sa frontend na naglilipat ng page)
+            }
+
         }
+
+       
         
     }
     return(
@@ -71,13 +78,13 @@ export default function RegisterPage() {
                          
                     <p>Password</p> 
                     <input 
-                        type='text'
+                        type='password'
                         value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                     />
                     <p>Confirm Password</p> 
                     <input 
-                        type='text'
+                        type='password'
                         value={confirmPassword}
                         onChange={(e)=> setConfirmPassword(e.target.value)}
                     />

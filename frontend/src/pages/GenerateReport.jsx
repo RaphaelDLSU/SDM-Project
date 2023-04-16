@@ -128,7 +128,7 @@ export default function GenerateReport() {
        
         let doc = new jsPDF().setFontSize(12)
         doc.text(80, 10, "Son De Musique International").setFontSize(15)
-        doc.text(70, 17, "Summary of Enrollments per Program Revenue Report ").setFontSize(12)
+        doc.text(50, 17, "Summary of Enrollments per Program Revenue Report ").setFontSize(12)
         doc.text(80, 25, `${moment(dateSalesStart).format('LL')} to ${moment(dateSalesEnd).format('LL')}`).setFontSize(12)
         doc.line(100,10,100,10)
         autoTable(doc,{

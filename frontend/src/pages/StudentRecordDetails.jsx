@@ -87,9 +87,9 @@ const student= location.state.user
             <h1>{student.lastName}, {student.firstName}</h1>
             <div className='table-container2'>
                 <table cellSpacing={0}>
-                    <tr className='table-headers'>
-                        <td onClick={getCurrentPrograms}>Current Enrollment/s</td>
-                        <td onClick={getPastPrograms}>Past Enrollments</td>
+                    <tr  className='table-headers'>
+                        <td id='clickableheaders' onClick={getCurrentPrograms}>Current Enrollment/s</td>
+                        <td id='clickableheaders' onClick={getPastPrograms}>Past Enrollments</td>
                     </tr>
                     <tr className='table-headers3'>
                         <td>Date Enrolled</td>
@@ -105,7 +105,10 @@ const student= location.state.user
                             return(
                                 
                                 <>
-                                    {input.status==='Scheduled' || input.status==='Past' &&(
+                                    {input.status==='Scheduled'  &&(
+                                    <TableStudentRecDetails program={input} user_ID={user_ID}/>
+                                    )}
+                                    {input.status=='Past' &&(
                                     <TableStudentRecDetails program={input} user_ID={user_ID}/>
                                     )}
                                     
