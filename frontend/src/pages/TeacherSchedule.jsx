@@ -129,7 +129,7 @@ export default function TeacherSchedule() {
         <div className='with-sidebar'>
             <Sidebar/>
             <div className='content-container'>
-                <h1>My Schedule                        <button className='button2' onClick={()=>setPop(!popup)}>Add sched</button></h1>
+                <h1>My Schedule                        <button className='1' onClick={()=>setPop(!popup)}>Add sched</button></h1>
                 
                 <div className='table-container'>
                     <table cellSpacing={0}>
@@ -148,7 +148,7 @@ export default function TeacherSchedule() {
                                     <td>{input.startTime} to {input.endTime}</td>
                                     <td>{input.status}</td>
                                     {input.status !='Unavailable'&&(
-                                        <td><button className='button2' onClick={()=>removeSchedule(input)}>Remove</button></td>
+                                        <td><button className='button1' onClick={()=>removeSchedule(input)}>Remove</button></td>
                                     )}
                                     
                                 </tr>

@@ -93,7 +93,7 @@ export default function TableStudentRecDetails (props){
             <td>{program.numSessions} Sessions</td>
             <td>{program.level}</td>
             <td>{enrollment.paymentStatus}</td>
-            <td><button className='button2' onClick={handleClick}>Show</button></td>
+            <td><button className='button1' onClick={handleClick}>Show</button></td>
         </tr>
         { isShown && (
             <>  
@@ -103,7 +103,7 @@ export default function TableStudentRecDetails (props){
             </tr>
             <tr>
                 <td>PHP {enrollment.paymentRemaining}</td><td></td><td>{remainingClass} </td><td>{completedClass}</td><td></td>
-                <td><button className='button2'>View</button>&nbsp;
+                <td><button className='button1'>View</button>&nbsp;
                 {enrollment.paymentStatus=='Half Paid' &&(
                      <button className='button3' onClick={notifyStudent}>Notify</button>
                 )}

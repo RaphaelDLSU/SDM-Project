@@ -60,11 +60,11 @@ export default function SchedPage() {
                                     
 
                                     {input.status=='Scheduled' &&(
-                                               <td><button onClick={()=>navigate('/schedsummary',{state:{program:input,user_ID:user.user_ID}})} className='button2'>View</button></td>    
+                                               <td><button onClick={()=>navigate('/schedsummary',{state:{program:input,user_ID:user.user_ID}})} className='button1'>View</button></td>    
                                         )}
 
                                     {input.status=='Not Scheduled' &&(
-                                             <td><button onClick={()=>navigate('/schedulecreate',{state:{program:input}})} className='button2'>Schedule</button></td>
+                                             <td><button onClick={()=>navigate('/schedulecreate',{state:{program:input}})} className='button1'>Schedule</button></td>
                                         )}
                                     
                                 </tr>

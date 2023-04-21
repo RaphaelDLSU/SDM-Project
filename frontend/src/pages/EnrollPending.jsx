@@ -70,7 +70,7 @@ export default function EnrollPending() {
     }
 
     const approveEnrollment =async ()=>{
-let student = details[1]
+        let student = details[1]
         const response = await fetch('http://localhost:3000/enrollpending/approve',{ //get function from home.js (get enrollment data)
         method:'PUT',
         headers: {
@@ -89,6 +89,26 @@ let student = details[1]
 
         }    
     }
+    const denyEnrollment =async ()=>{
+            let student = details[1]
+            const response = await fetch('http://localhost:3000/enrollpending/deny',{ //get function from home.js (get enrollment data)
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                inputTemp,student //Sent enrollment data of student
+            })
+            
+            })
+            const data = await response.json()
+            if(data.status ==='ok'){
+                alert('Enrollment Denied')
+                closePopup()
+                window.location.reload()
+    
+            }    
+        }
 
  
 
@@ -124,7 +144,7 @@ let student = details[1]
                                     <td>{input.date}</td>
                                     <td>{input.time}</td>
                                     <td>{input.status}</td>
-                                    <td><button className='button2' type="button" onClick={() => handleClickOpen({input})}>View Details</button></td>  
+                                    <td><button className='button1' type="button" onClick={() => handleClickOpen({input})}>View Details</button></td>  
                                 </tr>
                             )
                             })}
@@ -156,7 +176,7 @@ let student = details[1]
                             <h2>Payment Details</h2>
                             <img src={image} alt='Someting alt'/>
                             </div>
-                            <button className='button1' onClick={approveEnrollment}>Approve</button>
+                            <button className='button1' onClick={approveEnrollment}>Approve</button> <button className='button2' onClick={denyEnrollment}>Deny</button>
                         </div>
                     </div>:""}
                 </div>

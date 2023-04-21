@@ -382,6 +382,13 @@ router.put('/enrollpending/approve',async (req,res)=>{
             )
     } 
 })
+router.put  ('/enrollpending/deny',async (req,res)=>{
+    const enrollment = req.body.inputTemp.input
+
+    const enrollmentQuery = await Enrollment.findOneAndRemove({_id:enrollment._id})
+    res.json({status:'ok'})
+    
+})
 router.put  ('/schedulepage',async (req,res)=>{
     const data = await Program.find({user_ID:req.body.user.user_ID})
     res.send(data)
@@ -797,7 +804,7 @@ router.put('/generatesalessummary',async(req,res)=>{
     total+= pushToArray2('30 min, 20 sessions',7490,thir20,info,total)
 
     console.log(total)
-    info.push(['TOTAL','','','P'+total])
+    info.push(['TOTAL','','','P'+total.toLocaleString("en-US")])
 
     await Promise.all(programs.map(async(element)=>{
         let time =''
@@ -825,7 +832,7 @@ const pushToArray =(instrument,tally,array)=>{
 const pushToArray2 =(instrument,price,tally,array)=>{
     let total = 0
     if(tally >0){
-        array.push([instrument,`P${price}`,tally,`P${price*tally}`])  
+        array.push([instrument,`P${price.toLocaleString("en-US")}`,tally,`P${(price*tally).toLocaleString("en-US")}`])  
         total+=price*tally
         console.log('TALLY: '+total)
         return total
@@ -902,11 +909,19 @@ router.put('/payroll/payment',async(req,res)=>{
 
     
     const classes = await Class.updateMany({teacher_ID:req.body.user._id,attendance:'Present'},{'$set':{paid:true}})
+   
+
+    const classes2 = await Class.find({teacher_ID:req.body.user._id,attendance:'',attendance:'Absent',paid:false})
+    console.log(classes2.length)
+    if(classes2.length==0){
+        const teacher = await Teacher.findOneAndUpdate({teacherId:req.body.user._id},{'$set':{hasStudents:false}})
+        console.log(teacher)
+    }   
     console.log('Classes: '+classes)
     Emailer(req.body.user.email,
-        'Your payment has been submitted',
-        'We hope that you use our services and enroll in one of our programs now!',
-        '<a href="ht    tp://localhost:3000/enrollform">Enroll now! </a> <br></br> <a href="http://localhost:3000/enrollfree">Get your free trial! </a> '
+        'Your have recieved payment from SDM',
+        'Here is SDM payroll payments: <image> Please Email admin@gmail.com if you have any questions',
+       
         )
     
 }) 

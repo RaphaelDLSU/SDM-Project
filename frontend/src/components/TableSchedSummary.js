@@ -73,7 +73,7 @@ export default function TableSchedSummary (props){
              <td>{classes.attendance}</td>
 
             {classes.attendance=='Absent' &&(
-                <td><button className='button2' onClick={()=>setPop(!popup)}>Reschedule</button></td>              
+                <td><button className='button1' onClick={()=>setPop(!popup)}>Reschedule</button></td>              
             )}
             {classes.attendance!='Absent' &&(
                  <td>{classes.note}</td>              
@@ -96,7 +96,7 @@ export default function TableSchedSummary (props){
                         <p> Make sure to set Date according to Class Day/s</p>
                         <input type='Date' onChange={(e)=>{setResched(e.target.value)}}/>
                         <br></br>
-                        <button className='button2' onClick={handleResched}>Reschedule</button>
+                        <button className='button1' onClick={handleResched}>Reschedule</button>
                       
                         
                     </div>

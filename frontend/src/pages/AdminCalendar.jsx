@@ -145,7 +145,7 @@ export default function AdminCalendar() {
                     </table>
                 </div>
                 <input
-            type="button" className='button2'
+            type="button" className='button1'
             value="Schedule"
             onClick={togglePopup}
             />

@@ -128,7 +128,7 @@ export default function GenerateReport() {
        
         let doc = new jsPDF().setFontSize(12)
         doc.text(80, 10, "Son De Musique International").setFontSize(15)
-        doc.text(50, 17, "Summary of Enrollments per Program Revenue Report ").setFontSize(12)
+        doc.text(50, 25, "Earnings per Program Report ").setFontSize(12)
         doc.text(80, 25, `${moment(dateSalesStart).format('LL')} to ${moment(dateSalesEnd).format('LL')}`).setFontSize(12)
         doc.line(100,10,100,10)
         autoTable(doc,{
@@ -176,7 +176,7 @@ export default function GenerateReport() {
             <Sidebar/>
             <div className='fields'>
                 <h1>Generate Reports</h1>    
-                <h3>Enrollment <button onClick={getEnrollmentReport} className='button2'>Generate</button></h3>    
+                <h3>Enrollment &nbsp; &nbsp; &nbsp;<button onClick={getEnrollmentReport} className='button1'>Generate</button></h3>    
                 <div className='field'>
                     <p>Instrument  <select  
                         onChange={(e)=>setInstrumentEnrollment(e.target.value)}>
@@ -210,7 +210,7 @@ export default function GenerateReport() {
                    
                 </div>
                <br></br><br></br>
-                <h3>Sales <button onClick={getSalesReport} className='button2'>Generate</button></h3>    
+                <h3>Sales  &nbsp; &nbsp; &nbsp;<button onClick={getSalesReport} className='button1'>Generate</button></h3>    
                 <div className='field'>
                     <p>Instrument  <select  
                         onChange={(e)=>setInstrumentSales(e.target.value)}>

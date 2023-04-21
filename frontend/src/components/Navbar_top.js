@@ -28,7 +28,7 @@ export default function Navbar_top (){
                         <a href='/'> <img className='company-title' src = {Logo} alt={reactLogo} ></img>  </a>
                           
                         <a className='navbar-fields' href='/about'>About us</a>
-                        <a className='navbar-fields' href='/lessons'>Lessons</a>
+                       
                         <a className='navbar-fields' href='/facultypage'>Faculty</a>
                         <a className='navbar-fields' href='/contactus'> Contact us</a>
                         

@@ -66,7 +66,7 @@ export default function TableMyStudent (props){
                 </select>
             </td>
             <td>{program.program} {program.instrument}</td>
-            <td> <button className='button2' onClick={()=>navigate('/mystudentmanage',{state:{student:studentUser,teacher:props.teacher,program:program}})}>Manage</button></td>
+            <td> <button className='button1' onClick={()=>navigate('/mystudentmanage',{state:{student:studentUser,teacher:props.teacher,program:program}})}>Manage</button></td>
             </>
     );
 }   

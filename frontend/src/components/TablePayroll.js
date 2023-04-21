@@ -101,7 +101,7 @@ export default function TablePayroll (props){
             <td>{user.firstName}</td>
             <td>{teacher.instrument}</td>
             <td>{teacher.paymentOption}</td>
-            <td><button className='button2' onClick={showPayroll}>Generate Pay</button></td>
+            <td><button className='button1' onClick={showPayroll}>Generate Pay</button></td>
             
 
             {popupFirst?
@@ -135,7 +135,7 @@ export default function TablePayroll (props){
                                     })}
                                 </table>
                                 <br></br><br></br>
-                                <h3>Total Pay: {total}: <button className='button2' onClick={proceedPayroll}>Proceed</button></h3>
+                                <h3>Total Pay: {total.toLocaleString("en-US")}: <button className='button1' onClick={proceedPayroll}>Proceed</button></h3>
                                 
 
                             </div>
@@ -158,7 +158,7 @@ export default function TablePayroll (props){
                                 </div>
                                 <div className='popup-content'>
                                     <TablePayrollCountSessions teacher={user}/>
-                                    <h3>Total Pay: {total}: <button onClick={proceedAgain} className='button2'>Proceed</button></h3>
+                                    <h3>Total Pay: {total.toLocaleString("en-US")}: <button onClick={proceedAgain} className='1'>Proceed</button></h3>
                                    
                                 </div>
                             </div>
@@ -176,7 +176,7 @@ export default function TablePayroll (props){
                             </div>
                             <div className='popup-content'>
                                 <p>Pay: Details</p>
-                                <h3>Total Pay: {total}: <button onClick={proceedWithPayment}className='button2'>Proceed</button></h3>
+                                <h3>Total Pay: {total.toLocaleString("en-US")}: <button onClick={proceedWithPayment}className='button1'>Proceed</button></h3>
                                 
                             </div>
                         </div>

@@ -206,7 +206,7 @@ export default function PaymentPage() {
                         <option>Full</option>
                         <option>50% Payment</option>
                 </select> {/*DROP DOWN*/}
-                <h2>3. Transfer this amount: P{onEnrollment.paymentWhole*multiplier} </h2>
+                <h2>3. Transfer this amount: P{(onEnrollment.paymentWhole*multiplier).toLocaleString("en-us")} </h2>
            
                 </div>
               
@@ -250,7 +250,7 @@ export default function PaymentPage() {
                     </select> {/*DROP DOWN*/}
                      
                     
-                    <h2>2. Transfer this amount: P{onHold.paymentRemaining} </h2>
+                    <h2>2. Transfer this amount: P{onHold.paymentRemaining.toLocaleString("en-US")} </h2>
                
                     </div>
                   
@@ -272,7 +272,7 @@ export default function PaymentPage() {
                     />
                     
                 
-                    <button className='button2' style={{marginTop:'15px', padding: '10px'}} onClick={handleSubmitHalf}>Submit</button>
+                    <button className='button1' style={{marginTop:'15px', padding: '10px'}} onClick={handleSubmitHalf}>Submit</button>
                     </div>
                     
                     </div>

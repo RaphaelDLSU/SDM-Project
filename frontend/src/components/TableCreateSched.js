@@ -61,7 +61,7 @@ export default function TableCreateSched (props){
             <td></td>
         )}
         {classes.status=='Available' &&(
-            <td><button onClick={handleCallback}className='button2'>Schedule</button></td>
+            <td><button onClick={handleCallback}className='button1'>Schedule</button></td>
         )}
         
 

@@ -46,7 +46,7 @@ export default function TableFaculty (props){
             <td>No Students</td>
         )}
 
-        <td><button className='button2' onClick={()=>navigate('/facultymanagedetails',{state:{teacher:teacher,user:props.user}})}>View Schedule</button></td>
+        <td><button className='button1' onClick={()=>navigate('/facultymanagedetails',{state:{teacher:teacher,user:props.user}})}>View Schedule</button></td>
        
         </>
             

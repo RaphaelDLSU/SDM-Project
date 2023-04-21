@@ -1133,7 +1133,7 @@ h2{
 .personal{
   margin-left: 20px;
   display: inline-block ;
-  width: 100%;
+  width: 70%;
   margin-bottom: 20px;
   
   
@@ -1959,4 +1959,8 @@ input[type='password']{
   transform: translate(-50%, -50%);
   padding: 20px;
   font-size: 30px;
+}
+
+#personal-details-header{
+  justify-content: space-between
 }

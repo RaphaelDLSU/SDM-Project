@@ -145,7 +145,7 @@ export default function EnrollFormPage() {
             <Sidebar/>
             <form onSubmit={enrollUser} className='form'>
                     <div className='fields'>
-                        <h1>Personal Details <input type='submit' className='button2' value='Proceed' ></input></h1>
+                        <h1 id='personal-details-header'>Personal Details &nbsp;&nbsp;&nbsp;&nbsp; <input type='submit' className='button1' value='Proceed' ></input></h1>
                             <div className='personal'>
                                 <div className='field'>
                                     <p>Age</p>
@@ -447,15 +447,16 @@ export default function EnrollFormPage() {
                                             <div className='field'>
                                             
                                             {program.length - 1 === index && program.length < 3 && ( // IF ELSE SA FRONTEND (only appears if program <3)
-                                                <button className='button2'
+                                                <button className='button1'
                                                 type="button"
                                                 onClick={programAdd}
                                                 >
                                                 <span>Add a Program</span>
                                                 </button>
                                             )}
-                                            {program.length-1  === index && program.length < 3 &&program.length >1 && ( // IF ELSE SA FRONTEND (only appears if program <3)
-                                                <button className='button2'
+                                            <a>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                            {program.length-1  === index && program.length <= 3 &&program.length >1 && ( // IF ELSE SA FRONTEND (only appears if program <3)
+                                                <button className='button1'
                                                 type="button"
                                                 onClick={programRemove}
                                                 >
@@ -507,6 +508,7 @@ export default function EnrollFormPage() {
                                                 
                                                 
                                             </div>
+                                            <br></br>
                                             
                                         </div>
                                     )

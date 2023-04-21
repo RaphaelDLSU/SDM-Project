@@ -61,7 +61,7 @@ export default function TableFacultyDetails (props){
                 <td>None</td> 
             )}
             {student!=undefined &&(
-                 <td><button className='button2' onClick={handleClick}>Show</button></td> 
+                 <td><button className='button1' onClick={handleClick}>Show</button></td> 
             )}
            
         </tr>

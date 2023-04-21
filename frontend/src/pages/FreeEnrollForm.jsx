@@ -455,7 +455,7 @@ export default function EnrollFormPage() {
                                         <option>Sunday</option>
                                 </select> {/*DROP DOWN*/}
                             </div>
-                            <button onClick={handleFilter} className='button2'>
+                            <button onClick={handleFilter} className='button1'>
                                 Filter
                             </button>
                         </div>

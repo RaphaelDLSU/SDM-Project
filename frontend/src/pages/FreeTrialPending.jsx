@@ -100,7 +100,7 @@ export default function FreeTrialPending() {
                                     <td>{input.date}</td>
                                     <td>{input.time}</td>
                                     <td>{input.email}</td>
-                                    <td><button className='button2' type="button" onClick={() => handleClickOpen({input})}>View Details</button></td>
+                                    <td><button className='button1' type="button" onClick={() => handleClickOpen({input})}>View Details</button></td>
                                 </tr>
                             )
                          })}
